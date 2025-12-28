@@ -37,8 +37,6 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // ✅ OTP MUST BE ARRAY
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
 
   const [loading, setLoading] = useState(false);
@@ -49,9 +47,9 @@ const Login = () => {
   const handleOtpChange = (value: string, index: number) => {
     if (!/^\d?$/.test(value)) return;
 
-    const newOtp = [...otp];
-    newOtp[index] = value;
-    setOtp(newOtp);
+    const next = [...otp];
+    next[index] = value;
+    setOtp(next);
 
     if (value && index < 5) {
       document.getElementById(`otp-${index + 1}`)?.focus();
@@ -65,11 +63,7 @@ const Login = () => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       document.getElementById(`otp-${index - 1}`)?.focus();
     }
-
-    // ✅ ENTER submits OTP
-    if (e.key === "Enter") {
-      handleVerifyOtp();
-    }
+    if (e.key === "Enter") handleVerifyOtp();
   };
 
   /* ---------------- LOGIN ---------------- */
@@ -136,90 +130,143 @@ const Login = () => {
 
     login(pendingAuth);
     setUserFromToken(pendingAuth.token);
-
     showNotification("Success", "Login successful", "success", 2000);
     navigate("/cms");
   };
 
   return (
-    <div className="min-h-screen bg-bg1 flex items-center justify-center relative">
+    <div className="min-h-screen bg-[#050B1E] flex items-center justify-center relative overflow-hidden">
       {loading && (
-        <div className="absolute inset-0 bg-bg1 bg-opacity-80 flex items-center justify-center z-50">
+        <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-50">
           <Loader />
         </div>
       )}
 
-      {/* ---------------- LOGIN SCREEN ---------------- */}
-      {step === "login" && (
-        <div
-          className="w-full max-w-xs text-center"
-          onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-        >
-          <h1 className="text-4xl font-bold mb-8 text-white">CMS Login</h1>
+      {/* Background blobs */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sky-500/20 rounded-full blur-[120px]" />
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px]" />
+        <div className="absolute -bottom-32 left-1/3 w-96 h-96 bg-indigo-500/20 rounded-full blur-[120px]" />
+      </div>
 
-          <Input
-            size="large"
-            prefix={<MailOutlined className="text-gray-400" />}
-            placeholder="Admin email"
-            className="mb-4 rounded-full bg-bg1 shadow-bg7 shadow-lg border-gray-700"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+      <div className="relative z-10 w-full max-w-md bg-[#0a162e] rounded-3xl shadow-2xl border border-white/5 p-8 md:p-10 backdrop-blur-sm">
 
-          <Input.Password
-            size="large"
-            prefix={<LockOutlined className="text-gray-400" />}
-            placeholder="Password"
-            className="mb-6 rounded-full bg-bg1 shadow-bg7 shadow-lg border-gray-700"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        {/* ---------------- LOGIN SCREEN ---------------- */}
+        {step === "login" && (
+          <>
+            <div className="text-center mb-10">
+              <h1 className="text-3xl font-bold text-white mb-2">CMS Login</h1>
+              <p className="text-sm text-gray-400">
+                Welcome back! Please enter your credentials.
+              </p>
+            </div>
 
-          <Button
-            icon={<ArrowRightOutlined />}
-            size="large"
-            onClick={handleLogin}
-            className="bg-bg7 border-bg6 text-gray-300 w-full rounded-full"
-          >
-            Login
-          </Button>
+            <div className="space-y-6">
+              <div>
+                <label className="text-sm font-semibold text-gray-300 ml-1">
+                  Admin Email
+                </label>
+                <Input
+                  size="large"
+                  prefix={<MailOutlined />}
+                  placeholder="admin@nearwe.com"
+                  className="mt-2 rounded-xl bg-[#121e3a] border border-gray-700 text-white"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
 
-          <p className="text-xs text-gray-500 mt-8">
-            © {CNAME} {new Date().getFullYear()}
-          </p>
-        </div>
-      )}
+              <div>
+                <div className="flex justify-between items-center">
+                  <label className="text-sm font-semibold text-gray-300 ml-1">
+                    Password
+                  </label>
+                  <span className="text-xs text-sky-400 cursor-pointer">
+                    Forgot password?
+                  </span>
+                </div>
+                <Input.Password
+                  size="large"
+                  prefix={<LockOutlined />}
+                  placeholder="••••••••"
+                  className="mt-2 rounded-xl bg-[#121e3a] border border-gray-700 text-white"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
 
-      {/* ---------------- OTP SCREEN ---------------- */}
-      {step === "otp" && (
-        <div className="w-full max-w-xs text-center">
-          <h1 className="text-3xl font-bold mb-4 text-white">Verify OTP</h1>
+              <Button
+                onClick={handleLogin}
+                className="w-full py-3 rounded-full bg-sky-500 hover:bg-sky-400 text-white font-medium shadow-lg shadow-sky-500/30 flex items-center justify-center gap-2"
+              >
+                Login <ArrowRightOutlined />
+              </Button>
+            </div>
 
-          <div className="flex justify-center gap-3 mb-6">
-            {otp.map((digit, index) => (
-              <input
-                key={index}
-                id={`otp-${index}`}
-                type="text"
-                inputMode="numeric"
-                maxLength={1}
-                value={digit}
-                onChange={(e) => handleOtpChange(e.target.value, index)}
-                onKeyDown={(e) => handleOtpKeyDown(e, index)}
-                className="w-12 h-12 text-center text-xl rounded-lg bg-bg3 text-white border border-gray-700 focus:border-bg2 outline-none"
-              />
-            ))}
-          </div>
+            <div className="mt-8 pt-6 border-t border-white/5 text-center">
+              <p className="text-xs text-gray-500">
+                © {CNAME} {new Date().getFullYear()}
+              </p>
+            </div>
+          </>
+        )}
 
-          <Button
-            size="large"
-            onClick={handleVerifyOtp}
-            className="bg-bg2 w-full rounded-full"
-          >
-            Verify & Continue
-          </Button>
-        </div>
-      )}
+        {/* ---------------- OTP SCREEN ---------------- */}
+        {step === "otp" && (
+          <>
+            <button
+              onClick={() => setStep("login")}
+              className="text-sm text-gray-400 flex items-center gap-1 mb-6 hover:text-sky-400"
+            >
+              ← Back to Login
+            </button>
+
+            <div className="text-center mb-10">
+              <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-[#121e3a] flex items-center justify-center">
+                <LockOutlined className="text-2xl text-sky-400" />
+              </div>
+
+              <h1 className="text-3xl font-bold text-white mb-3">Verify OTP</h1>
+              <p className="text-sm text-gray-400">
+                We've sent a 6-digit code to <br />
+                <span className="text-gray-200 font-medium">{email}</span>
+              </p>
+            </div>
+
+            <div className="flex justify-center gap-3 mb-8">
+              {otp.map((digit, index) => (
+                <input
+                  key={index}
+                  id={`otp-${index}`}
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={1}
+                  value={digit}
+                  onChange={(e) => handleOtpChange(e.target.value, index)}
+                  onKeyDown={(e) => handleOtpKeyDown(e, index)}
+                  className="w-12 h-14 text-center text-2xl font-bold rounded-xl bg-[#121e3a] border border-gray-700 text-white focus:border-sky-400 focus:ring-2 focus:ring-sky-400/40 outline-none"
+                />
+              ))}
+            </div>
+
+            <Button
+              onClick={handleVerifyOtp}
+              className="w-full py-3 rounded-full bg-sky-400 hover:bg-sky-300 text-white font-semibold shadow-lg shadow-sky-400/30 flex items-center justify-center gap-2"
+            >
+              Verify & Continue <ArrowRightOutlined />
+            </Button>
+
+            <div className="text-center mt-6">
+              <p className="text-sm text-gray-400">
+                Didn't receive the code?
+                <span className="ml-1 text-sky-400 cursor-pointer">
+                  Resend (30s)
+                </span>
+              </p>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
