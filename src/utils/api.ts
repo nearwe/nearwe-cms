@@ -36,7 +36,25 @@ export const core_services = {
       throw error.response?.data || error.message;
     }
   },
+  // Get Logged-in User (Profile)
+  getUser: async () => {
+    try {
+      const token = getToken();
 
+      const response = await axios.get(
+        `${API_BASE_URL}/user`,
+        {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      throw error.response?.data || error.message;
+    }
+  },
   // Register API
   registerUser: async ({
     username,

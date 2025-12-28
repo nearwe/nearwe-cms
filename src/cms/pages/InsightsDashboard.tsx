@@ -11,14 +11,11 @@ import {
   Divider,
 } from "antd";
 import type { StatisticProps } from "antd";
-import {
-  InfoCircleOutlined,
-} from "@ant-design/icons";
+import { InfoCircleOutlined, LoadingOutlined } from "@ant-design/icons";
 import CountUp from "react-countup";
 import { core_services } from "../../utils/api";
 import dayjs from "dayjs";
 
-// Recharts
 import {
   AreaChart,
   Area,
@@ -52,15 +49,16 @@ const InsightsDashboard: React.FC = () => {
   const [categoryCount, setCategoryCount] = useState(0);
   const [eventCount, setEventCount] = useState(0);
   const [activeEventCount, setActiveEventCount] = useState(0);
+  const [usersCount, setUsersCount] = useState(0);
   const [events, setEvents] = useState<EventItem[]>([]);
 
-  // ================= API =================
   const fetchInsights = async () => {
     setLoading(true);
     try {
-      const [categoriesRes, eventsRes] = await Promise.all([
+      const [categoriesRes, eventsRes, usersRes] = await Promise.all([
         core_services.getCategories(),
         core_services.getAllEvents(),
+        core_services.getUser(),
       ]);
 
       setCategoryCount(categoriesRes?.length || 0);
@@ -68,8 +66,10 @@ const InsightsDashboard: React.FC = () => {
       setEvents(eventsRes || []);
 
       setActiveEventCount(
-        eventsRes.filter((e: any) => e.Status === 1).length
+        (eventsRes || []).filter((e: any) => e.Status === 1).length
       );
+
+      setUsersCount(usersRes?.length || 0);
     } catch {
       message.error("Failed to load dashboard data");
     } finally {
@@ -84,17 +84,15 @@ const InsightsDashboard: React.FC = () => {
   if (loading) {
     return (
       <div style={{ textAlign: "center", marginTop: 80 }}>
-        <Spin size="large" />
+        <Spin size="large" indicator={<LoadingOutlined/>} />
       </div>
     );
   }
 
-  // ================= CountUp =================
   const formatter: StatisticProps["formatter"] = (value) => (
     <CountUp end={Number(value) || 0} duration={1.2} separator="," />
   );
 
-  // ================= Event Life (Fake for now) =================
   const getEventLife = (eventTime: string) => {
     const start = dayjs(eventTime).subtract(1, "day");
     const end = start.add(4, "day");
@@ -106,7 +104,6 @@ const InsightsDashboard: React.FC = () => {
     return { start, end, progress: Math.round(progress) };
   };
 
-  // ================= Static Analytics Data =================
   const eventTrendData = [
     { month: "Jan", events: 65, capacity: 80 },
     { month: "Feb", events: 78, capacity: 90 },
@@ -130,7 +127,6 @@ const InsightsDashboard: React.FC = () => {
 
   return (
     <div>
-      {/* ================= KPIs ================= */}
       <Row gutter={[16, 16]}>
         <Col xs={24} md={6}>
           <Card>
@@ -149,14 +145,13 @@ const InsightsDashboard: React.FC = () => {
         </Col>
         <Col xs={24} md={6}>
           <Card>
-            <Statistic title="Users" value={12500} formatter={formatter} />
+            <Statistic title="Users" value={usersCount} formatter={formatter} />
           </Card>
         </Col>
       </Row>
 
       <Divider />
 
-      {/* ================= Event Growth ================= */}
       <Row gutter={[16, 16]}>
         <Col xs={24} lg={16}>
           <Card title="Event Growth Trend">
@@ -192,7 +187,6 @@ const InsightsDashboard: React.FC = () => {
 
       <Divider />
 
-      {/* ================= Attendance ================= */}
       <Row gutter={[16, 16]}>
         <Col xs={24} lg={12}>
           <Card title="Attendance Analysis">
@@ -210,7 +204,6 @@ const InsightsDashboard: React.FC = () => {
           </Card>
         </Col>
 
-        {/* ================= Event Life ================= */}
         <Col xs={24} lg={12}>
           <Card title="Event Life">
             {events.slice(0, 2).map((e) => {

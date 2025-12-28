@@ -138,7 +138,7 @@ const EventChat = () => {
                 </div>
                 <div className="flex flex-row items-center justify-center gap-2 flex-1">
                     <h1 className="text-lg font-semibold">{eventData.EventTitle}</h1>
-                    {isRefreshing && <Spin indicator={<LoadingOutlined spin />} size="small" />}
+                    {isRefreshing && <Spin indicator={<LoadingOutlined  />} size="small" />}
                 </div>
                 <div className="w-6"></div>
 

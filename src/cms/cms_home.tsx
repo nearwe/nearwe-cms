@@ -82,7 +82,7 @@ const CmsHome: React.FC = () => {
   }}
 >
   <Avatar
-    size={32}
+    size={22}
     style={{
       backgroundColor: "#E0E7FF",
       color: "#3B82F6",

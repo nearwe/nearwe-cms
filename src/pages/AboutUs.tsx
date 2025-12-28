@@ -1,7 +1,8 @@
 "use client";
 import me from '../assets/team/piyush.jpeg'
 import aniket from '../assets/team/aniket.jpeg'
-import React from "react";
+import gupta from '../assets/team/gupta.jpeg'
+import sneh from '../assets/team/sneh.jpeg'
 import { Users } from "lucide-react";
 
 export default function AboutUs() {
@@ -14,7 +15,7 @@ export default function AboutUs() {
     {
       name: "Sneh Gour",
       role: "Co-Founder",
-      img: "https://i.pravatar.cc/300?img=5",
+      img: sneh,
     },
     {
       name: "Piyush Patel",
@@ -29,7 +30,7 @@ export default function AboutUs() {
     {
       name: "Aniket Gupta",
       role: "Co-Founder",
-      img: "https://i.pravatar.cc/300?img=20",
+      img: gupta,
     },
   ];
 

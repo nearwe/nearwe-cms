@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Card,
   Table,
@@ -7,31 +7,88 @@ import {
   List,
   Typography,
   Space,
+  message,
+  Tag,
 } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import {
+  UserOutlined,
+  StopOutlined,
+  CheckCircleOutlined,
+} from "@ant-design/icons";
+import { core_services } from "../../utils/api";
 
 const { useBreakpoint } = Grid;
 const { Text } = Typography;
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-}
-
-// ================= Desktop Columns =================
-const columns: ColumnsType<User> = [
-  { title: "Name", dataIndex: "name" },
-  { title: "Email", dataIndex: "email" },
-  { title: "Role", dataIndex: "role" },
-];
-
 const UserManagement: React.FC = () => {
   const screens = useBreakpoint();
 
-  // later API se aayega
-  const users: User[] = [];
+  const [users, setUsers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        setLoading(true);
+        const response = await core_services.getUser();
+        setUsers(response || []);
+      } catch {
+        message.error("Failed to load users");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const toggleBlock = (userId: string) => {
+    message.info(`Block / Unblock clicked for ${userId}`);
+  };
+
+  const columns: ColumnsType<any> = useMemo(
+    () => [
+      {
+        title: "User",
+        render: (_: any, record: any) => (
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center">
+              <UserOutlined />
+            </div>
+            <div>
+              <Text strong>{record.Username}</Text>
+              <div className="text-xs text-gray-500">{record.Email}</div>
+            </div>
+          </div>
+        ),
+      },
+      {
+        title: "Location",
+        dataIndex: "Location",
+      },
+      {
+        title: "Status",
+        render: () => (
+          <Tag color="green">Active</Tag>
+        ),
+      },
+      {
+        title: "Action",
+        render: (_: any, record: any) => (
+          <Button
+            size="small"
+            danger
+            icon={<StopOutlined />}
+            onClick={() => toggleBlock(record.UserId)}
+          >
+            Block
+          </Button>
+        ),
+      },
+    ],
+    []
+  );
 
   return (
     <Card
@@ -42,32 +99,49 @@ const UserManagement: React.FC = () => {
         </Button>
       }
     >
-      {/* ================= Desktop ================= */}
-      {screens.md && (
-        <Table<User>
-          rowKey="id"
-          dataSource={users}
+      {screens.md ? (
+        <Table
+          rowKey="UserId"
           columns={columns}
+          dataSource={users}
+          loading={loading}
+          pagination={{
+            pageSize: 10,
+            showSizeChanger: false,
+          }}
         />
-      )}
-
-      {/* ================= Mobile ================= */}
-      {!screens.md && (
+      ) : (
         <List
           dataSource={users}
-          renderItem={(user) => (
-            <Card
-              key={user.id}
-              style={{ marginBottom: 12 }}
-              title={user.name}
-            >
-              <Space direction="vertical" size={4}>
+          loading={loading}
+          renderItem={(user: any) => (
+            <Card key={user.UserId} style={{ marginBottom: 12 }}>
+              <Space direction="vertical" size={6} style={{ width: "100%" }}>
+                <Space>
+                  <div className="w-9 h-9 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center">
+                    <UserOutlined />
+                  </div>
+                  <div>
+                    <Text strong>{user.Username}</Text>
+                    <div className="text-xs text-gray-500">{user.Email}</div>
+                  </div>
+                </Space>
+
                 <Text>
-                  <Text strong>Email:</Text> {user.email}
+                  <Text strong>Location:</Text> {user.Location}
                 </Text>
-                <Text>
-                  <Text strong>Role:</Text> {user.role}
-                </Text>
+
+                <Tag color="green" icon={<CheckCircleOutlined />}>
+                  Active
+                </Tag>
+
+                <Button
+                  danger
+                  icon={<StopOutlined />}
+                  onClick={() => toggleBlock(user.UserId)}
+                >
+                  Block
+                </Button>
               </Space>
             </Card>
           )}

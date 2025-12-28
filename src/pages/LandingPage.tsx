@@ -39,10 +39,10 @@ export default function NearWeLandingPage() {
                         </span>
                     </div>
                     <button
-                        onClick={() => navigate("/login")}
+                        onClick={() => navigate("/")}
                         className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold rounded-full transition-all duration-300"
                     >
-                        Get Started
+                        Download
                     </button>
 
                 </div>
@@ -65,8 +65,8 @@ export default function NearWeLandingPage() {
                 <div className="relative z-10 max-w-4xl mx-auto text-center">
                     <div
                         className={`transition-all duration-1000 transform ${isVisible
-                                ? "opacity-100 translate-y-0"
-                                : "opacity-0 translate-y-10"
+                            ? "opacity-100 translate-y-0"
+                            : "opacity-0 translate-y-10"
                             }`}
                     >
                         <div className="inline-block mb-6 px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full backdrop-blur-sm">
@@ -193,8 +193,20 @@ export default function NearWeLandingPage() {
 
             {/* FOOTER */}
             <footer className="py-8 px-6 bg-[#0a0e1a] border-t border-cyan-500/10 text-center text-gray-400">
-                <p>© {new Date().getFullYear()} NearWe. Connecting communities worldwide.</p>
-                <p className="mt-2 text-sm">hello@NearWe.app</p>
+                <p>
+                    © {new Date().getFullYear()} NearWe. Connecting communities worldwide.
+                </p>
+
+                <p className="mt-2 text-sm flex justify-center items-center gap-3">
+                    <span>support@nearwe.in</span>
+                    <span className="opacity-40">|</span>
+                    <button
+                        onClick={() => navigate("/aboutus")}
+                        className="text-cyan-400 hover:text-cyan-300 transition underline underline-offset-4"
+                    >
+                        About Us
+                    </button>
+                </p>
             </footer>
         </div>
     );

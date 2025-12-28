@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Card,
   Form,
@@ -17,73 +17,66 @@ import { core_services } from "../../utils/api";
 const { Text, Title } = Typography;
 const { useBreakpoint } = Grid;
 
-/* ---------------- TYPES ---------------- */
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
-
-/* ---------------- MOCK USERS ---------------- */
-const mockUsers: User[] = [
-  { id: "1", name: "Piyush Patel", email: "piyush@gmail.com" },
-  { id: "2", name: "Amit Sharma", email: "amit@gmail.com" },
-  { id: "3", name: "Neha Verma", email: "neha@gmail.com" },
-];
-
-/* ---------------- COMPONENT ---------------- */
 const Announcements: React.FC = () => {
   const screens = useBreakpoint();
   const [form] = Form.useForm();
 
+  const [users, setUsers] = useState<any[]>([]);
+  const [loadingUsers, setLoadingUsers] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [sending, setSending] = useState(false);
 
-  /* ---------------- TABLE CONFIG ---------------- */
-  const columns: ColumnsType<User> = useMemo(
-    () => [
-      {
-        title: "Name",
-        dataIndex: "name",
-        render: (_, record) => (
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-medium">
-              {record.name
-                .split(" ")
-                .map((n) => n[0])
-                .join("")}
-            </div>
-            <Text>{record.name}</Text>
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        setLoadingUsers(true);
+        const response = await core_services.getUser();
+        setUsers(response);
+      } catch (e) {
+        message.error("Failed to fetch users");
+      } finally {
+        setLoadingUsers(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+const columns: ColumnsType<any> = useMemo(
+  () => [
+    {
+      title: "Name",
+      dataIndex: "Username",
+      render: (_: any, record: any) => (
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-medium">
+            {record.Username
+              ?.split(" ")
+              ?.map((n: string) => n[0])
+              ?.join("")}
           </div>
-        ),
-      },
-      {
-        title: "Email",
-        dataIndex: "email",
-      },
-      {
-        title: "Status",
-        render: (_, record) => (
-          <span
-            className={`px-2 py-1 rounded-full text-xs ${record.id === "3"
-                ? "bg-gray-100 text-gray-500"
-                : "bg-green-100 text-green-700"
-              }`}
-          >
-            {record.id === "3" ? "Offline" : "Active"}
-          </span>
-        ),
-      },
-    ],
-    []
-  );
+          <Text>{record.Username}</Text>
+        </div>
+      ),
+    },
+    {
+      title: "Email",
+      dataIndex: "Email",
+    },
+    {
+      title: "Location",
+      dataIndex: "Location",
+    },
+  ],
+  []
+);
+
 
   const rowSelection = {
     selectedRowKeys,
     onChange: (keys: React.Key[]) => setSelectedRowKeys(keys),
   };
 
-  /* ---------------- SUBMIT ---------------- */
   const onSubmit = async (values: any) => {
     if (!selectedRowKeys.length) {
       message.warning("Please select at least one user");
@@ -103,25 +96,21 @@ const Announcements: React.FC = () => {
       setSending(true);
       await core_services.sendPushNotification(payload);
       message.success("Announcement sent successfully");
-
       form.resetFields();
       setSelectedRowKeys([]);
-    } catch (error: any) {
-      message.error(error?.message || "Failed to send announcement");
+    } catch (e: any) {
+      message.error(e?.message || "Failed to send announcement");
     } finally {
       setSending(false);
     }
   };
 
-  /* ---------------- UI ---------------- */
   return (
     <div>
-      {/* PAGE TITLE */}
       <Title level={3} className="mb-4">
         New Announcement
       </Title>
 
-      {/* ---------------- SELECT USERS CARD ---------------- */}
       <Card
         className="mb-6"
         title={
@@ -141,25 +130,23 @@ const Announcements: React.FC = () => {
         }
       >
         <Table
-          rowKey="id"
+          rowKey="UserId"
           columns={columns}
-          dataSource={mockUsers}
-          pagination={false}
+          dataSource={users}
+          loading={loadingUsers}
           rowSelection={rowSelection}
+          pagination={{
+            pageSize: 10,
+            showSizeChanger: false,
+          }}
         />
 
+
         <div className="flex justify-between text-xs text-gray-500 mt-3">
-          <span>Showing {mockUsers.length} of 124 users</span>
-          <div className="flex gap-2">
-            <Button size="small" disabled>
-              Previous
-            </Button>
-            <Button size="small">Next</Button>
-          </div>
+          <span>Showing {users.length} users</span>
         </div>
       </Card>
 
-      {/* ---------------- CONTENT DETAILS CARD ---------------- */}
       <Card
         title={
           <div>
@@ -184,12 +171,9 @@ const Announcements: React.FC = () => {
               { max: 20, message: "Title can be maximum 20 characters" },
             ]}
           >
-            <Input
-              placeholder="Maintenance Alert"
-              maxLength={20}
-              showCount
-            />
+            <Input maxLength={20} showCount />
           </Form.Item>
+
           <Form.Item
             label="Body Content"
             name="body"
@@ -198,25 +182,15 @@ const Announcements: React.FC = () => {
               { max: 60, message: "Body can be maximum 60 characters" },
             ]}
           >
-            <Input.TextArea
-              rows={4}
-              maxLength={40}
-              showCount
-              placeholder="App will be on maintenance till 12 PM."
-            />
+            <Input.TextArea rows={4} maxLength={40} showCount />
           </Form.Item>
-
 
           <Form.Item
             label="Where should user land?"
             name="route"
             rules={[{ required: true, message: "Select a destination" }]}
           >
-            <Select
-              placeholder="Select app screen"
-              options={APP_ROUTE_OPTIONS}
-              allowClear
-            />
+            <Select options={APP_ROUTE_OPTIONS} allowClear />
           </Form.Item>
 
           <Button
