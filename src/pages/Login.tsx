@@ -135,7 +135,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#050B1E] flex items-center justify-center relative overflow-hidden">
+    <div className="login-scope min-h-screen bg-[#050B1E] flex items-center justify-center relative overflow-hidden">
       {loading && (
         <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-50">
           <Loader />

@@ -278,44 +278,39 @@ code {
 .event-table-ui .ant-checkbox-inner {
   border-radius: 50%;
 }
+/* ================= LOGIN PAGE – ANT DESIGN DARK INPUT FIX ================= */
 
-
-/* ================= ANT DESIGN DARK INPUT – HARD OVERRIDE ================= */
-
-/* Wrapper */
-.ant-input-affix-wrapper {
+.login-scope .ant-input-affix-wrapper {
   background-color: #121e3a !important;
   border-color: #374151 !important;
   color: #ffffff !important;
 }
 
-/* Input inside */
-.ant-input-affix-wrapper input {
+.login-scope .ant-input-affix-wrapper input {
   background-color: transparent !important;
   color: #ffffff !important;
 }
 
-/* Placeholder */
-.ant-input-affix-wrapper input::placeholder {
+.login-scope .ant-input-affix-wrapper input::placeholder {
   color: #9ca3af !important;
 }
 
-/* PREFIX / ICON */
-.ant-input-prefix,
-.ant-input-password-icon {
+/* Icons */
+.login-scope .ant-input-prefix,
+.login-scope .ant-input-password-icon {
   color: #9ca3af !important;
 }
 
-/* 🔥 FOCUS STATE (THIS WAS THE ISSUE) */
-.ant-input-affix-wrapper-focused,
-.ant-input-affix-wrapper:focus,
-.ant-input-affix-wrapper:focus-within {
+/* 🔥 THIS FIXES THE WHITE FOCUS BUG */
+.login-scope .ant-input-affix-wrapper-focused,
+.login-scope .ant-input-affix-wrapper:focus,
+.login-scope .ant-input-affix-wrapper:focus-within {
   background-color: #121e3a !important;
   border-color: #38bdf8 !important;
   box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.35) !important;
 }
 
-/* REMOVE ANT DEFAULT WHITE */
-.ant-input-affix-wrapper-focused input {
+/* Prevent AntD inner white bg */
+.login-scope .ant-input-affix-wrapper-focused input {
   background-color: transparent !important;
 }
