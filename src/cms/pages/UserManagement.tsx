@@ -9,6 +9,7 @@ import {
   Space,
   message,
   Tag,
+  Input,
 } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
@@ -26,27 +27,43 @@ const UserManagement: React.FC = () => {
 
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [searchText, setSearchText] = useState("");
+
+  // ---------------- FETCH USERS ----------------
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
+      const response = await core_services.getUser();
+      setUsers(response || []);
+    } catch {
+      message.error("Failed to load users");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        setLoading(true);
-        const response = await core_services.getUser();
-        setUsers(response || []);
-      } catch {
-        message.error("Failed to load users");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchUsers();
   }, []);
 
+  // ---------------- SEARCH FILTER ----------------
+  const filteredUsers = useMemo(() => {
+    if (!searchText) return users;
+
+    return users.filter((u) =>
+      [u.Username, u.Email, u.Location]
+        .join(" ")
+        .toLowerCase()
+        .includes(searchText.toLowerCase())
+    );
+  }, [users, searchText]);
+
+  // ---------------- ACTION ----------------
   const toggleBlock = (userId: string) => {
     message.info(`Block / Unblock clicked for ${userId}`);
   };
 
+  // ---------------- TABLE COLUMNS ----------------
   const columns: ColumnsType<any> = useMemo(
     () => [
       {
@@ -69,9 +86,7 @@ const UserManagement: React.FC = () => {
       },
       {
         title: "Status",
-        render: () => (
-          <Tag color="green">Active</Tag>
-        ),
+        render: () => <Tag color="green">Active</Tag>,
       },
       {
         title: "Action",
@@ -94,16 +109,30 @@ const UserManagement: React.FC = () => {
     <Card
       title="User Management"
       extra={
-        <Button type="primary" block={!screens.md}>
-          Add User
-        </Button>
+        <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
+          <Button onClick={fetchUsers} loading={loading}>
+            Refresh
+          </Button>
+
+          <Input
+            placeholder="Search users..."
+            allowClear
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            style={{ width: 220 }}
+          />
+
+          <Button type="primary" block={!screens.md}>
+            Add User
+          </Button>
+        </div>
       }
     >
       {screens.md ? (
         <Table
           rowKey="UserId"
           columns={columns}
-          dataSource={users}
+          dataSource={filteredUsers}
           loading={loading}
           pagination={{
             pageSize: 10,
@@ -112,7 +141,7 @@ const UserManagement: React.FC = () => {
         />
       ) : (
         <List
-          dataSource={users}
+          dataSource={filteredUsers}
           loading={loading}
           renderItem={(user: any) => (
             <Card key={user.UserId} style={{ marginBottom: 12 }}>
@@ -147,6 +176,10 @@ const UserManagement: React.FC = () => {
           )}
         />
       )}
+
+      <div className="text-xs text-gray-500 mt-3">
+        Showing {filteredUsers.length} users
+      </div>
     </Card>
   );
 };

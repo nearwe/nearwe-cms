@@ -25,58 +25,73 @@ const Announcements: React.FC = () => {
   const [loadingUsers, setLoadingUsers] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [sending, setSending] = useState(false);
+  const [searchText, setSearchText] = useState("");
+
+  // ---------------- FETCH USERS ----------------
+  const fetchUsers = async () => {
+    try {
+      setLoadingUsers(true);
+      const response = await core_services.getUser();
+      setUsers(response || []);
+    } catch {
+      message.error("Failed to fetch users");
+    } finally {
+      setLoadingUsers(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        setLoadingUsers(true);
-        const response = await core_services.getUser();
-        setUsers(response);
-      } catch (e) {
-        message.error("Failed to fetch users");
-      } finally {
-        setLoadingUsers(false);
-      }
-    };
-
     fetchUsers();
   }, []);
 
-const columns: ColumnsType<any> = useMemo(
-  () => [
-    {
-      title: "Name",
-      dataIndex: "Username",
-      render: (_: any, record: any) => (
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-medium">
-            {record.Username
-              ?.split(" ")
-              ?.map((n: string) => n[0])
-              ?.join("")}
+  // ---------------- SEARCH FILTER ----------------
+  const filteredUsers = useMemo(() => {
+    if (!searchText) return users;
+
+    return users.filter((u) =>
+      [u.Username, u.Email, u.Location]
+        .join(" ")
+        .toLowerCase()
+        .includes(searchText.toLowerCase())
+    );
+  }, [users, searchText]);
+
+  // ---------------- TABLE COLUMNS ----------------
+  const columns: ColumnsType<any> = useMemo(
+    () => [
+      {
+        title: "Name",
+        dataIndex: "Username",
+        render: (_: any, record: any) => (
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-medium">
+              {record.Username?.split(" ")
+                ?.map((n: string) => n[0])
+                ?.join("")}
+            </div>
+            <Text>{record.Username}</Text>
           </div>
-          <Text>{record.Username}</Text>
-        </div>
-      ),
-    },
-    {
-      title: "Email",
-      dataIndex: "Email",
-    },
-    {
-      title: "Location",
-      dataIndex: "Location",
-    },
-  ],
-  []
-);
+        ),
+      },
+      {
+        title: "Email",
+        dataIndex: "Email",
+      },
+      {
+        title: "Location",
+        dataIndex: "Location",
+      },
+    ],
+    []
+  );
 
-
+  // ---------------- ROW SELECTION ----------------
   const rowSelection = {
     selectedRowKeys,
     onChange: (keys: React.Key[]) => setSelectedRowKeys(keys),
   };
 
+  // ---------------- SUBMIT ANNOUNCEMENT ----------------
   const onSubmit = async (values: any) => {
     if (!selectedRowKeys.length) {
       message.warning("Please select at least one user");
@@ -111,28 +126,38 @@ const columns: ColumnsType<any> = useMemo(
         New Announcement
       </Title>
 
+      {/* ---------------- USERS SELECTION ---------------- */}
       <Card
         className="mb-6"
         title={
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
             <div>
               <Text strong>Select Users</Text>
               <div className="text-xs text-gray-500">
                 Choose recipients for this announcement
               </div>
             </div>
-            <Input.Search
-              placeholder="Search users..."
-              style={{ width: 220 }}
-              allowClear
-            />
+
+            <div className="flex gap-2">
+              <Button onClick={fetchUsers} loading={loadingUsers}>
+                Refresh
+              </Button>
+
+              <Input
+                placeholder="Search users..."
+                allowClear
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                style={{ width: 220 }}
+              />
+            </div>
           </div>
         }
       >
         <Table
           rowKey="UserId"
           columns={columns}
-          dataSource={users}
+          dataSource={filteredUsers}
           loading={loadingUsers}
           rowSelection={rowSelection}
           pagination={{
@@ -141,12 +166,13 @@ const columns: ColumnsType<any> = useMemo(
           }}
         />
 
-
         <div className="flex justify-between text-xs text-gray-500 mt-3">
-          <span>Showing {users.length} users</span>
+          <span>Showing {filteredUsers.length} users</span>
+          <span>{selectedRowKeys.length} selected</span>
         </div>
       </Card>
 
+      {/* ---------------- ANNOUNCEMENT CONTENT ---------------- */}
       <Card
         title={
           <div>
@@ -182,7 +208,7 @@ const columns: ColumnsType<any> = useMemo(
               { max: 60, message: "Body can be maximum 60 characters" },
             ]}
           >
-            <Input.TextArea rows={4} maxLength={40} showCount />
+            <Input.TextArea rows={4} maxLength={60} showCount />
           </Form.Item>
 
           <Form.Item
