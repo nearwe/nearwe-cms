@@ -205,7 +205,7 @@ const Announcements: React.FC = () => {
             name="body"
             rules={[
               { required: true, message: "Enter message body" },
-              { max: 60, message: "Body can be maximum 60 characters" },
+              { max: 300, message: "Body can be maximum 300 characters" },
             ]}
           >
             <Input.TextArea rows={4} maxLength={60} showCount />
