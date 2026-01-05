@@ -43,18 +43,27 @@ const Announcements: React.FC = () => {
   useEffect(() => {
     fetchUsers();
   }, []);
-
-  // ---------------- SEARCH FILTER ----------------
   const filteredUsers = useMemo(() => {
-    if (!searchText) return users;
+    let data = users;
 
-    return users.filter((u) =>
-      [u.Username, u.Email, u.Location]
-        .join(" ")
-        .toLowerCase()
-        .includes(searchText.toLowerCase())
-    );
+    // search
+    if (searchText) {
+      data = data.filter((u) =>
+        [u.Username, u.Email, u.Location]
+          .join(" ")
+          .toLowerCase()
+          .includes(searchText.toLowerCase())
+      );
+    }
+
+    // sort: notification enabled users first
+    return [...data].sort((a, b) => {
+      const aEnabled = a.pushToken && a.pushToken.length > 0 ? 1 : 0;
+      const bEnabled = b.pushToken && b.pushToken.length > 0 ? 1 : 0;
+      return bEnabled - aEnabled;
+    });
   }, [users, searchText]);
+
 
   // ---------------- TABLE COLUMNS ----------------
   const columns: ColumnsType<any> = useMemo(
@@ -78,9 +87,16 @@ const Announcements: React.FC = () => {
         dataIndex: "Email",
       },
       {
-        title: "Location",
-        dataIndex: "Location",
+        title: "Notifications",
+        dataIndex: "pushToken",
+        render: (pushToken: string | null) =>
+          pushToken && pushToken.length > 0 ? (
+            <Text style={{ color: "#16a34a", fontWeight: 600 }}>YES</Text>
+          ) : (
+            <Text style={{ color: "#dc2626" }}>NO</Text>
+          ),
       },
+
     ],
     []
   );

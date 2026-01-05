@@ -46,16 +46,25 @@ const UserManagement: React.FC = () => {
     fetchUsers();
   }, []);
 
-  // ---------------- SEARCH FILTER ----------------
   const filteredUsers = useMemo(() => {
-    if (!searchText) return users;
+    let data = users;
 
-    return users.filter((u) =>
-      [u.Username, u.Email, u.Location]
-        .join(" ")
-        .toLowerCase()
-        .includes(searchText.toLowerCase())
-    );
+    // search filter
+    if (searchText) {
+      data = data.filter((u) =>
+        [u.Username, u.Email, u.Location]
+          .join(" ")
+          .toLowerCase()
+          .includes(searchText.toLowerCase())
+      );
+    }
+
+    // sort: push enabled first
+    return [...data].sort((a, b) => {
+      const aEnabled = a.pushToken && a.pushToken.length > 0 ? 1 : 0;
+      const bEnabled = b.pushToken && b.pushToken.length > 0 ? 1 : 0;
+      return bEnabled - aEnabled;
+    });
   }, [users, searchText]);
 
   // ---------------- ACTION ----------------
@@ -84,6 +93,17 @@ const UserManagement: React.FC = () => {
         title: "Location",
         dataIndex: "Location",
       },
+      {
+        title: "Notifications",
+        dataIndex: "pushToken",
+        render: (pushToken: string | null) =>
+          pushToken && pushToken.length > 0 ? (
+            <Tag color="green">YES</Tag>
+          ) : (
+            <Tag color="red">NO</Tag>
+          ),
+      },
+
       {
         title: "Status",
         render: () => <Tag color="green">Active</Tag>,
