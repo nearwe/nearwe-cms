@@ -60,39 +60,42 @@ export default function AboutUs() {
 
 
       {/* TEAM SECTION */}
-      <section className="max-w-7xl mx-auto mb-24">
-        <h2 className="text-4xl font-bold text-center mb-10 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
-          Meet Our Team
-        </h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 px-4">
-
-          {team.map((member, i) => (
-            <div
-              key={i}
-              className="p-6 bg-[#11141c] border border-cyan-500/20 rounded-2xl shadow-lg hover:shadow-cyan-500/20 hover:border-cyan-500/50 hover:-translate-y-2 transition-all duration-300 text-center"
-            >
-              <div className="w-28 h-28 mx-auto rounded-full overflow-hidden border-2 border-cyan-500/40 mb-4">
-                <img
-                  src={member.img}
-                  alt={member.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              <h3 className="text-xl font-semibold text-white">{member.name}</h3>
-              <p className="text-cyan-400 text-sm font-medium">{member.role}</p>
-            </div>
-          ))}
-
-        </div>
-      </section>
-
+  
 
       {/* FOOTER */}
       <footer className="py-8 border-t border-cyan-500/10 text-center text-gray-500">
         <p>© {new Date().getFullYear()} NearWe. Connecting people everywhere.</p>
       </footer>
     </div>
-  );
-}
+  )
+
+
+
+
+      // <section className="max-w-7xl mx-auto mb-24">
+      //   <h2 className="text-4xl font-bold text-center mb-10 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
+      //     Meet Our Team
+      //   </h2>
+
+      //   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 px-4">
+
+      //     {team.map((member, i) => (
+      //       <div
+      //         key={i}
+      //         className="p-6 bg-[#11141c] border border-cyan-500/20 rounded-2xl shadow-lg hover:shadow-cyan-500/20 hover:border-cyan-500/50 hover:-translate-y-2 transition-all duration-300 text-center"
+      //       >
+      //         <div className="w-28 h-28 mx-auto rounded-full overflow-hidden border-2 border-cyan-500/40 mb-4">
+      //           <img
+      //             src={member.img}
+      //             alt={member.name}
+      //             className="w-full h-full object-cover"
+      //           />
+      //         </div>
+
+      //         <h3 className="text-xl font-semibold text-white">{member.name}</h3>
+      //         <p className="text-cyan-400 text-sm font-medium">{member.role}</p>
+      //       </div>
+      //     ))}
+
+      //   </div>
+      // </section>
