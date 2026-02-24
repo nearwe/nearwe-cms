@@ -41,6 +41,18 @@ export default function NearWeLandingPage() {
 
                     <div className="right-menu-div">
                         <button
+                            onClick={() => navigate("/companyservices")}
+                            className="text-gray-300 hover:text-cyan-400 font-medium transition-colors duration-300 mr-4"
+                        >
+                           Company Services
+                        </button>
+                        <button
+                            onClick={() => navigate("/services")}
+                            className="text-gray-300 hover:text-cyan-400 font-medium transition-colors duration-300 mr-4"
+                        >
+                           App Services
+                        </button>
+                        <button
                             onClick={() => navigate("/")}
                             className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold rounded-full transition-all duration-300"
                         >
