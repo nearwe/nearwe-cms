@@ -38,12 +38,15 @@ export default function NearWeLandingPage() {
                             NearWe
                         </span>
                     </div>
-                    <button
-                        onClick={() => navigate("/")}
-                        className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold rounded-full transition-all duration-300"
-                    >
-                        Download
-                    </button>
+
+                    <div className="right-menu-div">
+                        <button
+                            onClick={() => navigate("/")}
+                            className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold rounded-full transition-all duration-300"
+                        >
+                            Download
+                        </button>
+                    </div>
 
                 </div>
             </nav>
