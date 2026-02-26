@@ -44,16 +44,21 @@ export default function NearWeLandingPage() {
                             onClick={() => navigate("/companyservices")}
                             className="text-gray-300 hover:text-cyan-400 font-medium transition-colors duration-300 mr-4"
                         >
-                           Company Services
+                            Company Services
                         </button>
                         <button
                             onClick={() => navigate("/services")}
                             className="text-gray-300 hover:text-cyan-400 font-medium transition-colors duration-300 mr-4"
                         >
-                           App Services
+                            App Services
                         </button>
                         <button
-                            onClick={() => navigate("/")}
+                            onClick={() =>
+                                window.open(
+                                    "https://play.google.com/store/apps/details?id=com.pp2053.nearwe",
+                                    "_blank"
+                                )
+                            }
                             className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold rounded-full transition-all duration-300"
                         >
                             Download
@@ -104,7 +109,12 @@ export default function NearWeLandingPage() {
                         {/* Buttons */}
                         <div className="flex gap-4 justify-center mb-16">
                             <button
-                                onClick={() => window.open("https://play.google.com/store/apps/details?id=YOUR_APP_ID", "_blank")}
+                                onClick={() =>
+                                    window.open(
+                                        "https://play.google.com/store/apps/details?id=com.pp2053.nearwe",
+                                        "_blank"
+                                    )
+                                }
                                 className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-black font-bold rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/50 flex items-center gap-2"
                             >
                                 Download App
