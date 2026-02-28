@@ -31,6 +31,7 @@ import ChildSafetyPolicy from "./pages/Child";
 import TermsAndConditions from "./pages/Terms";
 import ServicesPage from "./pages/Services";
 import ServicesAgencyPage from "./pages/companyservices";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const App = () => {
   return (
@@ -77,6 +78,7 @@ const App = () => {
                   <Route path="/services" element={<ServicesPage />} />
                   <Route path="/companyservices" element={<ServicesAgencyPage />} />
                   <Route path="/terms" element={<TermsAndConditions />} />
+                  <Route path="/privacy" element={<PrivacyPolicy />} />
                   <Route path="/child-safety" element={<ChildSafetyPolicy />} />
                   <Route path="/cms/login" element={<Login />} />
                   <Route
