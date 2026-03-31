@@ -103,10 +103,6 @@ code {
 }
 
 @layer base {
-  :root {
-    /* your tokens — KEEP AS THEY ARE */
-  }
-
   * {
     @apply border-border;
   }

@@ -1,7 +1,10 @@
 import axios from "axios";
 import { getToken, setToken } from "./function";
 
-const API_BASE_URL = process.env.REACT_APP_APISTAGE_URL
+const API_BASE_URL = process.env.NODE_ENV === "development"
+  ? "http://192.168.29.140:5010"
+  : process.env.REACT_APP_APISTAGE_URL;
+
 
 export const core_services = {
   // Login API
