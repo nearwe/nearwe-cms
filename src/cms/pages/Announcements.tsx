@@ -4,15 +4,15 @@ import {
   Form,
   Input,
   Button,
-  Table,
   Typography,
   Grid,
   Select,
   message,
+  Spin,
 } from "antd";
-import type { ColumnsType } from "antd/es/table";
 import { APP_ROUTE_OPTIONS } from "../../utils/constants";
 import { core_services } from "../../utils/api";
+import logo from "../../assets/images/logo2.png";
 
 const { Text, Title } = Typography;
 const { useBreakpoint } = Grid;
@@ -23,16 +23,24 @@ const Announcements: React.FC = () => {
 
   const [users, setUsers] = useState<any[]>([]);
   const [loadingUsers, setLoadingUsers] = useState(false);
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const [sending, setSending] = useState(false);
   const [searchText, setSearchText] = useState("");
+
+  const [titlePreview, setTitlePreview] = useState("");
+  const [bodyPreview, setBodyPreview] = useState("");
 
   // ---------------- FETCH USERS ----------------
   const fetchUsers = async () => {
     try {
       setLoadingUsers(true);
       const response = await core_services.getUser();
-      setUsers(response || []);
+
+      const filtered = (response || []).filter(
+        (u: any) => u.pushToken && u.pushToken.length > 0
+      );
+
+      setUsers(filtered);
     } catch {
       message.error("Failed to fetch users");
     } finally {
@@ -43,214 +51,214 @@ const Announcements: React.FC = () => {
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  // ---------------- FILTER ----------------
   const filteredUsers = useMemo(() => {
     let data = users;
 
-    // search
     if (searchText) {
       data = data.filter((u) =>
-        [u.Username, u.Email, u.Location]
+        [u.Username, u.Email]
           .join(" ")
           .toLowerCase()
           .includes(searchText.toLowerCase())
       );
     }
 
-    // sort: notification enabled users first
-    return [...data].sort((a, b) => {
-      const aEnabled = a.pushToken && a.pushToken.length > 0 ? 1 : 0;
-      const bEnabled = b.pushToken && b.pushToken.length > 0 ? 1 : 0;
-      return bEnabled - aEnabled;
-    });
+    return data;
   }, [users, searchText]);
 
-
-  // ---------------- TABLE COLUMNS ----------------
-  const columns: ColumnsType<any> = useMemo(
-    () => [
-      {
-        title: "Name",
-        dataIndex: "Username",
-        render: (_: any, record: any) => (
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-medium">
-              {record.Username?.split(" ")
-                ?.map((n: string) => n[0])
-                ?.join("")}
-            </div>
-            <Text>{record.Username}</Text>
-          </div>
-        ),
-      },
-      {
-        title: "Email",
-        dataIndex: "Email",
-      },
-      {
-        title: "Notifications",
-        dataIndex: "pushToken",
-        render: (pushToken: string | null) =>
-          pushToken && pushToken.length > 0 ? (
-            <Text style={{ color: "#16a34a", fontWeight: 600 }}>YES</Text>
-          ) : (
-            <Text style={{ color: "#dc2626" }}>NO</Text>
-          ),
-      },
-
-    ],
-    []
-  );
-
-  // ---------------- ROW SELECTION ----------------
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: (keys: React.Key[]) => setSelectedRowKeys(keys),
+  // ---------------- SELECT ----------------
+  const toggleUser = (id: string) => {
+    setSelectedUsers((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    );
   };
 
-  // ---------------- SUBMIT ANNOUNCEMENT ----------------
+  const handleSelectAll = () => {
+    if (selectedUsers.length === filteredUsers.length) {
+      setSelectedUsers([]);
+    } else {
+      setSelectedUsers(filteredUsers.map((u) => u.UserId));
+    }
+  };
+
+  // ---------------- SUBMIT ----------------
   const onSubmit = async (values: any) => {
-    if (!selectedRowKeys.length) {
-      message.warning("Please select at least one user");
+    if (!selectedUsers.length) {
+      message.warning("Select at least one user");
       return;
     }
 
     const payload = {
-      userIds: selectedRowKeys as string[],
+      userIds: selectedUsers,
       title: values.title,
       body: values.body,
-      data: {
-        route: values.route,
-      },
+      data: { route: values.route },
     };
 
     try {
       setSending(true);
       await core_services.sendPushNotification(payload);
-      message.success("Announcement sent successfully");
+      message.success("Sent successfully");
       form.resetFields();
-      setSelectedRowKeys([]);
+      setSelectedUsers([]);
+      setTitlePreview("");
+      setBodyPreview("");
     } catch (e: any) {
-      message.error(e?.message || "Failed to send announcement");
+      message.error(e?.message || "Failed");
     } finally {
       setSending(false);
     }
   };
 
   return (
-    <div>
-      <Title level={3} className="mb-4">
-        New Announcement
-      </Title>
+    <div className="p-2 md:p-4">
+      <Title level={3}>New Announcement</Title>
 
-      {/* ---------------- USERS SELECTION ---------------- */}
+      {/* ---------------- USERS GRID ---------------- */}
       <Card
         className="mb-6"
         title={
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-            <div>
-              <Text strong>Select Users</Text>
-              <div className="text-xs text-gray-500">
-                Choose recipients for this announcement
-              </div>
-            </div>
+          <div className="flex flex-col md:flex-row gap-2 md:justify-between">
+            <Text strong>Select Users</Text>
 
             <div className="flex gap-2">
-              <Button onClick={fetchUsers} loading={loadingUsers}>
-                Refresh
+              <Button onClick={handleSelectAll}>
+                {selectedUsers.length === filteredUsers.length
+                  ? "Deselect All"
+                  : "Select All"}
               </Button>
 
               <Input
-                placeholder="Search users..."
-                allowClear
+                placeholder="Search..."
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
-                style={{ width: 220 }}
+                style={{ width: 180 }}
               />
             </div>
           </div>
         }
       >
-        <Table
-          rowKey="UserId"
-          columns={columns}
-          dataSource={filteredUsers}
-          loading={loadingUsers}
-          rowSelection={rowSelection}
-          pagination={{
-            pageSize: 10,
-            showSizeChanger: false,
-          }}
-        />
+        {loadingUsers ? (
+          <div className="flex justify-center py-10">
+            <Spin />
+          </div>
+        ) : (
+          <div
+            className="
+              grid gap-3
+              grid-cols-2 
+              sm:grid-cols-3 
+              md:grid-cols-4 
+              lg:grid-cols-5
+            "
+          >
+            {filteredUsers.map((user) => {
+              const isSelected = selectedUsers.includes(user.UserId);
 
-        <div className="flex justify-between text-xs text-gray-500 mt-3">
-          <span>Showing {filteredUsers.length} users</span>
-          <span>{selectedRowKeys.length} selected</span>
+              return (
+                <div
+                  key={user.UserId}
+                  onClick={() => toggleUser(user.UserId)}
+                  className={`cursor-pointer p-3 rounded-2xl border transition-all
+                    ${
+                      isSelected
+                        ? "border-blue-500 bg-blue-50 scale-[1.02]"
+                        : "border-gray-200 hover:shadow"
+                    }
+                  `}
+                >
+                  <div className="flex flex-col items-center text-center gap-2">
+                    <div className="w-14 h-14 rounded-full overflow-hidden bg-blue-100 flex items-center justify-center">
+                      {user.ProfileImageUrl ? (
+                        <img
+                          src={user.ProfileImageUrl}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span className="text-blue-700 font-semibold text-lg">
+                          {user.Username?.[0]}
+                        </span>
+                      )}
+                    </div>
+
+                    <Text strong className="text-sm">
+                      {user.Username}
+                    </Text>
+
+                    <Text className="text-xs text-gray-500 truncate w-full">
+                      {user.Email}
+                    </Text>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        <div className="text-xs text-gray-500 mt-3">
+          {selectedUsers.length} / {filteredUsers.length} selected
         </div>
       </Card>
 
-      {/* ---------------- ANNOUNCEMENT CONTENT ---------------- */}
-      <Card
-        title={
-          <div>
-            <Text strong>Content Details</Text>
-            <div className="text-xs text-gray-500">
-              Fill in the information below to create the notification
+      {/* ---------------- FORM + PREVIEW ---------------- */}
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* FORM */}
+        <Card>
+          {/* Preview */}
+          <div className="bg-black text-white rounded-2xl p-4 mb-4 shadow">
+            <div className="flex items-center gap-3">
+              <img src={logo} className="w-10 h-10 rounded-xl" />
+
+              <div>
+                <div className="text-sm font-semibold">Nearwe</div>
+                <div className="text-xs text-gray-300">now</div>
+              </div>
+            </div>
+
+            <div className="mt-3">
+              <div className="font-semibold">
+                {titlePreview || "Title preview"}
+              </div>
+              <div className="text-sm text-gray-300 mt-1">
+                {bodyPreview || "Message preview"}
+              </div>
             </div>
           </div>
-        }
-      >
-        <Form
-          form={form}
-          layout="vertical"
-          onFinish={onSubmit}
-          style={{ maxWidth: screens.md ? 500 : "100%" }}
-        >
-          <Form.Item
-            label="Announcement Title"
-            name="title"
-            rules={[
-              { required: true, message: "Enter title" },
-              { max: 20, message: "Title can be maximum 20 characters" },
-            ]}
-          >
-            <Input maxLength={20} showCount />
-          </Form.Item>
 
-          <Form.Item
-            label="Body Content"
-            name="body"
-            rules={[
-              { required: true, message: "Enter message body" },
-              { max: 300, message: "Body can be maximum 300 characters" },
-            ]}
-          >
-            <Input.TextArea rows={4} maxLength={60} showCount />
-          </Form.Item>
+          <Form form={form} layout="vertical" onFinish={onSubmit}>
+            <Form.Item name="title" label="Title" rules={[{ required: true }]}>
+              <Input
+                placeholder="Enter title"
+                onChange={(e) => setTitlePreview(e.target.value)}
+              />
+            </Form.Item>
 
-          <Form.Item
-            label="Where should user land?"
-            name="route"
-            rules={[{ required: true, message: "Select a destination" }]}
-          >
-            <Select options={APP_ROUTE_OPTIONS} allowClear />
-          </Form.Item>
+            <Form.Item name="body" label="Message" rules={[{ required: true }]}>
+              <Input.TextArea
+                rows={4}
+                placeholder="Enter message"
+                onChange={(e) => setBodyPreview(e.target.value)}
+              />
+            </Form.Item>
 
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={sending}
-            disabled={!selectedRowKeys.length}
-          >
-            Send Announcement
-          </Button>
+            <Form.Item name="route" label="Route" rules={[{ required: true }]}>
+              <Select options={APP_ROUTE_OPTIONS} />
+            </Form.Item>
 
-          {!selectedRowKeys.length && (
-            <Text type="secondary" className="block mt-2">
-              Select at least one user
-            </Text>
-          )}
-        </Form>
-      </Card>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={sending}
+              disabled={!selectedUsers.length}
+              block
+            >
+              Send Announcement
+            </Button>
+          </Form>
+        </Card>
+      </div>
     </div>
   );
 };
