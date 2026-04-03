@@ -133,7 +133,38 @@ export default function NearWeLandingPage() {
                     </div>
                 </div>
             </section>
+{/* ADVERTISE SECTION */}
+<section className="py-24 px-6 bg-[#0a0e1a]">
+  <div className="max-w-5xl mx-auto text-center">
 
+    <div className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full mb-6">
+      <span className="text-cyan-400 text-sm font-semibold">
+        🚀 Grow Your Business
+      </span>
+    </div>
+
+    <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
+      Advertise With NearWe
+    </h2>
+
+    <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-10">
+      Promote your brand, products, or services directly to users across our
+      Android and iOS applications. Reach your target audience and boost
+      visibility with powerful ad placements.
+    </p>
+
+    <div className="flex justify-center">
+      <button
+        onClick={() => navigate("/advertise")}
+        className="group px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-black font-bold rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/40 flex items-center gap-2"
+      >
+        Start Advertising
+        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+      </button>
+    </div>
+
+  </div>
+</section>
             {/* FEATURES */}
             <section className="py-24 px-6 bg-[#0a0e1a]">
                 <div className="max-w-6xl mx-auto">

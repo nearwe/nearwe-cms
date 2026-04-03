@@ -251,7 +251,7 @@ const AppManagement: React.FC = () => {
 
             <Form.Item name="type" initialValue="banner" label="Type">
               <Select>
-                <Select.Option value="banner">Top Banner</Select.Option>
+                <Select.Option value="banner">Social Banner</Select.Option>
                 <Select.Option value="sponsored_event">
                   Sponsored Event
                 </Select.Option>

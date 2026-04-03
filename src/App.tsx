@@ -4,20 +4,10 @@ import { AuthProvider } from "./contexts/AuthContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
-// import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
-// import Register from "./pages/Register";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import '../src/utils/css/custom.css'
 import { UserProvider } from "./contexts/UserContext";
-// import CreateEvent from "./pages/CreateEvent";
-// import MyBookings from "./pages/Bookings";
-// import MessagesList from "./pages/Messages";
-// import EventChat from "./components/EventsChat";
-// import FooterNav from "./components/FooterNav";
-// import AddVenue from "./pages/AddVenue";
-// import ManageVenue from "./pages/ManageVenue";
-// import EventDetails from "./pages/EventDetails";
 import NearWeLandingPage from "./pages/LandingPage";
 import AboutUs from "./pages/AboutUs";
 import CmsHome from "./cms/cms_home";
@@ -32,6 +22,7 @@ import TermsAndConditions from "./pages/Terms";
 import ServicesPage from "./pages/Services";
 import ServicesAgencyPage from "./pages/companyservices";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import AdvertiseWithUs from "./pages/Advertise";
 
 const App = () => {
   return (
@@ -78,6 +69,7 @@ const App = () => {
                   <Route path="/services" element={<ServicesPage />} />
                   <Route path="/companyservices" element={<ServicesAgencyPage />} />
                   <Route path="/terms" element={<TermsAndConditions />} />
+                  <Route path="/advertise" element={<AdvertiseWithUs />} />
                   <Route path="/privacy" element={<PrivacyPolicy />} />
                   <Route path="/child-safety" element={<ChildSafetyPolicy />} />
                   <Route path="/cms/login" element={<Login />} />
@@ -85,85 +77,7 @@ const App = () => {
                     path="/"
                     element={<NearWeLandingPage />}
                   />
-                  {/* <Route 
-                    path="/event/:eventId" 
-                    element={
-                      <ProtectedRoute>
-                        <>
-                          <Navbar />
-                          <EventDetails />
-                        </>
-                      </ProtectedRoute>
-                    } 
-                  />
-                  <Route 
-                    path="/profile" 
-                    element={
-                      <ProtectedRoute>
-                        <>
-                          <Navbar />
-                          <Profile />
-                        </>
-                      </ProtectedRoute>
-                    } 
-                  />
-                  <Route 
-                    path="/create_event" 
-                    element={
-                      <ProtectedRoute>
-                        <>
-                          <Navbar />
-                          <CreateEvent />
-                        </>
-                      </ProtectedRoute>
-                    } 
-                  />
-                  <Route 
-                    path="/bookings" 
-                    element={
-                      <ProtectedRoute>
-                        <>
-                          <Navbar />
-                          <MyBookings />
-                        </>
-                      </ProtectedRoute>
-                    } 
-                  />
-                  <Route
-                    path="/messages"
-                    element={
-                      <ProtectedRoute>
-                        <>
-                          <Navbar />
-                          <MessagesList />
-                        </>
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/messages/:eventId"
-                    element={
-                      <ProtectedRoute>
-                        <>
-                          <Navbar />
-                          <EventChat />
-                        </>
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/add_venue"
-                    element={
-                      <ProtectedRoute>
-                        <>
-                          <Navbar />
-                          <AddVenue />
-                        </>
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route path="/manage-venue/:venueId" element={<ManageVenue />} />
-                  <Route path="/register" element={<Register />} /> */}
+                  
                 </Routes>
               </Layout.Content>
             </Layout>
