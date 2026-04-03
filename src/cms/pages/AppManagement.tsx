@@ -120,6 +120,7 @@ const AppManagement: React.FC = () => {
   const screens = useBreakpoint();
   const [banners, setBanners] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   const [form] = Form.useForm();
 
@@ -178,6 +179,35 @@ const AppManagement: React.FC = () => {
   const handleDelete = async (id: string) => {
     await core_services.deleteBanner(id);
     fetchBanners();
+    setSelectedRowKeys((prev) => prev.filter((key) => key !== id));
+  };
+
+  const handleDeleteSelected = async () => {
+    if (selectedRowKeys.length === 0) {
+      message.warning("No banners selected for deletion.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await Promise.all(
+        selectedRowKeys.map((key) =>
+          core_services.deleteBanner(String(key))
+        )
+      );
+      message.success("Selected banners deleted.");
+      setSelectedRowKeys([]);
+      fetchBanners();
+    } catch (err: any) {
+      message.error(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: (keys: React.Key[]) => setSelectedRowKeys(keys),
   };
 
   const handleToggle = async (id: string) => {
@@ -324,11 +354,25 @@ const AppManagement: React.FC = () => {
       <Table
         style={{ marginTop: 30 }}
         rowKey="id"
+        rowSelection={rowSelection}
         dataSource={banners}
         columns={columns}
         loading={loading}
         pagination={{ pageSize: 6 }}
       />
+
+      {/* SELECTED ACTIONS */}
+      <Row style={{ marginTop: 16 }}>
+        <Col>
+          <Button
+            danger
+            onClick={handleDeleteSelected}
+            disabled={selectedRowKeys.length === 0 || loading}
+          >
+            Delete Selected
+          </Button>
+        </Col>
+      </Row>
     </Card>
   );
 };
