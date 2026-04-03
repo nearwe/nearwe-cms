@@ -187,7 +187,7 @@ const AppManagement: React.FC = () => {
       render: (_: any, record: any) =>
         record.image_url ? (
           <Image
-            src={`http://192.168.29.140:5010${record.image_url}`}
+            src={`${record.image_url}`}
             width={80}
           />
         ) : (
