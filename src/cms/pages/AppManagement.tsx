@@ -26,7 +26,7 @@ const { Text } = Typography;
 
 /* ================= PREVIEW COMPONENT ================= */
 const BannerPreview = ({ form }: any) => {
-  const values:any = Form.useWatch([], form);
+  const values: any = Form.useWatch([], form);
 
   const image =
     values?.image?.[0]?.originFileObj
@@ -257,6 +257,9 @@ const AppManagement: React.FC = () => {
                 </Select.Option>
                 <Select.Option value="in_feed_ad">
                   In Feed Ad
+                </Select.Option>
+                <Select.Option value="map_banner">
+                  Map Banner
                 </Select.Option>
               </Select>
             </Form.Item>
