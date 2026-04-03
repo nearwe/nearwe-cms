@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.NearWe.com/sitemap.xml
+Sitemap: https://www.nearwe.in/sitemap.xml

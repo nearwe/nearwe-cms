@@ -23,6 +23,7 @@ import ServicesPage from "./pages/Services";
 import ServicesAgencyPage from "./pages/companyservices";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import AdvertiseWithUs from "./pages/Advertise";
+import Contact from "./pages/Contact";
 
 const App = () => {
   return (
@@ -68,6 +69,7 @@ const App = () => {
                   <Route path="/aboutus" element={<AboutUs />} />
                   <Route path="/services" element={<ServicesPage />} />
                   <Route path="/companyservices" element={<ServicesAgencyPage />} />
+                  <Route path="/contact" element={<Contact />} />
                   <Route path="/terms" element={<TermsAndConditions />} />
                   <Route path="/advertise" element={<AdvertiseWithUs />} />
                   <Route path="/privacy" element={<PrivacyPolicy />} />

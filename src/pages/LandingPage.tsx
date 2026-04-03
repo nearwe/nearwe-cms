@@ -39,18 +39,42 @@ export default function NearWeLandingPage() {
                         </span>
                     </div>
 
-                    <div className="right-menu-div">
+                    <div className="right-menu-div flex flex-wrap items-center gap-2">
+                        <button
+                            onClick={() => navigate("/advertise")}
+                            className="text-gray-300 hover:text-cyan-400 font-medium transition-colors duration-300"
+                        >
+                            Advertise
+                        </button>
                         <button
                             onClick={() => navigate("/companyservices")}
-                            className="text-gray-300 hover:text-cyan-400 font-medium transition-colors duration-300 mr-4"
+                            className="text-gray-300 hover:text-cyan-400 font-medium transition-colors duration-300"
                         >
                             Company Services
                         </button>
                         <button
-                            onClick={() => navigate("/services")}
-                            className="text-gray-300 hover:text-cyan-400 font-medium transition-colors duration-300 mr-4"
+                            onClick={() => navigate("/contact")}
+                            className="text-gray-300 hover:text-cyan-400 font-medium transition-colors duration-300"
                         >
-                            App Services
+                            Contact
+                        </button>
+                        <button
+                            onClick={() => navigate("/terms")}
+                            className="text-gray-300 hover:text-cyan-400 font-medium transition-colors duration-300"
+                        >
+                            Terms
+                        </button>
+                        <button
+                            onClick={() => navigate("/privacy")}
+                            className="text-gray-300 hover:text-cyan-400 font-medium transition-colors duration-300"
+                        >
+                            Privacy
+                        </button>
+                        <button
+                            onClick={() => navigate("/child-safety")}
+                            className="text-gray-300 hover:text-cyan-400 font-medium transition-colors duration-300"
+                        >
+                            Child Safety
                         </button>
                         <button
                             onClick={() =>
