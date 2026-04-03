@@ -487,4 +487,120 @@ export const core_services = {
       throw error.response?.data || error.message;
     }
   },
+  // ================= BANNERS =================
+
+  // Get all banners (CMS)
+  getAllBanners: async () => {
+    try {
+      const token = getToken();
+
+      const response = await axios.get(`${API_BASE_URL}/banners`, {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      });
+
+      return response.data;
+    } catch (error: any) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  // Create banner
+  createBanner: async (formData: FormData) => {
+    try {
+      const token = getToken();
+
+      const response = await axios.post(
+        `${API_BASE_URL}/banners`,
+        formData,
+        {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+          transformRequest: [(data) => data], // 🔥 IMPORTANT
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  // Update banner
+  updateBanner: async (id: string, data: any) => {
+    try {
+      const token = getToken();
+
+      const formData = new FormData();
+
+      Object.keys(data).forEach((key) => {
+        if (key === "image" && data.image?.file) {
+          formData.append(
+            "image",
+            data.image.file.originFileObj
+          );
+        } else {
+          formData.append(key, data[key]);
+        }
+      });
+
+      const response = await axios.put(
+        `${API_BASE_URL}/banners/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+            // ❌ DON'T manually set Content-Type
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  // Delete banner
+  deleteBanner: async (id: string) => {
+    try {
+      const token = getToken();
+
+      const response = await axios.delete(
+        `${API_BASE_URL}/banners/${id}`,
+        {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      throw error.response?.data || error.message;
+    }
+  },
+
+  // Toggle banner
+  toggleBanner: async (id: string) => {
+    try {
+      const token = getToken();
+
+      const response = await axios.patch(
+        `${API_BASE_URL}/banners/${id}/toggle`,
+        {},
+        {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      throw error.response?.data || error.message;
+    }
+  },
 };
