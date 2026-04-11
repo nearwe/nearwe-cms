@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Avatar, Popover, Button, Divider, Typography } from "antd";
-import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
+import { UserOutlined, LogoutOutlined, FlagFilled } from "@ant-design/icons";
 import image from "../assets/logo/logo-removebg.png";
 import { Layout, Menu, Drawer, Grid } from "antd";
 import {
@@ -44,6 +44,11 @@ const menuItems = [
     label: "App Management",
   },
   {
+    key: "/cms/reports",
+    icon: <FlagFilled />,
+    label: "Reports",
+  },
+  {
     key: "/cms/announcements",
     icon: <SettingOutlined />,
     label: "Announcements",
@@ -73,35 +78,35 @@ const CmsHome: React.FC = () => {
         padding: 16,
       }}
     >
-   <div
-  style={{
-    display: "flex",
-    alignItems: "center",
-    gap: 8,
-    cursor: "pointer",
-  }}
->
-  <Avatar
-    size={22}
-    style={{
-      backgroundColor: "#E0E7FF",
-      color: "#3B82F6",
-    }}
-    icon={<UserOutlined />}
-  />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          cursor: "pointer",
+        }}
+      >
+        <Avatar
+          size={22}
+          style={{
+            backgroundColor: "#E0E7FF",
+            color: "#3B82F6",
+          }}
+          icon={<UserOutlined />}
+        />
 
-  {/* Show text ONLY on md and above */}
-  {screens.md && (
-    <div style={{ lineHeight: 1.2 }}>
-      <div style={{ color: "#fff", fontSize: 13, fontWeight: 500 }}>
-        Admin User
+        {/* Show text ONLY on md and above */}
+        {screens.md && (
+          <div style={{ lineHeight: 1.2 }}>
+            <div style={{ color: "#fff", fontSize: 13, fontWeight: 500 }}>
+              Admin User
+            </div>
+            <div style={{ color: "#9CA3AF", fontSize: 11 }}>
+              admin@example.com
+            </div>
+          </div>
+        )}
       </div>
-      <div style={{ color: "#9CA3AF", fontSize: 11 }}>
-        admin@example.com
-      </div>
-    </div>
-  )}
-</div>
 
 
       <Divider style={{ margin: "12px 0" }} />

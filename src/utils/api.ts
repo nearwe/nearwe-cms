@@ -603,4 +603,21 @@ export const core_services = {
       throw error.response?.data || error.message;
     }
   },
+  getReports: async () => {
+  try {
+    const token = getToken();
+    const response = await axios.get(
+      `${API_BASE_URL}/report`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    throw error.response?.data || error.message;
+  }
+},
 };
