@@ -252,7 +252,7 @@ export default function NearWeLandingPage() {
 
                     <div className="flex justify-center gap-4">
                         <button
-                            onClick={() => window.open("https://play.google.com/store/apps/details?id=YOUR_APP_ID", "_blank")}
+                            onClick={() => window.open("https://apps.apple.com/sv/app/nearwe/id6760259527?l=en-GB", "_blank")}
                             className="flex items-center gap-3 px-8 py-4 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold rounded-full shadow-lg hover:shadow-cyan-500/40 transition"
                         >
                             <img src={iosLogo} className="w-6 h-6" />
@@ -260,7 +260,7 @@ export default function NearWeLandingPage() {
                         </button>
 
                         <button
-                            onClick={() => window.open("https://play.google.com/store/apps/details?id=YOUR_APP_ID", "_blank")}
+                            onClick={() => window.open("https://play.google.com/store/apps/details?id=com.pp2053.nearwe", "_blank")}
                             className="flex items-center gap-3 px-8 py-4 border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black transition rounded-full"
                         >
                             <img src={playstoreLogo} className="w-6 h-6" />
