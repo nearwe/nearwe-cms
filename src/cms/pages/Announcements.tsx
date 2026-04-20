@@ -9,6 +9,7 @@ import {
   Select,
   message,
   Spin,
+  Tooltip,
 } from "antd";
 import { APP_ROUTE_OPTIONS } from "../../utils/constants";
 import { core_services } from "../../utils/api";
@@ -17,6 +18,73 @@ import logo from "../../assets/images/logo2.png";
 const { Text, Title } = Typography;
 const { useBreakpoint } = Grid;
 
+// ─── Platform helpers ───────────────────────────────────────────────────────
+const getPlatform = (token: string): "ios" | "android" =>
+  token.startsWith("ExponentPushToken") ? "ios" : "android";
+
+const AndroidIcon = () => (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.523 15.341a1 1 0 0 1-1 1h-.523v2.5a1.5 1.5 0 0 1-3 0v-2.5h-2v2.5a1.5 1.5 0 0 1-3 0v-2.5h-.523a1 1 0 0 1-1-1V8h11v7.341zM4.5 8a1.5 1.5 0 0 0-1.5 1.5v5a1.5 1.5 0 0 0 3 0v-5A1.5 1.5 0 0 0 4.5 8zm15 0a1.5 1.5 0 0 0-1.5 1.5v5a1.5 1.5 0 0 0 3 0v-5A1.5 1.5 0 0 0 19.5 8zM15.66 3.515l1.36-1.36a.5.5 0 0 0-.707-.707l-1.49 1.49A6.97 6.97 0 0 0 12 2.5a6.97 6.97 0 0 0-2.823.438L7.687 1.448a.5.5 0 0 0-.707.707l1.36 1.36A6.978 6.978 0 0 0 5 8h14a6.978 6.978 0 0 0-3.34-4.485zM10 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+  </svg>
+);
+
+const AppleIcon = () => (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+  </svg>
+);
+
+// ─── Grid/List toggle icons ──────────────────────────────────────────────────
+const GridIcon = ({ active }: { active: boolean }) => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={active ? "#3b82f6" : "#9ca3af"} strokeWidth="2" strokeLinecap="round">
+    <rect x="3" y="3" width="7" height="7" />
+    <rect x="14" y="3" width="7" height="7" />
+    <rect x="3" y="14" width="7" height="7" />
+    <rect x="14" y="14" width="7" height="7" />
+  </svg>
+);
+
+const ListIcon = ({ active }: { active: boolean }) => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={active ? "#3b82f6" : "#9ca3af"} strokeWidth="2" strokeLinecap="round">
+    <line x1="8" y1="6" x2="21" y2="6" />
+    <line x1="8" y1="12" x2="21" y2="12" />
+    <line x1="8" y1="18" x2="21" y2="18" />
+    <circle cx="3" cy="6" r="1" fill={active ? "#3b82f6" : "#9ca3af"} stroke="none" />
+    <circle cx="3" cy="12" r="1" fill={active ? "#3b82f6" : "#9ca3af"} stroke="none" />
+    <circle cx="3" cy="18" r="1" fill={active ? "#3b82f6" : "#9ca3af"} stroke="none" />
+  </svg>
+);
+
+// ─── Platform Badge ──────────────────────────────────────────────────────────
+const PlatformBadge = ({ token, listView = false }: { token: string; listView?: boolean }) => {
+  const platform = getPlatform(token);
+  const isAndroid = platform === "android";
+
+  const badgeStyle: React.CSSProperties = {
+    position: listView ? "relative" : "absolute",
+    bottom: listView ? undefined : 4,
+    right: listView ? undefined : 4,
+    display: "inline-flex",
+    alignItems: "center",
+    padding: "2px 7px",
+    borderRadius: 999,
+    fontSize: 10,
+    fontWeight: 600,
+    background: isAndroid ? "#e8f5e9" : "#ede7f6",
+    color: isAndroid ? "#2e7d32" : "#4527a0",
+    border: `1px solid ${isAndroid ? "#a5d6a7" : "#b39ddb"}`,
+    whiteSpace: "nowrap",
+    flexShrink: 0,
+  };
+
+  return (
+    <span style={badgeStyle}>
+      {isAndroid ? "Android" : "iOS"}
+    </span>
+  );
+};
+
+// ─── Component ───────────────────────────────────────────────────────────────
 const Announcements: React.FC = () => {
   const screens = useBreakpoint();
   const [form] = Form.useForm();
@@ -26,11 +94,10 @@ const Announcements: React.FC = () => {
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const [sending, setSending] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   const [titlePreview, setTitlePreview] = useState("");
   const [bodyPreview, setBodyPreview] = useState("");
-
-  // Only the notification preview card has this toggle
   const [notifDark, setNotifDark] = useState(true);
 
   // ---------------- FETCH USERS ----------------
@@ -82,6 +149,32 @@ const Announcements: React.FC = () => {
     }
   };
 
+  const androidUsers = filteredUsers.filter((u: any) => getPlatform(u.pushToken) === "android");
+  const iosUsers = filteredUsers.filter((u: any) => getPlatform(u.pushToken) === "ios");
+
+  const allAndroidSelected =
+    androidUsers.length > 0 && androidUsers.every((u: any) => selectedUsers.includes(u.UserId));
+  const allIosSelected =
+    iosUsers.length > 0 && iosUsers.every((u: any) => selectedUsers.includes(u.UserId));
+
+  const handleSelectAndroid = () => {
+    const ids = androidUsers.map((u: any) => u.UserId);
+    if (allAndroidSelected) {
+      setSelectedUsers((prev) => prev.filter((id) => !ids.includes(id)));
+    } else {
+      setSelectedUsers((prev) => [...new Set([...prev, ...ids])]);
+    }
+  };
+
+  const handleSelectIOS = () => {
+    const ids = iosUsers.map((u: any) => u.UserId);
+    if (allIosSelected) {
+      setSelectedUsers((prev) => prev.filter((id) => !ids.includes(id)));
+    } else {
+      setSelectedUsers((prev) => [...new Set([...prev, ...ids])]);
+    }
+  };
+
   // ---------------- SUBMIT ----------------
   const onSubmit = async (values: any) => {
     if (!selectedUsers.length) {
@@ -109,7 +202,7 @@ const Announcements: React.FC = () => {
     }
   };
 
-  // Colors that apply ONLY to the notification preview card
+  // ---------------- NOTIF PREVIEW COLORS ----------------
   const notif = {
     bg: notifDark ? "#111111" : "#f2f2f7",
     border: notifDark ? "#2a2a2a" : "#d1d1d6",
@@ -129,28 +222,192 @@ const Announcements: React.FC = () => {
     caretColor: "#3b82f6",
   };
 
+  // ---------------- RENDER USER CARD (GRID) ----------------
+  const renderGridCard = (user: any) => {
+    const isSelected = selectedUsers.includes(user.UserId);
+    return (
+      <div
+        key={user.UserId}
+        onClick={() => toggleUser(user.UserId)}
+        style={{ position: "relative" }}
+        className={`cursor-pointer p-3 rounded-2xl border transition-all
+          ${isSelected
+            ? "border-blue-500 bg-blue-50 scale-[1.02]"
+            : "border-gray-200 hover:shadow"
+          }
+        `}
+      >
+        <div className="flex flex-col items-center text-center gap-2">
+          <div className="w-14 h-14 rounded-full overflow-hidden bg-blue-100 flex items-center justify-center">
+            {user.ProfileImageUrl ? (
+              <img
+                src={user.ProfileImageUrl}
+                className="w-full h-full object-cover"
+                alt={user.Username}
+              />
+            ) : (
+              <span className="text-blue-700 font-semibold text-lg">
+                {user.Username?.[0]}
+              </span>
+            )}
+          </div>
+          <Text strong className="text-sm">
+            {user.Username}
+          </Text>
+          <Text className="text-xs text-gray-500 truncate w-full">
+            {user.Email}
+          </Text>
+        </div>
+
+        {/* Platform badge — bottom right, absolute */}
+        <PlatformBadge token={user.pushToken} />
+      </div>
+    );
+  };
+
+  // ---------------- RENDER USER ROW (LIST) ----------------
+  const renderListRow = (user: any) => {
+    const isSelected = selectedUsers.includes(user.UserId);
+    return (
+      <div
+        key={user.UserId}
+        onClick={() => toggleUser(user.UserId)}
+        className={`cursor-pointer px-3 py-2 rounded-xl border transition-all flex items-center gap-3
+          ${isSelected
+            ? "border-blue-500 bg-blue-50"
+            : "border-gray-200 hover:shadow"
+          }
+        `}
+      >
+        {/* Avatar */}
+        <div className="w-9 h-9 rounded-full overflow-hidden bg-blue-100 flex items-center justify-center flex-shrink-0">
+          {user.ProfileImageUrl ? (
+            <img
+              src={user.ProfileImageUrl}
+              className="w-full h-full object-cover"
+              alt={user.Username}
+            />
+          ) : (
+            <span className="text-blue-700 font-semibold text-sm">
+              {user.Username?.[0]}
+            </span>
+          )}
+        </div>
+
+        {/* Name + email */}
+        <div className="flex-1 min-w-0">
+          <Text strong className="text-sm block truncate">
+            {user.Username}
+          </Text>
+          <Text className="text-xs text-gray-500 truncate block">
+            {user.Email}
+          </Text>
+        </div>
+
+        {/* Platform badge inline with label */}
+        <PlatformBadge token={user.pushToken} listView />
+      </div>
+    );
+  };
+
   return (
     <div className="p-2 md:p-4">
       <Title level={3}>New Announcement</Title>
 
-      {/* ---------------- USERS GRID ---------------- */}
+      {/* ---------------- USERS SECTION ---------------- */}
       <Card
         className="mb-6"
         title={
-          <div className="flex flex-col md:flex-row gap-2 md:justify-between">
+          <div className="flex flex-col md:flex-row gap-2 md:justify-between md:items-center">
             <Text strong>Select Users</Text>
-            <div className="flex gap-2">
-              <Button onClick={handleSelectAll}>
+            <div className="flex gap-2 items-center flex-wrap">
+              <Button onClick={handleSelectAll} size="small">
                 {selectedUsers.length === filteredUsers.length
                   ? "Deselect All"
                   : "Select All"}
+              </Button>
+              <Button
+                onClick={handleSelectAndroid}
+                size="small"
+                style={{
+                  background: allAndroidSelected ? "#e8f5e9" : undefined,
+                  borderColor: allAndroidSelected ? "#a5d6a7" : "#d9d9d9",
+                  color: allAndroidSelected ? "#2e7d32" : undefined,
+                  fontWeight: 600,
+                }}
+              >
+                {allAndroidSelected ? "Deselect Android" : "Select Android"}
+              </Button>
+              <Button
+                onClick={handleSelectIOS}
+                size="small"
+                style={{
+                  background: allIosSelected ? "#ede7f6" : undefined,
+                  borderColor: allIosSelected ? "#b39ddb" : "#d9d9d9",
+                  color: allIosSelected ? "#4527a0" : undefined,
+                  fontWeight: 600,
+                }}
+              >
+                {allIosSelected ? "Deselect iOS" : "Select iOS"}
               </Button>
               <Input
                 placeholder="Search..."
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
-                style={{ width: 180 }}
+                style={{ width: 160 }}
+                size="small"
               />
+              {/* ── View toggle ── */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  background: "#f3f4f6",
+                  borderRadius: 8,
+                  padding: "3px 4px",
+                  gap: 2,
+                  border: "1px solid #e5e7eb",
+                }}
+              >
+                <button
+                  onClick={() => setViewMode("grid")}
+                  title="Grid view"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 28,
+                    height: 26,
+                    borderRadius: 6,
+                    border: "none",
+                    cursor: "pointer",
+                    background: viewMode === "grid" ? "#ffffff" : "transparent",
+                    boxShadow: viewMode === "grid" ? "0 1px 3px rgba(0,0,0,0.12)" : "none",
+                    transition: "all 0.15s",
+                  }}
+                >
+                  <GridIcon active={viewMode === "grid"} />
+                </button>
+                <button
+                  onClick={() => setViewMode("list")}
+                  title="List view"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 28,
+                    height: 26,
+                    borderRadius: 6,
+                    border: "none",
+                    cursor: "pointer",
+                    background: viewMode === "list" ? "#ffffff" : "transparent",
+                    boxShadow: viewMode === "list" ? "0 1px 3px rgba(0,0,0,0.12)" : "none",
+                    transition: "all 0.15s",
+                  }}
+                >
+                  <ListIcon active={viewMode === "list"} />
+                </button>
+              </div>
             </div>
           </div>
         }
@@ -159,48 +416,16 @@ const Announcements: React.FC = () => {
           <div className="flex justify-center py-10">
             <Spin />
           </div>
-        ) : (
+        ) : viewMode === "grid" ? (
           <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {filteredUsers.map((user) => {
-              const isSelected = selectedUsers.includes(user.UserId);
-              return (
-                <div
-                  key={user.UserId}
-                  onClick={() => toggleUser(user.UserId)}
-                  className={`cursor-pointer p-3 rounded-2xl border transition-all
-                    ${
-                      isSelected
-                        ? "border-blue-500 bg-blue-50 scale-[1.02]"
-                        : "border-gray-200 hover:shadow"
-                    }
-                  `}
-                >
-                  <div className="flex flex-col items-center text-center gap-2">
-                    <div className="w-14 h-14 rounded-full overflow-hidden bg-blue-100 flex items-center justify-center">
-                      {user.ProfileImageUrl ? (
-                        <img
-                          src={user.ProfileImageUrl}
-                          className="w-full h-full object-cover"
-                          alt={user.Username}
-                        />
-                      ) : (
-                        <span className="text-blue-700 font-semibold text-lg">
-                          {user.Username?.[0]}
-                        </span>
-                      )}
-                    </div>
-                    <Text strong className="text-sm">
-                      {user.Username}
-                    </Text>
-                    <Text className="text-xs text-gray-500 truncate w-full">
-                      {user.Email}
-                    </Text>
-                  </div>
-                </div>
-              );
-            })}
+            {filteredUsers.map(renderGridCard)}
+          </div>
+        ) : (
+          <div className="flex flex-col gap-2">
+            {filteredUsers.map(renderListRow)}
           </div>
         )}
+
         <div className="text-xs text-gray-500 mt-3">
           {selectedUsers.length} / {filteredUsers.length} selected
         </div>
@@ -208,9 +433,9 @@ const Announcements: React.FC = () => {
 
       {/* ---------------- FORM + PREVIEW ---------------- */}
       <div className="grid md:grid-cols-2 gap-6">
+        <Form form={form} onFinish={onSubmit} layout="vertical">
         <Card>
-
-          {/* ===== NOTIFICATION PREVIEW CARD — has its own dark/light toggle ===== */}
+          {/* ===== NOTIFICATION PREVIEW CARD ===== */}
           <div
             style={{
               background: notif.bg,
@@ -221,7 +446,7 @@ const Announcements: React.FC = () => {
               transition: "background 0.25s, border-color 0.25s",
             }}
           >
-            {/* Header row: app info + toggle button */}
+            {/* Header row */}
             <div
               style={{
                 display: "flex",
@@ -230,7 +455,6 @@ const Announcements: React.FC = () => {
                 marginBottom: 12,
               }}
             >
-              {/* App info */}
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <img
                   src={logo}
@@ -266,7 +490,7 @@ const Announcements: React.FC = () => {
                 </div>
               </div>
 
-              {/* Toggle — ONLY for this notification card */}
+              {/* Dark/Light toggle */}
               <button
                 onClick={() => setNotifDark(!notifDark)}
                 title={notifDark ? "Switch to light preview" : "Switch to dark preview"}
@@ -282,16 +506,7 @@ const Announcements: React.FC = () => {
                   transition: "all 0.2s",
                 }}
               >
-                {/* Sun icon */}
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke={notifDark ? "#555555" : "#f59e0b"}
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={notifDark ? "#555555" : "#f59e0b"} strokeWidth="2.5" strokeLinecap="round">
                   <circle cx="12" cy="12" r="5" />
                   <line x1="12" y1="1" x2="12" y2="3" />
                   <line x1="12" y1="21" x2="12" y2="23" />
@@ -302,98 +517,38 @@ const Announcements: React.FC = () => {
                   <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
                   <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                 </svg>
-
-                {/* Sliding track */}
-                <div
-                  style={{
-                    width: 30,
-                    height: 17,
-                    borderRadius: 999,
-                    background: notifDark ? "#3b82f6" : "#c7c7cc",
-                    position: "relative",
-                    transition: "background 0.2s",
-                    flexShrink: 0,
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 11,
-                      height: 11,
-                      borderRadius: "50%",
-                      background: "#ffffff",
-                      position: "absolute",
-                      top: 3,
-                      left: notifDark ? 15 : 3,
-                      transition: "left 0.2s",
-                    }}
-                  />
+                <div style={{ width: 30, height: 17, borderRadius: 999, background: notifDark ? "#3b82f6" : "#c7c7cc", position: "relative", transition: "background 0.2s", flexShrink: 0 }}>
+                  <div style={{ width: 11, height: 11, borderRadius: "50%", background: "#ffffff", position: "absolute", top: 3, left: notifDark ? 15 : 3, transition: "left 0.2s" }} />
                 </div>
-
-                {/* Moon icon */}
-                <svg
-                  width="11"
-                  height="11"
-                  viewBox="0 0 24 24"
-                  fill={notifDark ? "#a78bfa" : "none"}
-                  stroke={notifDark ? "#a78bfa" : "#aaaaaa"}
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                >
+                <svg width="11" height="11" viewBox="0 0 24 24" fill={notifDark ? "#a78bfa" : "none"} stroke={notifDark ? "#a78bfa" : "#aaaaaa"} strokeWidth="2.5" strokeLinecap="round">
                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                 </svg>
               </button>
             </div>
 
             {/* Inline title input */}
-            <Form.Item
-              name="title"
-              rules={[{ required: true, message: "Title required" }]}
-              style={{ margin: 0, marginBottom: 6 }}
-            >
+            <Form.Item name="title" rules={[{ required: true, message: "Title required" }]} style={{ margin: 0, marginBottom: 6 }}>
               <Input
                 placeholder="Title preview..."
                 onChange={(e) => setTitlePreview(e.target.value)}
-                style={{
-                  ...inlineInputStyle,
-                  fontWeight: 600,
-                  fontSize: 15,
-                  color: notif.titleColor,
-                }}
+                style={{ ...inlineInputStyle, fontWeight: 600, fontSize: 15, color: notif.titleColor }}
               />
             </Form.Item>
 
-            {/* Thin divider */}
-            <div
-              style={{
-                height: 1,
-                background: notif.divider,
-                margin: "4px 0 8px",
-                transition: "background 0.25s",
-              }}
-            />
+            <div style={{ height: 1, background: notif.divider, margin: "4px 0 8px", transition: "background 0.25s" }} />
 
             {/* Inline message input */}
-            <Form.Item
-              name="body"
-              rules={[{ required: true, message: "Message required" }]}
-              style={{ margin: 0 }}
-            >
+            <Form.Item name="body" rules={[{ required: true, message: "Message required" }]} style={{ margin: 0 }}>
               <Input.TextArea
                 placeholder="Message preview..."
                 autoSize={{ minRows: 2 }}
                 onChange={(e) => setBodyPreview(e.target.value)}
-                style={{
-                  ...inlineInputStyle,
-                  fontSize: 13,
-                  color: notif.bodyColor,
-                  resize: "none",
-                }}
+                style={{ ...inlineInputStyle, fontSize: 13, color: notif.bodyColor, resize: "none" }}
               />
             </Form.Item>
           </div>
           {/* ===== END NOTIFICATION CARD ===== */}
 
-          {/* Route and submit — completely normal, unchanged */}
           <Form.Item name="route" label="Route" rules={[{ required: true }]}>
             <Select options={APP_ROUTE_OPTIONS} />
           </Form.Item>
@@ -408,6 +563,7 @@ const Announcements: React.FC = () => {
             Send Announcement
           </Button>
         </Card>
+        </Form>
       </div>
     </div>
   );
