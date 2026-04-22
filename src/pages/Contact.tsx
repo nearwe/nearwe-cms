@@ -1,7 +1,20 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 
 const Contact = () => {
   return (
+    <>
+      <Helmet>
+        <title>Contact NearWe - Get in Touch with Our Team</title>
+        <meta name="description" content="Contact NearWe for support, partnerships, or advertising inquiries. Get help from our team for any questions about our local events and community app." />
+        <meta name="keywords" content="contact us, support, nearwe, customer service, partnerships, advertising" />
+        <meta property="og:title" content="Contact NearWe" />
+        <meta property="og:description" content="Get in touch with NearWe for support, partnerships, or advertising opportunities." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://nearwe.in/contact" />
+        <meta name="robots" content="index, follow" />
+        <meta name="canonical" content="https://nearwe.in/contact" />
+      </Helmet>
     <div className="min-h-screen bg-[#0a0e1a] text-white py-12 px-4">
       <div className="max-w-3xl mx-auto bg-[#11141c] border border-cyan-500/30 rounded-2xl p-8 shadow-xl">
         <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
@@ -26,6 +39,7 @@ const Contact = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

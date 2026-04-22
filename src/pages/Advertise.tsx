@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useMemo } from "react";
+import { Helmet } from "react-helmet-async";
 import { Megaphone, MapPin, LayoutList, Home, TrendingUp, Users, MousePointerClick, BarChart2 } from "lucide-react";
 import social from "../assets/images/social.png";
 import Map from "../assets/images/map.png";
@@ -181,6 +182,18 @@ export default function AdvertiseWithUs() {
   }
 
   return (
+    <>
+      <Helmet>
+        <title>Advertise With NearWe - Reach Local Audiences</title>
+        <meta name="description" content="Advertise your business on NearWe's local community app. Reach thousands of local users through map ads, social feed placements, and home screen banners." />
+        <meta name="keywords" content="local advertising, advertise app, nearwe ads, local business advertising, mobile advertising" />
+        <meta property="og:title" content="Advertise With NearWe" />
+        <meta property="og:description" content="Grow your business by advertising on NearWe - the #1 local events discovery app." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://nearwe.in/advertise" />
+        <meta name="robots" content="index, follow" />
+        <meta name="canonical" content="https://nearwe.in/advertise" />
+      </Helmet>
     <div className="bg-[#0a0e1a] text-white min-h-screen pt-20 px-6">
       <section className="max-w-6xl mx-auto pb-20">
 
@@ -397,5 +410,6 @@ export default function AdvertiseWithUs() {
         </div>
       </section>
     </div>
+    </>
   );
 }

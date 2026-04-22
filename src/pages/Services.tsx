@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import {
     MapPin,
     Users,
@@ -151,6 +152,18 @@ export default function ServicesPage() {
     }, []);
 
     return (
+        <>
+            <Helmet>
+                <title>NearWe App Services - Event Discovery & Community Connection</title>
+                <meta name="description" content="Explore NearWe's powerful features including event discovery, community connect, smart recommendations, event hosting, and real-time notifications." />
+                <meta name="keywords" content="event discovery, community app, local events, event hosting, smart recommendations, nearwe services" />
+                <meta property="og:title" content="NearWe App Services - Discover Local Events & Connect" />
+                <meta property="og:description" content="Discover all NearWe app features for finding events, connecting with communities, and hosting your own events." />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://nearwe.in/services" />
+                <meta name="robots" content="index, follow" />
+                <meta name="canonical" content="https://nearwe.in/services" />
+            </Helmet>
         <div className="bg-[#0a0e1a] text-white font-sans min-h-screen overflow-hidden">
 
             {/* Navbar */}
@@ -323,5 +336,6 @@ export default function ServicesPage() {
                 </p>
             </footer>
         </div>
+        </>
     );
 }
