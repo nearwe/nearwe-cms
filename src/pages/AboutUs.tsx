@@ -1,6 +1,7 @@
 "use client";
 
 import { Users } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 import me from "../assets/team/piyush.jpeg";
 import aniket from "../assets/team/aniket.jpeg";
@@ -37,7 +38,19 @@ export default function AboutUs() {
   ];
 
   return (
-    <div className="bg-[#0a0e1a] text-white font-sans min-h-screen pt-28 px-6">
+    <>
+      <Helmet>
+        <title>About NearWe - Connecting Communities Locally</title>
+        <meta name="description" content="Learn about NearWe - the innovative platform connecting people through local events and community discovery. Meet our team and our mission to build meaningful human connections." />
+        <meta name="keywords" content="about nearwe, local events platform, community app, event discovery, local connections" />
+        <meta property="og:title" content="About NearWe - Connecting Communities" />
+        <meta property="og:description" content="Discover NearWe's mission to connect people through local events and build real human connections." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://nearwe.in/aboutus" />
+        <meta name="robots" content="index, follow" />
+        <meta name="canonical" content="https://nearwe.in/aboutus" />
+      </Helmet>
+      <div className="bg-[#0a0e1a] text-white font-sans min-h-screen pt-28 px-6">
 
       {/* ================= HERO SECTION ================= */}
       <section className="max-w-5xl mx-auto text-center mb-20">
@@ -101,5 +114,6 @@ export default function AboutUs() {
         <p>© {new Date().getFullYear()} NearWe. Connecting people everywhere.</p>
       </footer>
     </div>
+    </>
   );
 }

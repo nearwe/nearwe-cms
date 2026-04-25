@@ -1,10 +1,23 @@
 "use client";
 import React from "react";
 import { Shield } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 export default function PrivacyPolicy() {
   return (
-    <div className="bg-[#0a0e1a] text-white min-h-screen pt-28 px-6">
+    <>
+      <Helmet>
+        <title>Privacy Policy | NearWe - Your Local Community App</title>
+        <meta name="description" content="Read NearWe's comprehensive privacy policy. Learn how we collect, use, and protect your personal data when using our local events and community discovery app." />
+        <meta name="keywords" content="privacy policy, data protection, nearwe, local events, community app" />
+        <meta property="og:title" content="Privacy Policy | NearWe" />
+        <meta property="og:description" content="Read NearWe's comprehensive privacy policy and learn about our data protection practices." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://nearwe.in/privacy" />
+        <meta name="robots" content="index, follow" />
+        <meta name="canonical" content="https://nearwe.in/privacy" />
+      </Helmet>
+      <div className="bg-[#0a0e1a] text-white min-h-screen pt-28 px-6">
       <section className="max-w-4xl mx-auto">
 
         <div className="text-center mb-12">
@@ -130,5 +143,6 @@ export default function PrivacyPolicy() {
         </div>
       </section>
     </div>
+    </>
   );
 }

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import {
     ChevronDown,
     MapPin,
@@ -47,6 +48,19 @@ export default function NearWeLandingPage() {
     }, []);
 
     return (
+        <>
+            <Helmet>
+                <title>NearWe - Discover Local Events & Connect With Your Community</title>
+                <meta name="description" content="NearWe is the ultimate local events discovery app. Find nearby events, meet like-minded people, and build meaningful connections in your community." />
+                <meta name="keywords" content="local events, event discovery app, community app, nearby events, social networking, local connections" />
+                <meta property="og:title" content="NearWe - Discover Local Events & Community" />
+                <meta property="og:description" content="Discover nearby events, meet new people, and build real connections in your local community with NearWe." />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://nearwe.in" />
+                <meta name="robots" content="index, follow" />
+                <meta name="canonical" content="https://nearwe.in" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </Helmet>
         <div className="bg-[#0a0e1a] text-white font-sans overflow-hidden">
 
             {/* ── Navbar ── */}
@@ -281,5 +295,6 @@ export default function NearWeLandingPage() {
                 </p>
             </footer>
         </div>
+        </>
     );
 }

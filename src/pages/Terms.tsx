@@ -1,10 +1,23 @@
 "use client";
 import React from "react";
 import { FileText } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 export default function TermsAndConditions() {
   return (
-    <div className="bg-[#0a0e1a] text-white min-h-screen pt-28 px-6">
+    <>
+      <Helmet>
+        <title>Terms & Conditions | NearWe - Local Community App</title>
+        <meta name="description" content="Read NearWe's complete Terms & Conditions. Understand our community guidelines, user responsibilities, and policies for using our local events app." />
+        <meta name="keywords" content="terms and conditions, terms of service, nearwe, user agreement, community guidelines" />
+        <meta property="og:title" content="Terms & Conditions | NearWe" />
+        <meta property="og:description" content="NearWe Terms & Conditions - understand our community guidelines and user policies." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://nearwe.in/terms" />
+        <meta name="robots" content="index, follow" />
+        <meta name="canonical" content="https://nearwe.in/terms" />
+      </Helmet>
+      <div className="bg-[#0a0e1a] text-white min-h-screen pt-28 px-6">
       <section className="max-w-4xl mx-auto">
 
         <div className="text-center mb-12">
@@ -104,5 +117,6 @@ export default function TermsAndConditions() {
         </div>
       </section>
     </div>
+    </>
   );
 }
