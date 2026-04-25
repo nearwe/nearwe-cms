@@ -13,6 +13,7 @@ import {
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { removeToken } from "../utils/function";
 import { Mic } from "lucide-react";
+import UserInterestDetail from "./pages/Interest";
 
 const { Header, Sider, Content } = Layout;
 const { useBreakpoint } = Grid;
@@ -52,6 +53,11 @@ const menuItems = [
     key: "/cms/announcements",
     icon: <SettingOutlined />,
     label: "Announcements",
+  },
+  {
+    key: "/cms/interests",
+    icon: <UserOutlined />,
+    label: "User Interests",
   },
 ];
 

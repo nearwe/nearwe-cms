@@ -25,6 +25,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import AdvertiseWithUs from "./pages/Advertise";
 import Contact from "./pages/Contact";
 import Reports from "./cms/pages/Reports";
+import UserInterestDetail from "./cms/pages/Interest";
 
 const App = () => {
   return (
@@ -55,6 +56,7 @@ const App = () => {
                     <Route path="app" element={<AppManagement />} />
                     <Route path="announcements" element={<Announcements />} />
                     <Route path="reports" element={<Reports />} />
+                    <Route path="interests" element={<UserInterestDetail />} />
                   </Route>
 
                   <Route
