@@ -24,15 +24,30 @@ import { core_services } from "../../utils/api";
 
 const { Title, Text } = Typography;
 
+interface Reporter {
+  userId: string;
+  username: string;
+  email: string;
+  avatar: string | null;
+  location: string;
+  accountStatus: number;
+  stats: {
+    eventsHosted: number;
+    eventsJoined: number;
+    totalPosts: number;
+    totalReportsFiled: number;
+  };
+  interests: string[];
+}
+
 interface Report {
-  ReportId: string;
-  ReporterUserId: string;
-  ReporterUsername: string;
-  ContentType: "post" | "comment" | "message";
-  ContentId: string;
-  Reason: string;
-  Status: number; // 0=pending, 1=reviewed, 2=removed
-  CreatedAt: string;
+  reportId: string;
+  contentType: "post" | "event" | "comment" | "message";
+  contentId: string;
+  reason: string;
+  reportStatus: number; // 0=pending, 1=reviewed, 2=removed
+  reportedAt: string;
+  reporter: Reporter;
 }
 
 const STATUS_MAP: Record<number, { label: string; color: string }> = {
@@ -74,56 +89,58 @@ const Reports: React.FC = () => {
     return reports.filter((r) => {
       const matchSearch =
         !searchText ||
-        r.ReporterUsername?.toLowerCase().includes(searchText.toLowerCase()) ||
-        r.Reason?.toLowerCase().includes(searchText.toLowerCase()) ||
-        r.ContentType?.toLowerCase().includes(searchText.toLowerCase());
+        r.reporter?.username?.toLowerCase().includes(searchText.toLowerCase()) ||
+        r.reason?.toLowerCase().includes(searchText.toLowerCase()) ||
+        r.contentType?.toLowerCase().includes(searchText.toLowerCase());
 
       const matchStatus =
-        filterStatus === "all" || r.Status === Number(filterStatus);
+        filterStatus === "all" || r.reportStatus === Number(filterStatus);
 
       const matchType =
-        filterType === "all" || r.ContentType === filterType;
+        filterType === "all" || r.contentType === filterType;
 
       return matchSearch && matchStatus && matchType;
     });
   }, [reports, searchText, filterStatus, filterType]);
 
-  // ── Stats ──────────────────────────────────────────────────────────────────
-  const pendingCount = reports.filter((r) => r.Status === 0).length;
-  const reviewedCount = reports.filter((r) => r.Status === 1).length;
-  const removedCount = reports.filter((r) => r.Status === 2).length;
+  const pendingCount = reports.filter((r) => r.reportStatus === 0).length;
+  const reviewedCount = reports.filter((r) => r.reportStatus === 1).length;
+  const removedCount = reports.filter((r) => r.reportStatus === 2).length;
 
-  // ── Columns ────────────────────────────────────────────────────────────────
   const columns = [
     {
       title: "Reporter",
-      dataIndex: "ReporterUsername",
       key: "reporter",
-      render: (name: string) => <Text strong>{name}</Text>,
+      render: (_: unknown, record: Report) => (
+        <div>
+          <Text strong>{record.reporter?.username}</Text>
+          <div style={{ fontSize: 11, color: "#888" }}>{record.reporter?.email}</div>
+        </div>
+      ),
     },
     {
       title: "Content Type",
-      dataIndex: "ContentType",
+      dataIndex: "contentType",
       key: "contentType",
       render: (type: string) => (
-        <Tag color={type === "post" ? "blue" : type === "comment" ? "cyan" : "geekblue"}>
+        <Tag color={type === "post" ? "blue" : type === "event" ? "green" : type === "comment" ? "cyan" : "geekblue"}>
           {type?.toUpperCase()}
         </Tag>
       ),
     },
     {
       title: "Content ID",
-      dataIndex: "ContentId",
+      dataIndex: "contentId",
       key: "contentId",
       render: (id: string) => (
-        <Text copyable style={{ fontSize: 12, color: "#888" }}>
+        <Text copyable={{ text: id }} style={{ fontSize: 12, color: "#888" }}>
           {id?.slice(0, 8)}...
         </Text>
       ),
     },
     {
       title: "Reason",
-      dataIndex: "Reason",
+      dataIndex: "reason",
       key: "reason",
       render: (reason: string) => (
         <Tag color={REASON_COLOR[reason] || "default"}>
@@ -133,8 +150,8 @@ const Reports: React.FC = () => {
     },
     {
       title: "Status",
-      dataIndex: "Status",
-      key: "status",
+      dataIndex: "reportStatus",
+      key: "reportStatus",
       render: (status: number) => (
         <Tag color={STATUS_MAP[status]?.color}>
           {STATUS_MAP[status]?.label}
@@ -143,8 +160,8 @@ const Reports: React.FC = () => {
     },
     {
       title: "Reported At",
-      dataIndex: "CreatedAt",
-      key: "createdAt",
+      dataIndex: "reportedAt",
+      key: "reportedAt",
       render: (date: string) =>
         new Date(date).toLocaleDateString("en-IN", {
           day: "2-digit",
@@ -154,14 +171,13 @@ const Reports: React.FC = () => {
           minute: "2-digit",
         }),
       sorter: (a: Report, b: Report) =>
-        new Date(b.CreatedAt).getTime() - new Date(a.CreatedAt).getTime(),
+        new Date(b.reportedAt).getTime() - new Date(a.reportedAt).getTime(),
       defaultSortOrder: "ascend" as const,
     },
   ];
 
   return (
     <div className="p-2 md:p-4">
-      {/* ── Header ── */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <FlagOutlined style={{ fontSize: 24, color: "#f5222d" }} />
@@ -174,7 +190,6 @@ const Reports: React.FC = () => {
         </Button>
       </div>
 
-      {/* ── Stat Cards ── */}
       <Row gutter={[16, 16]} className="mb-6">
         <Col xs={24} sm={8}>
           <Card className="text-center">
@@ -215,7 +230,6 @@ const Reports: React.FC = () => {
         </Col>
       </Row>
 
-      {/* ── Filters ── */}
       <Card className="mb-4">
         <Space wrap>
           <Input.Search
@@ -245,6 +259,7 @@ const Reports: React.FC = () => {
             options={[
               { label: "All Types", value: "all" },
               { label: "Post", value: "post" },
+              { label: "Event", value: "event" },
               { label: "Comment", value: "comment" },
               { label: "Message", value: "message" },
             ]}
@@ -256,7 +271,6 @@ const Reports: React.FC = () => {
         </Space>
       </Card>
 
-      {/* ── Table ── */}
       <Card>
         {loading ? (
           <div className="flex justify-center py-16">
@@ -266,14 +280,14 @@ const Reports: React.FC = () => {
           <Table
             dataSource={filtered}
             columns={columns}
-            rowKey="ReportId"
+            rowKey="reportId"
             pagination={{
               pageSize: 20,
               showSizeChanger: true,
               showTotal: (total) => `Total ${total} reports`,
             }}
             rowClassName={(record) =>
-              record.Status === 0 ? "bg-orange-50" : ""
+              record.reportStatus === 0 ? "bg-orange-50" : ""
             }
             locale={{
               emptyText: (
