@@ -19,7 +19,7 @@ import Announcements from "./cms/pages/Announcements";
 import ChildSafetyPolicy from "./pages/Child";
 import TermsAndConditions from "./pages/Terms";
 import ServicesPage from "./pages/Services";
-import ServicesAgencyPage from "./pages/companyservices";
+import ServicesAgencyPage from "./pages/CompanyServices";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import AdvertiseWithUs from "./pages/Advertise";
 import Contact from "./pages/Contact";
