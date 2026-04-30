@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "antd";
 import { AuthProvider } from "./contexts/AuthContext";
-import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
@@ -58,18 +57,6 @@ const App = () => {
                     <Route path="reports" element={<Reports />} />
                     <Route path="interests" element={<UserInterestDetail />} />
                   </Route>
-
-                  <Route
-                    path="/app_demo"
-                    element={
-                      <ProtectedRoute>
-                        <>
-                          <Navbar />
-                          <Home />
-                        </>
-                      </ProtectedRoute>
-                    }
-                  />
                   <Route path="/aboutus" element={<AboutUs />} />
                   <Route path="/services" element={<ServicesPage />} />
                   <Route path="/companyservices" element={<ServicesAgencyPage />} />
