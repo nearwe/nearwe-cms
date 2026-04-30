@@ -28,10 +28,22 @@ import InsightsDashboard from "./cms/pages/InsightsDashboard";
 import Announcements from "./cms/pages/Announcements";
 import Reports from "./cms/pages/Reports";
 import UserInterestDetail from "./cms/pages/Interest";
+import { useEffect } from "react";
 
 const App = () => {
-  // 🔥 Detect subdomain
   const isCMS = window.location.hostname.includes("cms");
+
+  // 🔥 Dynamic favicon
+  useEffect(() => {
+    const favicon = document.querySelector("link[rel='icon']") as HTMLLinkElement;
+
+    if (favicon) {
+      favicon.href = isCMS ? "/cms-favicon.ico" : "/favicon.ico";
+    }
+
+    // optional: title bhi change kar lo
+    document.title = isCMS ? "NearWe Admin" : "NearWe";
+  }, [isCMS]);
 
   return (
     <AuthProvider>
