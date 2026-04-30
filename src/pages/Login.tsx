@@ -131,7 +131,7 @@ const Login = () => {
     login(pendingAuth);
     setUserFromToken(pendingAuth.token);
     showNotification("Success", "Login successful", "success", 2000);
-    navigate("/");
+    navigate("/insights")
   };
 
   return (

@@ -22,14 +22,14 @@ const INDIGO_DARK = "#303F9F";
 const INDIGO_DEEPER = "#283593";
 
 const menuItems = [
-  { key: "/cms/insights",      icon: <DashboardOutlined />,  label: "Insights" },
-  { key: "/cms/users",         icon: <UserOutlined />,       label: "User Management" },
-  { key: "/cms/categories",    icon: <AppstoreOutlined />,   label: "Category Management" },
-  { key: "/cms/events",        icon: <CalendarOutlined />,   label: "Event Management" },
-  { key: "/cms/app",           icon: <SettingOutlined />,    label: "App Management" },
-  { key: "/cms/reports",       icon: <FlagFilled />,         label: "Reports" },
-  { key: "/cms/announcements", icon: <BellOutlined />,       label: "Announcements" },
-  { key: "/cms/interests",     icon: <UserOutlined />,       label: "User Interests" },
+  { key: "/insights",      icon: <DashboardOutlined />,  label: "Insights" },
+  { key: "/users",         icon: <UserOutlined />,       label: "User Management" },
+  { key: "/categories",    icon: <AppstoreOutlined />,   label: "Category Management" },
+  { key: "/events",        icon: <CalendarOutlined />,   label: "Event Management" },
+  { key: "/app",           icon: <SettingOutlined />,    label: "App Management" },
+  { key: "/reports",       icon: <FlagFilled />,         label: "Reports" },
+  { key: "/announcements", icon: <BellOutlined />,       label: "Announcements" },
+  { key: "/interests",     icon: <UserOutlined />,       label: "User Interests" },
 ];
 
 // ─── Sidebar brand area ───────────────────────────────────────────────────────
@@ -319,7 +319,7 @@ const CmsHome: React.FC = () => {
 
   const handleLogout = () => {
     removeToken();
-    navigate("/cms/login", { replace: true });
+    navigate("/login", { replace: true });
   };
 
   const handleNavigate = (key: string) => {
