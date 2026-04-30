@@ -28,17 +28,22 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "react-snap",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "reactSnap": {
-    "routes": ["/", "/privacy", "/terms", "/aboutus", "/services", "/contact", "/advertise", "/child-safety"],
+    "routes": [
+      "/",
+      "/privacy",
+      "/terms",
+      "/aboutus",
+      "/services",
+      "/contact",
+      "/advertise",
+      "/child-safety"
+    ],
     "inlineCss": true,
-    "minifyInlineCss": true,
-    "puppeteer": {
-      "headless": true
-    }
+    "minifyInlineCss": true
   },
   "eslintConfig": {
     "extends": [
