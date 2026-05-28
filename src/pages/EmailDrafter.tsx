@@ -82,20 +82,11 @@ function buildEmailHTML(
   para2: string,
   closing: string
 ): string {
-  const footer = `<table width="100%" cellpadding="0" cellspacing="0" style="background:#0D1117;border-radius:0 0 10px 10px;"><tr><td style="padding:16px 32px;"><div style="font-size:11px;color:#5a6a7a;line-height:1.8;font-family:Arial,sans-serif;">122, Prime Square, Omaxe City 1, Indore — 452001, Madhya Pradesh, India<br>© 2026 Nearwe Labs LLP. All rights reserved. · LLP ID: ACW-4838 · PAN: AAZFN7216J · TAN: BPLN08426F</div></td></tr></table>`;
+  const footer = `<table width="100%" cellpadding="0" cellspacing="0" style="background:#0D1117;border-radius:0 0 10px 10px;"><tr><td style="padding:16px 32px;"><div style="font-size:11px;color:#5a6a7a;line-height:1.8;font-family:Arial,sans-serif;">© 2026 Nearwe Labs LLP. All rights reserved. · LLP ID: ACW-4838 · PAN: AAZFN7216J · TAN: BPLN08426F</div></td></tr></table>`;
 
   return `<div style="font-family:Arial,sans-serif;max-width:580px;margin:0 auto;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="background:#0D1117;border-radius:10px 10px 0 0;"><tr><td style="padding:22px 32px;">
-      <table width="100%" cellpadding="0" cellspacing="0"><tr>
-        <td><table cellpadding="0" cellspacing="0"><tr>
-          <td style="width:34px;height:34px;background:#1a1f2e;border-radius:8px;border:1px solid #2a3040;text-align:center;vertical-align:middle;padding:0 8px;"><span style="font-family:Arial,sans-serif;font-size:14px;font-weight:700;color:#2D68FF;">N</span></td>
-          <td style="padding-left:10px;"><div style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#ffffff;">NEARWE LABS</div></td>
-        </tr></table></td>
-        <td align="right"><span style="background:#1a2744;border:1px solid #2a4a8a;border-radius:20px;padding:3px 10px;font-size:10px;color:#6ab0f5;font-family:Arial,sans-serif;">LLP · ACW-4838</span></td>
-      </tr></table></td></tr></table>
-    <table width="100%" cellpadding="0" cellspacing="0" style="background:#0D1117;border-top:1px solid #1a2030;"><tr><td style="padding:28px 32px 32px;">
-      <span style="display:inline-block;background:#1a2744;border:1px solid #2a4a8a;color:#6ab0f5;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:4px;font-family:Arial,sans-serif;">📍 Indore, Madhya Pradesh</span>
-      <div style="font-family:Arial,sans-serif;font-size:24px;font-weight:700;color:#ffffff;line-height:1.3;margin:12px 0 10px;">${heroTitle}</div>
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#0D1117;border-radius:10px 10px 0 0;"><tr><td style="padding:28px 32px;">
+      <div style="font-family:Arial,sans-serif;font-size:24px;font-weight:700;color:#ffffff;line-height:1.3;margin-bottom:10px;">${heroTitle}</div>
       <div style="font-size:13px;color:#7a8a9a;line-height:1.7;margin-bottom:20px;font-family:Arial,sans-serif;">${heroSub}</div>
       <a href="https://www.nearwe.in" style="display:inline-block;background:#2D68FF;color:#ffffff;font-family:Arial,sans-serif;font-size:12px;font-weight:700;padding:10px 20px;border-radius:6px;text-decoration:none;">Visit nearwe.in →</a>
     </td></tr></table>
