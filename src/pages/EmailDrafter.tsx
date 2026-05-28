@@ -10,7 +10,7 @@ interface TemplateData {
   closing: string;
 }
 
-type TemplateKey = "custom" | "intro" | "proposal" | "followup" | "thankyou" | "invoice" | "onboarding";
+type TemplateKey = "custom" | "intro" | "proposal" | "followup" | "thankyou" | "invoice" | "onboarding" | "rejection";
 
 // ─── Template Presets ────────────────────────────────────────────────────────
 const templates: Record<TemplateKey, TemplateData> = {
@@ -62,6 +62,14 @@ const templates: Record<TemplateKey, TemplateData> = {
     para1: "Welcome! We're absolutely delighted to have you as part of the Nearwe Labs family. This email contains everything you need to get started — your account details, next steps, and our support contacts.",
     para2: "Our team is fully dedicated to making this journey smooth and successful for you. You can reach us anytime at support@nearwe.in and we'll respond within 24 hours.",
     closing: "Excited to get started with you!",
+  },
+  rejection: {
+    heroTitle: "Application Update from Hiring Team",
+    heroSub: "Thank you for applying — we appreciate your interest and wish you success.",
+    greeting: "Dear [Recipient Name],",
+    para1: "Thank you for your interest in opportunities with us and for taking the time to share your profile. We appreciate your experience and the effort you put into your application. At this time, we are not moving forward with the current requirement.",
+    para2: "However, we would like to keep your profile on record and may reach out in the future should a suitable opportunity become available that aligns with your skills and experience. We truly appreciate your interest and wish you the very best in your career journey. This email is sent from a mailbox that may not be regularly monitored. Please do not reply directly to this message. Note: This communication is not an offer of employment.",
+    closing: "Best Regards, Hiring Team",
   },
 };
 
@@ -290,6 +298,7 @@ export default function EmailDrafter() {
                 <option value="thankyou">🙏 Thank You</option>
                 <option value="invoice">🧾 Invoice / Payment</option>
                 <option value="onboarding">🚀 Client Onboarding</option>
+                <option value="rejection">❌ Rejection / Application Update</option>
               </select>
             </div>
 
@@ -353,27 +362,8 @@ export default function EmailDrafter() {
         <div style={s.right}>
           <div style={s.ew} id="emailPreview">
 
-            {/* Email Header */}
-            <div style={s.eh}>
-              <div style={s.ehLa}>
-                <div style={s.ehLb}>
-                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-                    <circle cx="10" cy="10" r="9" stroke="#2a3040" strokeWidth="1" />
-                    <path d="M6 14L10 5L14 14" stroke="#2D68FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    <circle cx="10" cy="5" r="1.5" fill="#2D68FF" />
-                  </svg>
-                </div>
-                <div>
-                  <div style={s.ehBn}>NEARWE LABS</div>
-                  <div style={s.ehBs}>nearwe.in</div>
-                </div>
-              </div>
-              <span style={s.ehBadge}>LLP · ACW-4838</span>
-            </div>
-
             {/* Hero */}
             <div style={s.eher}>
-              <span style={s.eherTag}>📍 Indore, Madhya Pradesh</span>
               <div style={s.eherT}>{previewHeroTitle}</div>
               <div style={s.eherS}>{previewHeroSub}</div>
               <a href="https://www.nearwe.in" style={s.eherCta}>Visit nearwe.in →</a>
