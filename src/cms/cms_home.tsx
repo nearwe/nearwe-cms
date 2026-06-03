@@ -26,7 +26,7 @@ const menuItems = [
   { key: "/users",         icon: <UserOutlined />,       label: "User Management" },
   { key: "/categories",    icon: <AppstoreOutlined />,   label: "Category Management" },
   { key: "/events",        icon: <CalendarOutlined />,   label: "Event Management" },
-  { key: "/app",           icon: <SettingOutlined />,    label: "App Management" },
+  { key: "/app",           icon: <SettingOutlined />,    label: "Advertise" },
   { key: "/reports",       icon: <FlagFilled />,         label: "Reports" },
   { key: "/announcements", icon: <BellOutlined />,       label: "Announcements" },
   { key: "/interests",     icon: <UserOutlined />,       label: "User Interests" },

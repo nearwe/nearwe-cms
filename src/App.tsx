@@ -30,6 +30,7 @@ import Reports from "./cms/pages/Reports";
 import UserInterestDetail from "./cms/pages/Interest";
 import { useEffect } from "react";
 import EmailDrafter from "./pages/EmailDrafter";
+import CareersPage from "./pages/Careers";
 
 const App = () => {
   const isCMS = window.location.hostname.includes("cms");
@@ -94,6 +95,7 @@ const App = () => {
                       <Route path="/privacy" element={<PrivacyPolicy />} />
                       <Route path="/child-safety" element={<ChildSafetyPolicy />} />
                       <Route path="/email-drafter" element={<EmailDrafter />} />
+                      <Route path="/careers" element={<CareersPage />} />
                     </>
                   )}
 

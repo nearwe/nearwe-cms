@@ -607,6 +607,7 @@ export default function NearWeLandingPage() {
     }, []);
 
     const navItems = [
+        { label: "Careers", path: "/careers" },
         { label: "Advertise", path: "/advertise" },
         { label: "Services", path: "/companyservices" },
         { label: "Contact", path: "/contact" },
