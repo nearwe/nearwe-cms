@@ -34,4 +34,8 @@ export const APP_ROUTE_OPTIONS = [
     label: "Specific Event (Example)",
     value: "/event/123", // later make dynamic
   },
+  {
+    label: "Customer (Custom URL)",
+    value: "customer",
+  },
 ];

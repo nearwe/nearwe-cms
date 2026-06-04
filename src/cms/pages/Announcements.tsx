@@ -99,6 +99,7 @@ const Announcements: React.FC = () => {
   const [titlePreview, setTitlePreview] = useState("");
   const [bodyPreview, setBodyPreview] = useState("");
   const [notifDark, setNotifDark] = useState(true);
+  const [selectedRoute, setSelectedRoute] = useState<string>("");
 
   // ---------------- FETCH USERS ----------------
   const fetchUsers = async () => {
@@ -181,12 +182,20 @@ const Announcements: React.FC = () => {
       message.warning("Select at least one user");
       return;
     }
-    const payload = {
+
+    // If customer route is selected, ensure a customer URL is provided
+    if (values.route === "customer" && !values.customerUrl) {
+      message.error("Please enter a customer URL");
+      return;
+    }
+
+    const payload: any = {
       userIds: selectedUsers,
       title: values.title,
       body: values.body,
-      data: { route: values.route },
+      data: { route: values.route === "customer" ? values.customerUrl : values.route },
     };
+
     try {
       setSending(true);
       await core_services.sendPushNotification(payload);
@@ -195,6 +204,7 @@ const Announcements: React.FC = () => {
       setSelectedUsers([]);
       setTitlePreview("");
       setBodyPreview("");
+      setSelectedRoute("");
     } catch (e: any) {
       message.error(e?.message || "Failed");
     } finally {
@@ -550,8 +560,25 @@ const Announcements: React.FC = () => {
           {/* ===== END NOTIFICATION CARD ===== */}
 
           <Form.Item name="route" label="Route" rules={[{ required: true }]}>
-            <Select options={APP_ROUTE_OPTIONS} />
+            <Select 
+              options={APP_ROUTE_OPTIONS}
+              onChange={(value) => setSelectedRoute(value)}
+            />
           </Form.Item>
+
+          {selectedRoute === "customer" && (
+            <Form.Item 
+              name="customerUrl" 
+              label="Customer URL" 
+              rules={[{ required: true, message: "Customer URL is required" }]}
+              tooltip="Enter the full URL where the user will be directed (e.g., https://nearwe.in/profile)"
+            >
+              <Input 
+                placeholder="https://nearwe.in/profile" 
+                type="url"
+              />
+            </Form.Item>
+          )}
 
           <Button
             type="primary"
