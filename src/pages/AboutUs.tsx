@@ -3,39 +3,8 @@
 import { Users } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 
-import me from "../assets/team/piyush.jpeg";
-import aniket from "../assets/team/aniket.jpeg";
-import gupta from "../assets/team/gupta.jpeg";
-import sneh from "../assets/team/sneh.jpeg";
-
 export default function AboutUs() {
-  const team = [
-    {
-      name: "Aniket Abnave",
-      role: "Co-Founder",
-      img: aniket,
-    },
-    {
-      name: "Sneh Gour",
-      role: "Co-Founder",
-      img: sneh,
-    },
-    {
-      name: "Piyush Patel",
-      role: "Co-Founder",
-      img: me,
-    },
-    {
-      name: "Karan Johar",
-      role: "Co-Founder",
-      img: "https://i.pravatar.cc/300?img=15",
-    },
-    {
-      name: "Aniket Gupta",
-      role: "Co-Founder",
-      img: gupta,
-    },
-  ];
+  
 
   return (
     <>

@@ -265,6 +265,7 @@ const HomeScreen: React.FC<{
           {image ? (
             <img
               src={image}
+              alt={title || "preview image"}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           ) : (
@@ -483,6 +484,7 @@ const MapScreen: React.FC<{
           {image ? (
             <img
               src={image}
+              alt={title || "preview image"}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           ) : (
@@ -639,6 +641,7 @@ const EventsScreen: React.FC<{
           {image ? (
             <img
               src={image}
+              alt={title || "preview image"}
               style={{ width: "100%", height: 70, objectFit: "cover", display: "block" }}
             />
           ) : (
@@ -746,7 +749,7 @@ const LivePreview = ({ form }: { form: any }) => {
     if (placement && !placement.screens.includes(activeScreen)) {
       setActiveScreen(placement.screens[0]);
     }
-  }, [type]);
+  }, [type, activeScreen]);
 
   const placement = PLACEMENTS[type] || PLACEMENTS.banner;
 

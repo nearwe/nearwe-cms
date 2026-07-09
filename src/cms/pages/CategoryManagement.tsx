@@ -8,7 +8,6 @@ import {
   Input,
   Popconfirm,
   message,
-  Grid,
   Space,
   Typography,
 } from "antd";
@@ -22,7 +21,6 @@ import {
 } from "@ant-design/icons";
 import { core_services } from "../../utils/api";
 
-const { useBreakpoint } = Grid;
 const { Text } = Typography;
 
 const INDIGO = "#3F51B5";
@@ -34,7 +32,7 @@ interface Category {
 }
 
 const CategoryManagement: React.FC = () => {
-  const screens = useBreakpoint();
+  
 
   const [categories, setCategories]     = useState<Category[]>([]);
   const [loading, setLoading]           = useState(false);

@@ -1,21 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import {
     ChevronDown,
     MapPin,
-    Users,
-    Calendar,
     ArrowRight,
-    Sparkles,
-    Zap,
     Globe,
-    Smartphone,
-    Cloud,
-    ShieldCheck,
-    Layers,
     Bot,
 } from "lucide-react";
 

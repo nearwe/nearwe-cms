@@ -21,8 +21,7 @@ import {
     MessageCircle,
 } from "lucide-react";
 
-import iosLogo from "../assets/logo/ios.png";
-import playstoreLogo from "../assets/logo/playstore.png";
+
 
 export const services = [
     {

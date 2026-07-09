@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { jwtDecode } from "jwt-decode";
-import { core_services } from "../utils/api";
 import { getToken, removeToken, setToken } from "../utils/function";
 
 type UserType = {
@@ -34,8 +33,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       const decoded: any = jwtDecode(token);
       setToken(token);
-      const fullUserData = await decoded;
-      setUser(fullUserData);
+      setUser(decoded);
     } catch (err) {
       console.error("Failed to set user from token", err);
       clearUser();
@@ -55,15 +53,21 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   useEffect(() => {
-    const initializeUser = async () => {
+    (async () => {
       const token = await getToken();
       if (token && !user) {
-        setUserFromToken(token);
+        try {
+          const decoded: any = jwtDecode(token);
+          setToken(token);
+          setUser(decoded);
+        } catch (err) {
+          console.error("Failed to set user from token", err);
+          clearUser();
+        }
       }
-    };
-
-    initializeUser();
-  }, []);
+    })();
+    // run on mount and when user changes
+  }, [user]);
 
   return (
     <UserContext.Provider value={{ user, setUserFromToken, clearUser, refreshUserFromCurrentToken }}>

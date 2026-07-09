@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Avatar, Popover, Button, Divider, Typography, Badge } from "antd";
+import { Avatar, Popover, Button, Divider } from "antd";
 import { UserOutlined, LogoutOutlined, FlagFilled, BellOutlined } from "@ant-design/icons";
 import image from "../assets/logo/logo-removebg.png";
 import { Layout, Menu, Drawer, Grid } from "antd";
@@ -15,7 +15,6 @@ import { removeToken } from "../utils/function";
 
 const { Header, Sider, Content } = Layout;
 const { useBreakpoint } = Grid;
-const { Text } = Typography;
 
 const INDIGO = "#3F51B5";
 const INDIGO_DARK = "#303F9F";

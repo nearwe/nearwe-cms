@@ -15,18 +15,15 @@ import {
   Button,
   Card,
   Col,
-  Descriptions,
   Empty,
   Row,
-  Space,
   Spin,
   Table,
-  Tag,
   Typography,
   message,
 } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { core_services } from "../../utils/api";
 
@@ -118,25 +115,31 @@ const UserInterestDetail: React.FC = () => {
   const [reports, setReports] = useState<Report[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     if (!userId) return;
     try {
       setLoading(true);
       const allReports: any[] = await core_services.getReports();
-      const userReports       = allReports.filter(
+      const userReports = allReports.filter(
         (r: any) => r?.reporter?.userId === userId || r?.ReporterUserId === userId
       );
       setReports(userReports);
       const enriched = allReports.find((r: any) => r?.reporter?.userId === userId);
-      if (enriched?.reporter) setUser(enriched.reporter as UserDetail);
+      if (enriched?.reporter) {
+        setUser(enriched.reporter as UserDetail);
+      } else {
+        setUser(null);
+      }
     } catch {
       message.error("Failed to fetch user details");
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId]);
 
-  useEffect(() => { fetchData(); }, [userId]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const maxJoinCount = user?.interests?.length
     ? Math.max(...user.interests.map((i) => i.joinCount))

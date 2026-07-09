@@ -151,7 +151,7 @@ export default function AdvertiseWithUs() {
     const baseTotal = selectedAd.baseRate * days * bm;
     const grandTotal = Math.round(baseTotal + segAddon);
     return { totalImp, uniqueReach, clicks, segAddon, baseTotal, grandTotal };
-  }, [selectedAd, days, boost, segments, boostOption.multiplier]);
+  }, [selectedAd, days, segments, boostOption.multiplier]);
 
   function toggleSegment(id: string) {
     setSegments((prev) => {
