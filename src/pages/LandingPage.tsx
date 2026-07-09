@@ -803,6 +803,14 @@ export default function NearWeLandingPage() {
                                         <span className="w-2 h-2 rounded-full bg-cyan-400" style={{ animation: "pulse-glow 1.5s infinite" }} />
                                         Watch Demo
                                     </button>
+
+                                    <button
+                                        className="group px-8 py-4 border border-blue-400/40 hover:border-blue-400 text-blue-300 hover:text-white font-semibold rounded-full transition-all duration-300 hover:bg-blue-500/10 relative overflow-hidden flex items-center justify-center gap-2"
+                                        onClick={() => navigate("/vestora-ai/demo")}
+                                    >
+                                        <Sparkles className="w-4 h-4 text-blue-300" />
+                                        Watch Demo Vestora AI
+                                    </button>
                                 </div>
 
                                 {/* Social proof */}
