@@ -12,11 +12,17 @@ import {
     Sparkles,
     Zap,
     Globe,
+    Smartphone,
+    Cloud,
+    ShieldCheck,
+    Layers,
+    Bot,
 } from "lucide-react";
 
 import iosLogo from "../assets/logo/ios.png";
 import playstoreLogo from "../assets/logo/playstore.png";
 import nearweLogo from "../assets/logo/logo-removebg.png";
+import { services as companyServices } from "./CompanyServices";
 
 // ─── OS Detection ──────────────────────────────────────────────────────────────
 function getDeviceOS(): "ios" | "android" | "other" {
@@ -607,57 +613,43 @@ export default function NearWeLandingPage() {
     }, []);
 
     const navItems = [
-        { label: "Careers", path: "/careers" },
-        { label: "Advertise", path: "/advertise" },
         { label: "Services", path: "/companyservices" },
+        { label: "Products", path: "#products" },
+        { label: "Careers", path: "/careers" },
         { label: "Contact", path: "/contact" },
-        { label: "Terms", path: "/terms" },
-        { label: "Privacy", path: "/privacy" },
-        { label: "Child Safety", path: "/child-safety" },
     ];
 
-    const features = [
+    // Use company services list as the landing page features
+    const features = companyServices.slice(0, 6).map((s) => ({
+        icon: s.icon,
+        title: s.title,
+        desc: s.desc,
+        color: s.gradient,
+        iconColor: s.iconColor || "text-cyan-400",
+    }));
+
+    const products = [
         {
             icon: MapPin,
-            title: "Find Local Events",
-            desc: "Discover events happening near you in real time with intelligent geo-filtering and smart radius controls.",
-            color: "from-cyan-500/20 to-cyan-600/10",
-            iconColor: "text-cyan-400",
+            title: "NearWe App",
+            tag: "Community Platform",
+            desc: "A local discovery app for events, communities, nearby experiences, and meaningful real-world connections.",
+            primary: "Download App",
+            secondary: "Explore Features",
+            onPrimary: openDownload,
+            onSecondary: () => navigate("/services"),
+            accent: "from-cyan-400 to-blue-500",
         },
         {
-            icon: Users,
-            title: "Connect With People",
-            desc: "Meet like-minded individuals and grow your local network with meaningful, interest-driven connections.",
-            color: "from-blue-500/20 to-blue-600/10",
-            iconColor: "text-blue-400",
-        },
-        {
-            icon: Calendar,
-            title: "Create Events",
-            desc: "Host memorable gatherings and share moments with your community through beautifully crafted event pages.",
-            color: "from-indigo-500/20 to-indigo-600/10",
-            iconColor: "text-indigo-400",
-        },
-        {
-            icon: Sparkles,
-            title: "Smart Recommendations",
-            desc: "AI-powered suggestions that learn your interests and surface the best local experiences for you.",
-            color: "from-cyan-500/20 to-blue-600/10",
-            iconColor: "text-cyan-300",
-        },
-        {
-            icon: Zap,
-            title: "Instant Notifications",
-            desc: "Real-time alerts for events, connection requests, and activity updates—never miss a moment.",
-            color: "from-yellow-500/10 to-orange-500/10",
-            iconColor: "text-yellow-400",
-        },
-        {
-            icon: Globe,
-            title: "Community Feed",
-            desc: "Stay informed with a hyper-local social feed filled with posts, stories, and updates from your area.",
-            color: "from-green-500/10 to-teal-500/10",
-            iconColor: "text-green-400",
+            icon: Bot,
+            title: "Vestora AI",
+            tag: "AI Trading Intelligence SaaS",
+            desc: "An AI intelligence bot for trading and market analysis across markets, portfolios, risk, signals, and approval-led execution.",
+            primary: "Watch Demo Vestora AI",
+            secondary: "View Product",
+            onPrimary: () => navigate("/vestora-ai/demo"),
+            onSecondary: () => navigate("/vestora-ai"),
+            accent: "from-emerald-400 to-cyan-500",
         },
     ];
 
@@ -665,39 +657,55 @@ export default function NearWeLandingPage() {
         <>
             <style>{styles}</style>
             <Helmet>
-                <title>NearWe - Discover Local Events & Connect With Your Community</title>
-                <meta name="description" content="NearWe is the ultimate local events discovery app." />
-                <meta property="og:title" content="NearWe - Discover Local Events & Community" />
+                <title>NearWe Labs - IT Consulting, Services & SaaS Products</title>
+                <meta name="description" content="NearWe Labs is an IT consulting, IT services, and SaaS product company building web apps, mobile apps, cloud systems, and AI products." />
+                <meta name="keywords" content="NearWe Labs, IT consulting, web development, mobile apps, AI products, SaaS" />
+                <meta property="og:title" content="NearWe Labs - IT Services & Products" />
+                <meta property="og:description" content="NearWe Labs delivers IT consulting, development, cloud & AI products including NearWe App and Vestora AI." />
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://nearwe.in" />
+                <meta name="twitter:card" content="summary_large_image" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Helmet>
 
             <div className="font-body bg-[#0a0e1a] text-white overflow-x-hidden">
 
                 {/* ── Navbar ── */}
-                <nav className="fixed top-0 w-full z-50 bg-[#0a0e1a]/80 backdrop-blur-xl border-b border-cyan-500/10">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-                        <img src={nearweLogo} alt="NearWe" className="h-9 w-auto object-contain" />
+                <nav className="fixed top-0 w-full z-50 border-b border-white/10 bg-[#080b13]/85 backdrop-blur-xl">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+                        <button
+                            onClick={() => navigate("/")}
+                            className="flex items-center gap-3 text-left"
+                        >
+                            <img src={nearweLogo} alt="NearWe" className="h-8 w-auto object-contain" />
+                            <span className="text-xl font-black tracking-tight">
+                                <span className="text-slate-100">NearWe</span>{" "}
+                                <span className="text-slate-500">Labs</span>
+                            </span>
+                        </button>
 
                         {/* Desktop Nav */}
                         <div className="nav-links hidden md:flex items-center gap-1">
                             {navItems.map((item) => (
                                 <button
                                     key={item.path}
-                                    onClick={() => navigate(item.path)}
-                                    className="px-3 py-2 text-sm text-gray-400 hover:text-cyan-400 font-medium transition-all duration-200 rounded-lg hover:bg-cyan-500/5 whitespace-nowrap relative group"
+                                    onClick={() => {
+                                        if (item.path.startsWith("#")) {
+                                            document.querySelector(item.path)?.scrollIntoView({ behavior: "smooth" });
+                                            return;
+                                        }
+                                        navigate(item.path);
+                                    }}
+                                    className="px-4 py-2 text-sm text-slate-300 hover:text-white font-bold transition-all duration-200 rounded-lg hover:bg-white/5 whitespace-nowrap relative group"
                                 >
                                     {item.label}
-                                    <span className="absolute bottom-1 left-3 right-3 h-px bg-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-200" />
                                 </button>
                             ))}
-                            <div className="w-px h-5 bg-cyan-500/20 mx-2" />
                             <MagneticButton
-                                onClick={openDownload}
-                                className="shimmer-btn relative overflow-hidden flex items-center gap-2 px-5 py-2 bg-cyan-500 hover:bg-cyan-400 text-black text-sm font-bold rounded-full transition-colors duration-200 hover:shadow-lg hover:shadow-cyan-500/40 whitespace-nowrap"
+                                onClick={() => navigate("/vestora-ai/demo")}
+                                className="relative overflow-hidden flex items-center gap-2 px-6 py-2.5 bg-white hover:bg-cyan-100 text-[#080b13] text-sm font-black rounded-full transition-colors duration-200 whitespace-nowrap"
                             >
-                                Download <ArrowRight className="w-3.5 h-3.5" />
+                                See Demo <ArrowRight className="w-4 h-4" />
                             </MagneticButton>
                         </div>
 
@@ -720,17 +728,24 @@ export default function NearWeLandingPage() {
                             {navItems.map((item) => (
                                 <button
                                     key={item.path}
-                                    onClick={() => { navigate(item.path); setMobileMenuOpen(false); }}
+                                    onClick={() => {
+                                        if (item.path.startsWith("#")) {
+                                            document.querySelector(item.path)?.scrollIntoView({ behavior: "smooth" });
+                                        } else {
+                                            navigate(item.path);
+                                        }
+                                        setMobileMenuOpen(false);
+                                    }}
                                     className="text-left px-4 py-3 text-sm text-gray-400 hover:text-cyan-400 hover:bg-cyan-500/5 rounded-lg transition-all duration-200"
                                 >
                                     {item.label}
                                 </button>
                             ))}
                             <button
-                                onClick={openDownload}
-                                className="mt-2 w-full py-3 bg-cyan-500 text-black text-sm font-bold rounded-full flex items-center justify-center gap-2"
+                                onClick={() => { navigate("/vestora-ai/demo"); setMobileMenuOpen(false); }}
+                                className="mt-2 w-full py-3 bg-white text-[#080b13] text-sm font-bold rounded-full flex items-center justify-center gap-2"
                             >
-                                Download App <ArrowRight className="w-4 h-4" />
+                                See Demo <ArrowRight className="w-4 h-4" />
                             </button>
                         </div>
                     </div>
@@ -766,50 +781,43 @@ export default function NearWeLandingPage() {
                                     style={{ animation: heroVisible ? "slide-up 0.6s both" : "none" }}
                                 >
                                     <span className="w-2 h-2 rounded-full bg-cyan-400" style={{ animation: "pulse-glow 2s infinite" }} />
-                                    <span className="text-cyan-400 text-sm font-semibold">✨ Discover Your Community</span>
+                                    <span className="text-cyan-400 text-sm font-semibold">AI-first IT consulting, services & products</span>
                                 </div>
 
                                 {/* Headline */}
                                 <h1 className="font-display hero-text text-5xl sm:text-6xl lg:text-7xl font-black mb-4 leading-tight">
-                                    <span className="hero-word gradient-text block">Connect.</span>
-                                    <span className="hero-word gradient-text block">Explore.</span>
-                                    <span className="hero-word gradient-text block">Belong.</span>
+                                    <span className="hero-word gradient-text block">Build.</span>
+                                    <span className="hero-word gradient-text block">Launch.</span>
+                                    <span className="hero-word gradient-text block">Scale.</span>
                                 </h1>
 
                                 {/* Typing effect */}
                                 <p className="text-lg text-gray-400 mb-3 font-body">
-                                    Discover{" "}
-                                    <TypingText phrases={["events near you", "local communities", "new friendships", "hidden gems"]} />
+                                    NearWe Labs builds{" "}
+                                    <TypingText phrases={["web platforms", "mobile apps", "SaaS products", "AI tools"]} />
                                 </p>
 
                                 <p className="text-base sm:text-lg text-gray-500 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
                                     The ultimate local discovery app—find events, meet people, and build
-                                    meaningful connections in your community.
+                                    helping startups and businesses design, build, deploy, and scale
+                                    modern digital products.
                                 </p>
 
                                 {/* CTA Buttons */}
                                 <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-10">
                                     <MagneticButton
-                                        onClick={openDownload}
+                                        onClick={() => navigate("/companyservices")}
                                         className="shimmer-btn group relative overflow-hidden px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-black font-bold rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/40 flex items-center justify-center gap-2 glow-btn"
                                     >
                                         <span className="relative z-10 flex items-center gap-2">
-                                            Download App
+                                            Explore Services
                                             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
                                         </span>
                                     </MagneticButton>
 
-                                    <button className="group px-8 py-4 border border-cyan-500/40 hover:border-cyan-500 text-cyan-400 hover:text-white font-semibold rounded-full transition-all duration-300 hover:bg-cyan-500/10 relative overflow-hidden flex items-center justify-center gap-2"  onClick={openDownload}>
+                                    <button className="group px-8 py-4 border border-cyan-500/40 hover:border-cyan-500 text-cyan-400 hover:text-white font-semibold rounded-full transition-all duration-300 hover:bg-cyan-500/10 relative overflow-hidden flex items-center justify-center gap-2"  onClick={() => document.querySelector("#products")?.scrollIntoView({ behavior: "smooth" })}>
                                         <span className="w-2 h-2 rounded-full bg-cyan-400" style={{ animation: "pulse-glow 1.5s infinite" }} />
-                                        Watch Demo
-                                    </button>
-
-                                    <button
-                                        className="group px-8 py-4 border border-blue-400/40 hover:border-blue-400 text-blue-300 hover:text-white font-semibold rounded-full transition-all duration-300 hover:bg-blue-500/10 relative overflow-hidden flex items-center justify-center gap-2"
-                                        onClick={() => navigate("/vestora-ai/demo")}
-                                    >
-                                        <Sparkles className="w-4 h-4 text-blue-300" />
-                                        Watch Demo Vestora AI
+                                        Products by NearWe
                                     </button>
                                 </div>
 
@@ -847,6 +855,48 @@ export default function NearWeLandingPage() {
                                 <span className="text-xs text-gray-500 tracking-widest uppercase">Scroll</span>
                                 <ChevronDown className="w-5 h-5 text-cyan-400" style={{ animation: "float 2s ease-in-out infinite" }} />
                             </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── Products by NearWe Labs ── */}
+                <section id="products" className="py-20 px-4 sm:px-6">
+                    <div className="max-w-6xl mx-auto">
+                        <Reveal className="text-center mb-12">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-4">
+                                <span className="text-cyan-400 text-xs font-semibold uppercase tracking-widest">Products</span>
+                            </div>
+                            <h2 className="text-4xl sm:text-5xl font-black gradient-text mb-4">Products by NearWe Labs</h2>
+                            <p className="text-gray-500 max-w-xl mx-auto">Our in-house products and platforms built by NearWe Labs — ready for enterprises and startups.</p>
+                        </Reveal>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {products.map((p, i) => (
+                                <Reveal key={i} delay={i * 80}>
+                                    <TiltCard className="glass-card rounded-2xl p-6 sm:p-8 h-full group">
+                                        <div className="flex items-start justify-between">
+                                            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${p.accent} flex items-center justify-center`}> 
+                                                <p.icon className={`w-7 h-7 text-white`} />
+                                            </div>
+                                            <span className="text-xs text-gray-400 font-semibold">{p.tag}</span>
+                                        </div>
+
+                                        <h3 className="font-display text-2xl font-bold mb-2 mt-4">{p.title}</h3>
+                                        <p className="text-gray-400 mb-4">{p.desc}</p>
+
+                                        <div className="flex gap-3">
+                                            <MagneticButton onClick={p.onPrimary} className="px-5 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-black font-bold rounded-full">
+                                                {p.primary}
+                                            </MagneticButton>
+                                            <button onClick={p.onSecondary} className="px-5 py-3 border border-cyan-500/30 text-cyan-300 rounded-full">{p.secondary}</button>
+                                        </div>
+                                    </TiltCard>
+                                </Reveal>
+                            ))}
+                        </div>
+
+                        <div className="text-center mt-8">
+                            <button onClick={() => navigate('/products')} className="px-6 py-3 border border-cyan-500/30 text-cyan-300 rounded-full">Show more</button>
                         </div>
                     </div>
                 </section>
