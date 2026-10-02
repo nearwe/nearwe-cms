@@ -96,12 +96,33 @@ export const core_services = {
   getAllEvents: async () => {
     try {
       const token = getToken();
-      const response = await axios.get(`${API_BASE_URL}/events`, {
-        headers: {
-          Authorization: token ? `Bearer ${token}` : "",
-        },
-      });
-      return response.data;
+      const events: any[] = [];
+      const limit = 50;
+      let page = 1;
+      let hasMore = true;
+
+      while (hasMore) {
+        const response = await axios.get(`${API_BASE_URL}/events`, {
+          params: { page, limit },
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+        });
+
+        // The API now returns { events, page, hasMore }; accept the old array
+        // response too so the CMS remains compatible during a rolling deploy.
+        const data = response.data;
+        const pageEvents = Array.isArray(data) ? data : data?.events;
+        if (!Array.isArray(pageEvents)) {
+          throw new Error("Invalid events response");
+        }
+
+        events.push(...pageEvents);
+        hasMore = !Array.isArray(data) && data.hasMore === true && pageEvents.length > 0;
+        page += 1;
+      }
+
+      return events;
     } catch (error: any) {
       throw error.response?.data || error.message;
     }
