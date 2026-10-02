@@ -31,6 +31,8 @@ import UserInterestDetail from "./cms/pages/Interest";
 import { useEffect } from "react";
 import EmailDrafter from "./pages/EmailDrafter";
 import CareersPage from "./pages/Careers";
+import VestoraAI from "./pages/VestoraAI";
+import VestoraAIDemo from "./pages/VestoraAIDemo";
 
 const App = () => {
   const isCMS = window.location.hostname.includes("cms");
@@ -95,6 +97,9 @@ const App = () => {
                       <Route path="/privacy" element={<PrivacyPolicy />} />
                       <Route path="/child-safety" element={<ChildSafetyPolicy />} />
                       <Route path="/email-drafter" element={<EmailDrafter />} />
+                      <Route path="/vestora-ai" element={<VestoraAI />} />
+                      <Route path="/vestora-ai/demo" element={<VestoraAIDemo />} />
+                      <Route path="/vestore_ai/demo" element={<VestoraAIDemo />} />
                       <Route path="/careers" element={<CareersPage />} />
                     </>
                   )}

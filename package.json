@@ -40,7 +40,9 @@
       "/services",
       "/contact",
       "/advertise",
-      "/child-safety"
+      "/child-safety",
+      "/vestora-ai",
+      "/vestora-ai/demo"
     ],
     "inlineCss": true,
     "minifyInlineCss": true

@@ -37,7 +37,7 @@ import {
   Bar,
 } from "recharts";
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 const INDIGO      = "#3F51B5";
 const INDIGO_LIGHT = "#E8EAF6";

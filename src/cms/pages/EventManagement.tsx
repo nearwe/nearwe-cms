@@ -10,10 +10,7 @@ import {
   Space,
   Popconfirm,
   Typography,
-  Grid,
   Progress,
-  Tag,
-  Tooltip,
 } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
@@ -28,7 +25,6 @@ import dayjs from "dayjs";
 import { core_services } from "../../utils/api";
 
 const { Text } = Typography;
-const { useBreakpoint } = Grid;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface EventItem {
@@ -99,7 +95,7 @@ const DurationCell: React.FC<{ record: EventItem }> = ({ record }) => {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 const EventManagement: React.FC = () => {
-  const screens     = useBreakpoint();
+  
   const cancelRef   = useRef(false);
 
   const [events, setEvents]               = useState<EventItem[]>([]);
