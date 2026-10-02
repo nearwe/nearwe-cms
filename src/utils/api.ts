@@ -43,17 +43,44 @@ export const core_services = {
   getUser: async () => {
     try {
       const token = getToken();
+      const users: any[] = [];
+      const limit = 50;
+      let page = 1;
+      let hasMore = true;
 
-      const response = await axios.get(
-        `${API_BASE_URL}/user`,
-        {
+      while (hasMore) {
+        const response = await axios.get(`${API_BASE_URL}/user`, {
+          params: { page, limit },
           headers: {
             Authorization: token ? `Bearer ${token}` : "",
           },
-        }
-      );
+        });
 
-      return response.data;
+        const data = response.data;
+        const pageUsers = Array.isArray(data)
+          ? data
+          : data?.users ?? data?.data ?? data?.results;
+
+        if (!Array.isArray(pageUsers)) {
+          throw new Error("Invalid users response");
+        }
+
+        users.push(...pageUsers);
+
+        const pagination = data?.pagination;
+        const totalPages = data?.totalPages ?? pagination?.totalPages;
+        const total = data?.total ?? pagination?.total;
+
+        hasMore = !Array.isArray(data) && pageUsers.length > 0 && (
+          data.hasMore === true ||
+          pagination?.hasMore === true ||
+          (Number.isFinite(totalPages) && page < totalPages) ||
+          (Number.isFinite(total) && page * limit < total)
+        );
+        page += 1;
+      }
+
+      return users;
     } catch (error: any) {
       throw error.response?.data || error.message;
     }
