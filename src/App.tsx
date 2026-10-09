@@ -33,6 +33,7 @@ import EmailDrafter from "./pages/EmailDrafter";
 import CareersPage from "./pages/Careers";
 import VestoraAI from "./pages/VestoraAI";
 import VestoraAIDemo from "./pages/VestoraAIDemo";
+import NearWeApp from "./pages/NearWeApp";
 
 const App = () => {
   const isCMS = window.location.hostname.includes("cms");
@@ -90,6 +91,7 @@ const App = () => {
                       <Route path="/" element={<NearWeLandingPage />} />
                       <Route path="/aboutus" element={<AboutUs />} />
                       <Route path="/services" element={<ServicesPage />} />
+                      <Route path="/nearwe-app" element={<NearWeApp />} />
                       <Route path="/companyservices" element={<ServicesAgencyPage />} />
                       <Route path="/contact" element={<Contact />} />
                       <Route path="/terms" element={<TermsAndConditions />} />
