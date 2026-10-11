@@ -23,10 +23,10 @@ const products = [
     },
     {
         name: "Wayyo",
-        type: "WINDOWS AUTOMATION · COMING SOON",
+        type: "WINDOWS AUTOMATION · AVAILABLE NOW",
         description: "Build visual workflows that schedule actions and handle repetitive desktop tasks locally on your Windows PC.",
-        href: "/wayyo",
-        action: "Explore Wayyo",
+        href: "/wayyo#download",
+        action: "Download Wayyo",
         Icon: Workflow,
         color: "violet",
     },
@@ -37,7 +37,7 @@ export default function Products() {
         <main className="min-h-screen overflow-hidden bg-[#090d17] px-4 py-10 text-white sm:px-6 sm:py-14">
             <Helmet>
                 <title>Products | NearWe Labs</title>
-                <meta name="description" content="Explore products built by NearWe Labs: NearWe App, Vestora AI and Wayyo, a Windows desktop automation workspace coming soon." />
+                <meta name="description" content="Explore products built by NearWe Labs: NearWe App, Vestora AI and Wayyo, a Windows desktop automation workspace." />
                 <meta property="og:title" content="Products by NearWe Labs" />
                 <meta property="og:description" content="Community, AI and desktop automation products built by NearWe Labs." />
                 <link rel="canonical" href="https://nearwe.in/products" />
@@ -62,7 +62,7 @@ export default function Products() {
                                 <span className={`grid h-12 w-12 place-items-center rounded-xl border ${color === "cyan" ? "border-cyan-300/20 bg-cyan-300/10 text-cyan-200" : color === "emerald" ? "border-emerald-300/20 bg-emerald-300/10 text-emerald-200" : "border-violet-300/20 bg-violet-300/10 text-violet-200"}`}>
                                     <Icon className="h-6 w-6" />
                                 </span>
-                                {name === "Wayyo" && <span className="rounded-full border border-violet-300/20 bg-violet-300/10 px-2.5 py-1 text-[10px] font-semibold text-violet-200">COMING SOON</span>}
+                                {name === "Wayyo" && <span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-2.5 py-1 text-[10px] font-semibold text-emerald-200">AVAILABLE</span>}
                             </div>
                             <p className="mb-2 text-[10px] font-bold tracking-[0.12em] text-gray-500">{type}</p>
                             <h2 className="text-2xl font-bold">{name}</h2>

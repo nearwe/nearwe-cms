@@ -569,12 +569,12 @@ export default function NearWeLandingPage() {
         {
             Icon: Workflow,
             title: "Wayyo",
-            tag: "Windows Automation · Coming Soon",
+            tag: "Windows Automation · Available Now",
             desc: "A local-first desktop automation workspace for building visual workflows and handling repetitive Windows tasks.",
             primary: "Explore Wayyo",
-            secondary: "Coming soon",
-            onPrimary: () => navigate("/wayyo"),
-            onSecondary: () => navigate("/wayyo"),
+            secondary: "Download for Windows",
+            onPrimary: () => navigate("/wayyo#download"),
+            onSecondary: () => navigate("/wayyo#download"),
             accent: "from-violet-400 to-fuchsia-500",
         },
     ];
@@ -783,7 +783,7 @@ export default function NearWeLandingPage() {
                                 <div className="relative grid lg:grid-cols-[1fr_1.05fr] gap-8 lg:gap-12 items-center">
                                     <div>
                                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#8FAAFF]/30 bg-[#3559C7]/20 text-[#D8E2FF] text-xs font-bold uppercase tracking-wide mb-5">
-                                            <img src="/logo-bg-trans.png" alt="NearWe Labs" className="h-5 w-5 rounded bg-[#202A40] object-contain p-0.5" /> Coming soon · Wayyo by NearWe Labs
+                                            <img src="/logo-bg-trans.png" alt="NearWe Labs" className="h-5 w-5 rounded bg-[#202A40] object-contain p-0.5" /> Available now · Wayyo by NearWe Labs
                                         </div>
                                         <h2 id="wayyo-launch-title" className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">
                                             Your work.<br /><span className="text-[#AFC3FF]">On autopilot.</span>

@@ -1,6 +1,23 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowDownToLine, ArrowRight, CalendarClock, Check, CircleHelp, FileCheck2, FolderSync, GitBranch, History, Laptop, LockKeyhole, Play, Workflow } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowDownToLine, ArrowRight, CalendarClock, Check, CircleHelp, FileCheck2, FolderSync, GitBranch, History, Laptop, LoaderCircle, LockKeyhole, Play, Workflow } from "lucide-react";
+import { core_services } from "../utils/api";
+
+const WAYYO_INSTALLER_URL = process.env.REACT_APP_WAYYO_INSTALLER_URL || "https://github.com/nearwe/nearwe-cms/releases/latest/download/WayyoSetup.exe";
+let wayyoStatsRequest: Promise<number | null> | null = null;
+
+function getWayyoDownloadCount() {
+    if (!wayyoStatsRequest) {
+        wayyoStatsRequest = core_services.getWayyoDownloadStats()
+            .then((stats) => {
+                const count = Number(stats?.totalDownloads);
+                return Number.isFinite(count) ? count : null;
+            })
+            .catch(() => null);
+    }
+    return wayyoStatsRequest;
+}
 
 const capabilities = [
     { icon: Workflow, title: "Build workflows visually", description: "Connect triggers, actions and conditions in a visual builder. Keep workflows easy to understand, change and reuse." },
@@ -25,11 +42,40 @@ const questions = [
     { question: "Will workflows run while my computer is asleep or shut down?", answer: "Execution normally pauses during sleep, and a fully shut-down computer cannot run local workflows. Wake timers or missed-run recovery depend on Windows settings and hardware." },
     { question: "Can it automate any Windows application?", answer: "Automation depends on supported actions, the target application's accessibility and permissions. Not every application can be automated reliably." },
     { question: "Is Wayyo free, and which Windows versions are supported?", answer: "Pricing, supported Windows versions and minimum system requirements will be published with the release. They are not confirmed yet." },
-    { question: "How do I get the installer?", answer: "The installer is not available yet. When released, this page will show the official download, version, file size, requirements and release notes." },
+    { question: "How do I get the installer?", answer: "Use the Download for Windows button on this page to download the official Wayyo installer." },
 ];
 
 function DownloadButton() {
-    return <button className="wayyo-download" type="button" disabled aria-describedby="wayyo-release-note"><ArrowDownToLine size={18} /> Download for Windows <span>Coming soon</span></button>;
+    const [isLoading, setIsLoading] = useState(false);
+    const [downloadCount, setDownloadCount] = useState<number | null>(null);
+
+    useEffect(() => {
+        let isMounted = true;
+        getWayyoDownloadCount().then((count) => {
+            if (isMounted && count !== null) setDownloadCount(count);
+        });
+        return () => { isMounted = false; };
+    }, []);
+
+    const startDownload = async () => {
+        if (isLoading) return;
+        setIsLoading(true);
+        try {
+            const result = await core_services.registerWayyoDownloadClick();
+            const count = Number(result?.totalDownloads);
+            if (Number.isFinite(count)) setDownloadCount(count);
+        } catch {
+            // Tracking must not prevent users from getting the installer.
+        } finally {
+            window.location.assign(WAYYO_INSTALLER_URL);
+        }
+    };
+
+    return <button className="wayyo-download" type="button" onClick={startDownload} disabled={isLoading} aria-describedby="wayyo-release-note">
+        {isLoading ? <LoaderCircle size={18} className="animate-spin" aria-hidden="true" /> : <ArrowDownToLine size={18} />}
+        {isLoading ? "Preparing download..." : "Download for Windows"}
+        <span>{downloadCount === null ? "" : `${downloadCount.toLocaleString()} download clicks`}</span>
+    </button>;
 }
 
 function DashboardPreview() {
@@ -57,7 +103,7 @@ export default function Wayyo() {
             <style>{wayyoStyles}</style>
             <Helmet>
                 <title>Wayyo Download for Windows | Workflow Automation</title>
-                <meta name="description" content="Wayyo is a Windows desktop automation app for building visual workflows, scheduling repetitive tasks and running supported automations locally. Download coming soon." />
+                <meta name="description" content="Download Wayyo for Windows, a desktop automation app for building visual workflows, scheduling repetitive tasks and running supported automations locally." />
                 <meta name="robots" content="index, follow, max-image-preview:large" />
                 <meta name="application-name" content="Wayyo" />
                 <meta name="apple-mobile-web-app-title" content="Wayyo" />
@@ -67,7 +113,7 @@ export default function Wayyo() {
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="Wayyo" />
                 <meta property="og:title" content="Wayyo for Windows | Your Work, On Autopilot" />
-                <meta property="og:description" content="Wayyo is a Windows desktop automation app for building visual workflows and automating repetitive tasks locally. Download coming soon." />
+                <meta property="og:description" content="Download Wayyo for Windows, a desktop automation app for building visual workflows and automating repetitive tasks locally." />
                 <meta property="og:url" content="https://nearwe.in/wayyo" />
                 <meta property="og:image" content="https://nearwe.in/wayyo-og-cobalt.png" />
                 <meta property="og:image:width" content="1200" />
@@ -75,14 +121,14 @@ export default function Wayyo() {
                 <meta property="og:image:alt" content="Wayyo, a Windows desktop automation app for visual workflows" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="Wayyo for Windows | Your Work, On Autopilot" />
-                <meta name="twitter:description" content="Build visual workflows and automate repetitive Windows tasks locally with Wayyo. Download coming soon." />
+                <meta name="twitter:description" content="Download Wayyo and build visual workflows to automate repetitive Windows tasks locally." />
                 <meta name="twitter:image" content="https://nearwe.in/wayyo-og-cobalt.png" />
                 <script type="application/ld+json">{JSON.stringify({
                     "@context": "https://schema.org",
                     "@type": "SoftwareApplication",
                     name: "Wayyo",
                     url: "https://nearwe.in/wayyo",
-                    description: "A Windows desktop automation app for building visual workflows and running supported repetitive tasks locally. The download is coming soon.",
+                    description: "A Windows desktop automation app for building visual workflows and running supported repetitive tasks locally.",
                     applicationCategory: "UtilitiesApplication",
                     operatingSystem: "Windows",
                 })}</script>
@@ -98,13 +144,13 @@ export default function Wayyo() {
             </Helmet>
             <header className="wayyo-header"><Link to="/wayyo" className="wayyo-brand"><img className="wayyo-nearwe-logo" src="/logo-bg-trans.png" alt="NearWe Labs" /><span>wayyo<small>BY NEARWE LABS</small></span></Link><nav aria-label="Wayyo navigation"><a href="#features">Features</a><a href="#use-cases">Use cases</a><a href="#faq">FAQ</a><Link to="/">NearWe Labs <ArrowRight size={14} /></Link></nav><a className="wayyo-header-cta" href="#download">Get Wayyo <ArrowRight size={15} /></a></header>
             <main>
-                <section className="wayyo-hero"><div className="wayyo-hero-copy"><div className="wayyo-eyebrow"><span /> WAYYO · MADE FOR WINDOWS <span className="wayyo-launch-pill">COMING SOON</span></div><p className="wayyo-overline">Your personal automation workspace</p><h1>Stop repeating tasks.<br /><span>Start automating.</span></h1><p className="wayyo-intro">Wayyo is a Windows desktop automation app for building visual workflows. Schedule actions, connect steps and let Wayyo handle repetitive work locally on your PC.</p><div className="wayyo-hero-actions"><DownloadButton /><a className="wayyo-secondary-cta" href="#features">See how it works <ArrowRight size={17} /></a></div><p id="wayyo-release-note" className="wayyo-release-note">Installer, version and file size will appear here when Wayyo is ready.</p><div className="wayyo-trust"><span><Check size={15} /> Local-first by design</span><span><Laptop size={15} /> Windows desktop</span><span><Workflow size={15} /> Visual workflows</span></div></div><DashboardPreview /></section>
+                <section className="wayyo-hero"><div className="wayyo-hero-copy"><div className="wayyo-eyebrow"><span /> WAYYO · MADE FOR WINDOWS <span className="wayyo-launch-pill">AVAILABLE NOW</span></div><p className="wayyo-overline">Your personal automation workspace</p><h1>Stop repeating tasks.<br /><span>Start automating.</span></h1><p className="wayyo-intro">Wayyo is a Windows desktop automation app for building visual workflows. Schedule actions, connect steps and let Wayyo handle repetitive work locally on your PC.</p><div className="wayyo-hero-actions"><DownloadButton /><a className="wayyo-secondary-cta" href="#features">See how it works <ArrowRight size={17} /></a></div><p id="wayyo-release-note" className="wayyo-release-note">Download the official Windows installer below.</p><div className="wayyo-trust"><span><Check size={15} /> Local-first by design</span><span><Laptop size={15} /> Windows desktop</span><span><Workflow size={15} /> Visual workflows</span></div></div><DashboardPreview /></section>
                 <section className="wayyo-flow-strip" aria-label="Example workflows"><div><small>DAILY WORKSPACE SETUP</small><b>Schedule <i>→</i> Open apps <i>→</i> Prepare files <i>→</i> Notify</b></div><div><small>DOWNLOADS ORGANIZER</small><b>Detect files <i>→</i> Sort by type <i>→</i> Move into folders</b></div></section>
                 <section className="wayyo-section" id="features"><div className="wayyo-section-heading"><span>LESS REPETITION, MORE FLOW</span><h2>Everything you do repeatedly<br />can become a workflow.</h2><p>Bring everyday desktop tasks together in one workspace you can shape around the way you work.</p></div><div className="wayyo-feature-grid">{capabilities.map(({ icon: Icon, title, description }, index) => <article className="wayyo-feature" key={title}><span className="wayyo-feature-icon"><Icon size={21} /></span><small>0{index + 1}</small><h3>{title}</h3><p>{description}</p></article>)}</div></section>
                 <section className="wayyo-use-section" id="use-cases"><div className="wayyo-use-inner"><div className="wayyo-use-heading"><span>MADE FOR THE IN-BETWEEN TASKS</span><h2>Automate the little things that take up your day.</h2><p>Start small, make a routine reusable, then add steps as your needs grow.</p></div><div className="wayyo-use-list">{useCases.map((item, index) => <article key={item.title}><span>0{index + 1}</span><div><h3>{item.title}</h3><p>{item.detail}</p></div><ArrowRight size={18} /></article>)}</div></div></section>
                 <section className="wayyo-control-section"><div className="wayyo-control-art"><div className="wayyo-control-orbit orbit-one" /><div className="wayyo-control-orbit orbit-two" /><div className="wayyo-control-lock"><LockKeyhole size={34} /></div><span className="control-label label-one">YOUR COMPUTER</span><span className="control-label label-two">YOUR WORKFLOWS</span><span className="control-label label-three">YOUR CONTROL</span></div><div className="wayyo-control-copy"><span>LOCAL BY DESIGN</span><h2>Your device.<br />Your rules.</h2><p>Wayyo is designed to prioritize local execution and user control. Keep workflow definitions on your device, review execution logs and decide which actions are allowed to run.</p><ul><li><Check size={16} /> Core workflows designed for local execution</li><li><Check size={16} /> No mandatory cloud account for local workflows</li><li><Check size={16} /> Online actions still require an internet connection</li></ul><p className="wayyo-caveat">What a workflow can do depends on its selected action, Windows permissions and the state of your computer.</p></div></section>
                 <section className="wayyo-audience"><div><span>FOR YOUR KIND OF WORK</span><h2>Made to fit your workflow.</h2></div><div className="wayyo-audience-grid"><article><b>Developers</b><p>Automate local scripts and development setup.</p></article><article><b>Professionals</b><p>Streamline recurring file and reporting tasks.</p></article><article><b>Creators</b><p>Organize assets and supported desktop routines.</p></article><article><b>Power users</b><p>Combine actions into workflows you can reuse.</p></article></div></section>
-                <section className="wayyo-download-section" id="download"><div className="wayyo-download-copy"><span>YOUR NEXT STEP</span><h2>Get started with Wayyo.</h2><p>Start with a simple workflow. Add more actions as your needs grow.</p><DownloadButton /><p id="wayyo-release-note-bottom">The official installer, release notes, supported Windows versions and system requirements will be published here when confirmed.</p></div><div className="wayyo-release-card"><FileCheck2 size={23} /><div><b>Official Windows installer</b><p>Release details will be listed here before download.</p><dl><dt>Version</dt><dd>Coming soon</dd><dt>File size</dt><dd>Coming soon</dd><dt>Publisher verification</dt><dd>Details at release</dd></dl></div></div></section>
+                <section className="wayyo-download-section" id="download"><div className="wayyo-download-copy"><span>YOUR NEXT STEP</span><h2>Get started with Wayyo.</h2><p>Start with a simple workflow. Add more actions as your needs grow.</p><DownloadButton /><p id="wayyo-release-note-bottom">Download the official Windows installer below.</p></div><div className="wayyo-release-card"><FileCheck2 size={23} /><div><b>Official Windows installer</b><p>Hosted on GitHub Releases.</p></div></div></section>
                 <section className="wayyo-faq-section" id="faq"><div className="wayyo-faq-title"><CircleHelp size={22} /><span>GOOD TO KNOW</span><h2>Questions, answered.</h2></div><div className="wayyo-faq-list">{questions.map(({ question, answer }) => <details key={question}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</div></section>
             </main>
             <footer className="wayyo-footer"><Link to="/wayyo" className="wayyo-brand"><img className="wayyo-nearwe-logo" src="/logo-bg-trans.png" alt="NearWe Labs" /><span>wayyo<small>BY NEARWE LABS</small></span></Link><p>Your work. On autopilot.</p><Link to="/">A product by NearWe Labs <ArrowRight size={14} /></Link></footer>
