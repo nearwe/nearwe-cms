@@ -21,6 +21,7 @@ import {
     Smartphone,
     Sparkles,
     X,
+    Workflow,
     type LucideIcon,
 } from "lucide-react";
 
@@ -565,6 +566,17 @@ export default function NearWeLandingPage() {
             onSecondary: () => navigate("/vestora-ai"),
             accent: "from-emerald-400 to-cyan-500",
         },
+        {
+            Icon: Workflow,
+            title: "Wayyo",
+            tag: "Windows Automation · Coming Soon",
+            desc: "A local-first desktop automation workspace for building visual workflows and handling repetitive Windows tasks.",
+            primary: "Explore Wayyo",
+            secondary: "Coming soon",
+            onPrimary: () => navigate("/wayyo"),
+            onSecondary: () => navigate("/wayyo"),
+            accent: "from-violet-400 to-fuchsia-500",
+        },
     ];
 
     return (
@@ -901,7 +913,8 @@ export default function NearWeLandingPage() {
                                                 <button
                                                     type="button"
                                                     onClick={p.onSecondary}
-                                                    className="px-5 py-3 text-sm border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:bg-cyan-500/10 rounded-full transition-colors"
+                                                    disabled={p.title === "Wayyo"}
+                                                    className={`px-5 py-3 text-sm border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:bg-cyan-500/10 rounded-full transition-colors ${p.title === "Wayyo" ? "opacity-60 cursor-not-allowed" : ""}`}
                                                 >
                                                     {p.secondary}
                                                 </button>
@@ -916,7 +929,7 @@ export default function NearWeLandingPage() {
                                     to="/products"
                                     className="inline-flex items-center gap-2 px-6 py-3 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:bg-cyan-500/10 rounded-full transition-colors"
                                 >
-                                    Show more products <ArrowRight className="w-4 h-4" />
+                                    Browse all products <ArrowRight className="w-4 h-4" />
                                 </Link>
                             </div>
                         </div>
