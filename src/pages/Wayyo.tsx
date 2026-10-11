@@ -57,25 +57,28 @@ function DownloadButton() {
         return () => { isMounted = false; };
     }, []);
 
-    const startDownload = async () => {
+    const startDownload = () => {
         if (isLoading) return;
         setIsLoading(true);
-        try {
-            const result = await core_services.registerWayyoDownloadClick();
-            const count = Number(result?.totalDownloads);
-            if (Number.isFinite(count)) setDownloadCount(count);
-        } catch {
-            // Tracking must not prevent users from getting the installer.
-        } finally {
-            window.location.assign(WAYYO_INSTALLER_URL);
-        }
+        window.setTimeout(() => setIsLoading(false), 700);
+        core_services.registerWayyoDownloadClick()
+            .then((result) => {
+                const count = Number(result?.totalDownloads);
+                if (Number.isFinite(count)) setDownloadCount(count);
+            })
+            .catch(() => undefined);
     };
 
-    return <button className="wayyo-download" type="button" onClick={startDownload} disabled={isLoading} aria-describedby="wayyo-release-note">
-        {isLoading ? <LoaderCircle size={18} className="animate-spin" aria-hidden="true" /> : <ArrowDownToLine size={18} />}
-        {isLoading ? "Preparing download..." : "Download for Windows"}
-        <span>{downloadCount === null ? "" : `${downloadCount.toLocaleString()} download clicks`}</span>
-    </button>;
+    return <div className="wayyo-download-wrap">
+        <a className="wayyo-download" href={WAYYO_INSTALLER_URL} onClick={startDownload}>
+            {isLoading ? <LoaderCircle size={18} className="animate-spin" aria-hidden="true" /> : <ArrowDownToLine size={18} />}
+            {isLoading ? "Starting download..." : "Download for Windows"}
+        </a>
+        <div className="wayyo-download-social-proof" aria-live="polite">
+            <b>{downloadCount === null ? "Make Wayyo work your way." : `${downloadCount.toLocaleString()} download ${downloadCount === 1 ? "click" : "clicks"} so far.`}</b>
+            <span>Build automations around your needs. Try it free and make it fit the way you work.</span>
+        </div>
+    </div>;
 }
 
 function DashboardPreview() {
@@ -182,4 +185,9 @@ const wayyoStyles = `
 .wayyo-audience{background:var(--wy-deep)}
 .wayyo-audience>div:first-child>span{color:#B9C9F8}
 .wayyo-header nav a:hover,.wayyo-footer>a:last-child:hover{color:var(--wy-primary)}
+.wayyo-download{opacity:1;cursor:pointer;text-decoration:none}
+.wayyo-download:hover{opacity:.9}
+.wayyo-download-wrap{display:grid;justify-items:start;gap:12px}
+.wayyo-download-social-proof{display:grid;gap:5px;max-width:480px;color:var(--wy-muted);font-size:12px;line-height:1.6}
+.wayyo-download-social-proof b{color:var(--wy-deep);font-size:13px}
 `;
