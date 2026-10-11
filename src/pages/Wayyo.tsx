@@ -55,10 +55,50 @@ export default function Wayyo() {
     return (
         <div className="wayyo-page">
             <style>{wayyoStyles}</style>
-            <Helmet><title>Wayyo by NearWe Labs | Windows Automation, On Autopilot</title><meta name="description" content="Meet Wayyo, a visual, local-first workflow automation workspace for Windows. Build workflows, schedule routine tasks and stay in control on your device." /><meta property="og:title" content="Wayyo by NearWe Labs" /><meta property="og:description" content="Stop repeating tasks. Start automating with Wayyo, your personal Windows automation workspace." /><meta property="og:type" content="website" /></Helmet>
+            <Helmet>
+                <title>Wayyo Download for Windows | Workflow Automation</title>
+                <meta name="description" content="Wayyo is a Windows desktop automation app for building visual workflows, scheduling repetitive tasks and running supported automations locally. Download coming soon." />
+                <meta name="robots" content="index, follow, max-image-preview:large" />
+                <meta name="application-name" content="Wayyo" />
+                <meta name="apple-mobile-web-app-title" content="Wayyo" />
+                <meta name="theme-color" content="#6741e8" />
+                <link rel="canonical" href="https://nearwe.in/wayyo" />
+                <link rel="icon" type="image/png" href="/wayyo-icon.png" />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="Wayyo" />
+                <meta property="og:title" content="Wayyo for Windows | Your Work, On Autopilot" />
+                <meta property="og:description" content="Wayyo is a Windows desktop automation app for building visual workflows and automating repetitive tasks locally. Download coming soon." />
+                <meta property="og:url" content="https://nearwe.in/wayyo" />
+                <meta property="og:image" content="https://nearwe.in/wayyo-og.png" />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta property="og:image:alt" content="Wayyo, a Windows desktop automation app for visual workflows" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Wayyo for Windows | Your Work, On Autopilot" />
+                <meta name="twitter:description" content="Build visual workflows and automate repetitive Windows tasks locally with Wayyo. Download coming soon." />
+                <meta name="twitter:image" content="https://nearwe.in/wayyo-og.png" />
+                <script type="application/ld+json">{JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "SoftwareApplication",
+                    name: "Wayyo",
+                    url: "https://nearwe.in/wayyo",
+                    description: "A Windows desktop automation app for building visual workflows and running supported repetitive tasks locally. The download is coming soon.",
+                    applicationCategory: "UtilitiesApplication",
+                    operatingSystem: "Windows",
+                })}</script>
+                <script type="application/ld+json">{JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    mainEntity: questions.map(({ question, answer }) => ({
+                        "@type": "Question",
+                        name: question,
+                        acceptedAnswer: { "@type": "Answer", text: answer },
+                    })),
+                })}</script>
+            </Helmet>
             <header className="wayyo-header"><Link to="/wayyo" className="wayyo-brand"><span className="wayyo-mark">w</span><span>wayyo<small>BY NEARWE LABS</small></span></Link><nav aria-label="Wayyo navigation"><a href="#features">Features</a><a href="#use-cases">Use cases</a><a href="#faq">FAQ</a><Link to="/">NearWe Labs <ArrowRight size={14} /></Link></nav><a className="wayyo-header-cta" href="#download">Get Wayyo <ArrowRight size={15} /></a></header>
             <main>
-                <section className="wayyo-hero"><div className="wayyo-hero-copy"><div className="wayyo-eyebrow"><span /> MADE FOR WINDOWS <span className="wayyo-launch-pill">COMING SOON</span></div><p className="wayyo-overline">Your personal automation workspace</p><h1>Stop repeating tasks.<br /><span>Start automating.</span></h1><p className="wayyo-intro">Build visual workflows that handle repetitive tasks on your Windows PC. Schedule actions, connect steps and let Wayyo do the routine work, locally on your device.</p><div className="wayyo-hero-actions"><DownloadButton /><a className="wayyo-secondary-cta" href="#features">See how it works <ArrowRight size={17} /></a></div><p id="wayyo-release-note" className="wayyo-release-note">Installer, version and file size will appear here when Wayyo is ready.</p><div className="wayyo-trust"><span><Check size={15} /> Local-first by design</span><span><Laptop size={15} /> Windows desktop</span><span><Workflow size={15} /> Visual workflows</span></div></div><DashboardPreview /></section>
+                <section className="wayyo-hero"><div className="wayyo-hero-copy"><div className="wayyo-eyebrow"><span /> WAYYO · MADE FOR WINDOWS <span className="wayyo-launch-pill">COMING SOON</span></div><p className="wayyo-overline">Your personal automation workspace</p><h1>Stop repeating tasks.<br /><span>Start automating.</span></h1><p className="wayyo-intro">Wayyo is a Windows desktop automation app for building visual workflows. Schedule actions, connect steps and let Wayyo handle repetitive work locally on your PC.</p><div className="wayyo-hero-actions"><DownloadButton /><a className="wayyo-secondary-cta" href="#features">See how it works <ArrowRight size={17} /></a></div><p id="wayyo-release-note" className="wayyo-release-note">Installer, version and file size will appear here when Wayyo is ready.</p><div className="wayyo-trust"><span><Check size={15} /> Local-first by design</span><span><Laptop size={15} /> Windows desktop</span><span><Workflow size={15} /> Visual workflows</span></div></div><DashboardPreview /></section>
                 <section className="wayyo-flow-strip" aria-label="Example workflows"><div><small>DAILY WORKSPACE SETUP</small><b>Schedule <i>→</i> Open apps <i>→</i> Prepare files <i>→</i> Notify</b></div><div><small>DOWNLOADS ORGANIZER</small><b>Detect files <i>→</i> Sort by type <i>→</i> Move into folders</b></div></section>
                 <section className="wayyo-section" id="features"><div className="wayyo-section-heading"><span>LESS REPETITION, MORE FLOW</span><h2>Everything you do repeatedly<br />can become a workflow.</h2><p>Bring everyday desktop tasks together in one workspace you can shape around the way you work.</p></div><div className="wayyo-feature-grid">{capabilities.map(({ icon: Icon, title, description }, index) => <article className="wayyo-feature" key={title}><span className="wayyo-feature-icon"><Icon size={21} /></span><small>0{index + 1}</small><h3>{title}</h3><p>{description}</p></article>)}</div></section>
                 <section className="wayyo-use-section" id="use-cases"><div className="wayyo-use-inner"><div className="wayyo-use-heading"><span>MADE FOR THE IN-BETWEEN TASKS</span><h2>Automate the little things that take up your day.</h2><p>Start small, make a routine reusable, then add steps as your needs grow.</p></div><div className="wayyo-use-list">{useCases.map((item, index) => <article key={item.title}><span>0{index + 1}</span><div><h3>{item.title}</h3><p>{item.detail}</p></div><ArrowRight size={18} /></article>)}</div></div></section>
