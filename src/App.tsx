@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Layout } from "antd";
 import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./pages/Login";
@@ -34,6 +34,17 @@ import CareersPage from "./pages/Careers";
 import VestoraAI from "./pages/VestoraAI";
 import VestoraAIDemo from "./pages/VestoraAIDemo";
 import NearWeApp from "./pages/NearWeApp";
+import Wayyo from "./pages/Wayyo";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 const App = () => {
   const isCMS = window.location.hostname.includes("cms");
@@ -55,6 +66,7 @@ const App = () => {
       <UserProvider>
         <NotificationProvider>
           <Router>
+            <ScrollToTop />
             <Layout className="min-h-screen bg-bg1">
               <Layout.Content>
                 <Routes>
@@ -92,6 +104,7 @@ const App = () => {
                       <Route path="/aboutus" element={<AboutUs />} />
                       <Route path="/services" element={<ServicesPage />} />
                       <Route path="/nearwe-app" element={<NearWeApp />} />
+                      <Route path="/wayyo" element={<Wayyo />} />
                       <Route path="/companyservices" element={<ServicesAgencyPage />} />
                       <Route path="/contact" element={<Contact />} />
                       <Route path="/terms" element={<TermsAndConditions />} />
