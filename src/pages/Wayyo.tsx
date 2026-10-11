@@ -61,22 +61,22 @@ export default function Wayyo() {
                 <meta name="robots" content="index, follow, max-image-preview:large" />
                 <meta name="application-name" content="Wayyo" />
                 <meta name="apple-mobile-web-app-title" content="Wayyo" />
-                <meta name="theme-color" content="#6741e8" />
+                <meta name="theme-color" content="#3559C7" />
                 <link rel="canonical" href="https://nearwe.in/wayyo" />
-                <link rel="icon" type="image/png" href="/wayyo-icon.png" />
+                <link rel="icon" type="image/png" href="/wayyo-icon-cobalt.png" />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="Wayyo" />
                 <meta property="og:title" content="Wayyo for Windows | Your Work, On Autopilot" />
                 <meta property="og:description" content="Wayyo is a Windows desktop automation app for building visual workflows and automating repetitive tasks locally. Download coming soon." />
                 <meta property="og:url" content="https://nearwe.in/wayyo" />
-                <meta property="og:image" content="https://nearwe.in/wayyo-og.png" />
+                <meta property="og:image" content="https://nearwe.in/wayyo-og-cobalt.png" />
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />
                 <meta property="og:image:alt" content="Wayyo, a Windows desktop automation app for visual workflows" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="Wayyo for Windows | Your Work, On Autopilot" />
                 <meta name="twitter:description" content="Build visual workflows and automate repetitive Windows tasks locally with Wayyo. Download coming soon." />
-                <meta name="twitter:image" content="https://nearwe.in/wayyo-og.png" />
+                <meta name="twitter:image" content="https://nearwe.in/wayyo-og-cobalt.png" />
                 <script type="application/ld+json">{JSON.stringify({
                     "@context": "https://schema.org",
                     "@type": "SoftwareApplication",
@@ -96,7 +96,7 @@ export default function Wayyo() {
                     })),
                 })}</script>
             </Helmet>
-            <header className="wayyo-header"><Link to="/wayyo" className="wayyo-brand"><span className="wayyo-mark">w</span><span>wayyo<small>BY NEARWE LABS</small></span></Link><nav aria-label="Wayyo navigation"><a href="#features">Features</a><a href="#use-cases">Use cases</a><a href="#faq">FAQ</a><Link to="/">NearWe Labs <ArrowRight size={14} /></Link></nav><a className="wayyo-header-cta" href="#download">Get Wayyo <ArrowRight size={15} /></a></header>
+            <header className="wayyo-header"><Link to="/wayyo" className="wayyo-brand"><img className="wayyo-nearwe-logo" src="/logo-bg-trans.png" alt="NearWe Labs" /><span>wayyo<small>BY NEARWE LABS</small></span></Link><nav aria-label="Wayyo navigation"><a href="#features">Features</a><a href="#use-cases">Use cases</a><a href="#faq">FAQ</a><Link to="/">NearWe Labs <ArrowRight size={14} /></Link></nav><a className="wayyo-header-cta" href="#download">Get Wayyo <ArrowRight size={15} /></a></header>
             <main>
                 <section className="wayyo-hero"><div className="wayyo-hero-copy"><div className="wayyo-eyebrow"><span /> WAYYO · MADE FOR WINDOWS <span className="wayyo-launch-pill">COMING SOON</span></div><p className="wayyo-overline">Your personal automation workspace</p><h1>Stop repeating tasks.<br /><span>Start automating.</span></h1><p className="wayyo-intro">Wayyo is a Windows desktop automation app for building visual workflows. Schedule actions, connect steps and let Wayyo handle repetitive work locally on your PC.</p><div className="wayyo-hero-actions"><DownloadButton /><a className="wayyo-secondary-cta" href="#features">See how it works <ArrowRight size={17} /></a></div><p id="wayyo-release-note" className="wayyo-release-note">Installer, version and file size will appear here when Wayyo is ready.</p><div className="wayyo-trust"><span><Check size={15} /> Local-first by design</span><span><Laptop size={15} /> Windows desktop</span><span><Workflow size={15} /> Visual workflows</span></div></div><DashboardPreview /></section>
                 <section className="wayyo-flow-strip" aria-label="Example workflows"><div><small>DAILY WORKSPACE SETUP</small><b>Schedule <i>→</i> Open apps <i>→</i> Prepare files <i>→</i> Notify</b></div><div><small>DOWNLOADS ORGANIZER</small><b>Detect files <i>→</i> Sort by type <i>→</i> Move into folders</b></div></section>
@@ -107,7 +107,7 @@ export default function Wayyo() {
                 <section className="wayyo-download-section" id="download"><div className="wayyo-download-copy"><span>YOUR NEXT STEP</span><h2>Get started with Wayyo.</h2><p>Start with a simple workflow. Add more actions as your needs grow.</p><DownloadButton /><p id="wayyo-release-note-bottom">The official installer, release notes, supported Windows versions and system requirements will be published here when confirmed.</p></div><div className="wayyo-release-card"><FileCheck2 size={23} /><div><b>Official Windows installer</b><p>Release details will be listed here before download.</p><dl><dt>Version</dt><dd>Coming soon</dd><dt>File size</dt><dd>Coming soon</dd><dt>Publisher verification</dt><dd>Details at release</dd></dl></div></div></section>
                 <section className="wayyo-faq-section" id="faq"><div className="wayyo-faq-title"><CircleHelp size={22} /><span>GOOD TO KNOW</span><h2>Questions, answered.</h2></div><div className="wayyo-faq-list">{questions.map(({ question, answer }) => <details key={question}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</div></section>
             </main>
-            <footer className="wayyo-footer"><Link to="/wayyo" className="wayyo-brand"><span className="wayyo-mark">w</span><span>wayyo<small>BY NEARWE LABS</small></span></Link><p>Your work. On autopilot.</p><Link to="/">A product by NearWe Labs <ArrowRight size={14} /></Link></footer>
+            <footer className="wayyo-footer"><Link to="/wayyo" className="wayyo-brand"><img className="wayyo-nearwe-logo" src="/logo-bg-trans.png" alt="NearWe Labs" /><span>wayyo<small>BY NEARWE LABS</small></span></Link><p>Your work. On autopilot.</p><Link to="/">A product by NearWe Labs <ArrowRight size={14} /></Link></footer>
         </div>
     );
 }
@@ -118,4 +118,22 @@ const wayyoStyles = `
 @media(max-width:900px){.wayyo-hero{grid-template-columns:1fr;gap:35px;padding-top:55px}.wayyo-hero-copy{max-width:650px}.wayyo-window{transform:none}.wayyo-window-body{min-height:320px}.wayyo-use-inner{gap:45px}.wayyo-control-section{gap:45px}.wayyo-audience{grid-template-columns:1fr;gap:30px}.wayyo-faq-section{gap:35px}}
 @media(max-width:640px){.wayyo-header{height:65px;padding:0 16px}.wayyo-header nav{display:none}.wayyo-header-cta{padding:10px 11px;font-size:11px}.wayyo-hero{padding:44px 16px 38px;gap:28px}.wayyo-hero h1{font-size:39px}.wayyo-intro{font-size:14px}.wayyo-trust{gap:11px}.wayyo-trust span{font-size:9px}.wayyo-window{border-radius:7px}.wayyo-window-top{padding:0 8px}.wayyo-search{width:44%;font-size:7px}.wayyo-profile{font-size:0}.wayyo-window-body{grid-template-columns:74px 1fr;min-height:270px}.wayyo-sidebar{font-size:7px;padding:8px 4px}.wayyo-sidebar>div{padding:7px 4px}.wayyo-sidebar small{font-size:6px}.wayyo-dash-content{padding:8px}.wayyo-dash-hello{padding:9px}.wayyo-dash-hello h3{font-size:14px}.wayyo-dash-hello p{font-size:7px;max-width:100%}.wayyo-dash-hello button{position:static;margin-top:7px;padding:5px;font-size:7px}.wayyo-stat-row{gap:4px}.wayyo-stat-row>div{padding:6px}.wayyo-stat-row small{font-size:6px}.wayyo-stat-row b{font-size:12px}.wayyo-stat-row em{font-size:6px}.wayyo-stat-row>div>span{font-size:6px}.wayyo-workspace{grid-template-columns:1fr}.wayyo-activity{display:none}.wayyo-workflows{padding:6px}.wayyo-workflow-heading{font-size:8px}.wayyo-workflow-heading span{font-size:6px}.wayyo-workflow{gap:5px;padding:6px 1px}.wayyo-flow-icon{width:20px;height:20px}.wayyo-workflow b{font-size:8px}.wayyo-workflow label{font-size:6px}.wayyo-workflow small,.wayyo-workflow p{font-size:6px}.wayyo-run{font-size:7px;padding:5px}.wayyo-flow-strip{justify-content:flex-start;padding:19px 17px;gap:17px}.wayyo-flow-strip>div{min-width:100%}.wayyo-flow-strip b{font-size:10px}.wayyo-section{padding:67px 17px}.wayyo-section-heading{margin-bottom:28px}.wayyo-section h2,.wayyo-use-heading h2{font-size:32px}.wayyo-feature-grid{grid-template-columns:1fr 1fr}.wayyo-feature{padding:17px;min-height:210px}.wayyo-feature h3{font-size:14px}.wayyo-feature p{font-size:11px}.wayyo-feature>small{top:23px;right:15px}.wayyo-use-section{padding:62px 17px}.wayyo-use-inner{grid-template-columns:1fr;gap:28px}.wayyo-use-heading{position:static}.wayyo-use-list article{grid-template-columns:24px 1fr 15px;gap:9px}.wayyo-control-section{padding:62px 17px;grid-template-columns:1fr;gap:31px}.wayyo-control-art{height:260px}.wayyo-control-copy h2{font-size:38px}.wayyo-audience{padding:52px 18px}.wayyo-audience h2{font-size:31px}.wayyo-audience-grid{gap:20px 15px}.wayyo-download-section{padding:62px 17px;grid-template-columns:1fr;gap:25px}.wayyo-download-copy h2{font-size:34px}.wayyo-release-card{padding:16px}.wayyo-faq-section{padding:5px 17px 65px;grid-template-columns:1fr;gap:20px}.wayyo-faq-title h2{font-size:30px}.wayyo-footer{padding:20px 17px;flex-wrap:wrap}.wayyo-footer>p{order:3;width:100%;margin:0}}
 @media(prefers-reduced-motion:reduce){.wayyo-page *{scroll-behavior:auto!important}}
+.wayyo-page{--wy-deep:#202A40;--wy-ink:var(--wy-deep);--wy-muted:#626E82;--wy-primary:#3559C7;--wy-purple:var(--wy-primary);--wy-light:#EEF2FC;--wy-lilac:var(--wy-light);--wy-line:#D9E1F2}
+.wayyo-nearwe-logo{width:58px;height:38px;flex:none;object-fit:contain}
+.wayyo-eyebrow,.wayyo-section-heading>span,.wayyo-use-heading>span,.wayyo-control-copy>span,.wayyo-audience>div:first-child>span,.wayyo-download-copy>span,.wayyo-trust svg,.wayyo-secondary-cta,.wayyo-dash-hello small,.wayyo-flow-strip i,.wayyo-use-list article>span,.wayyo-use-list article>svg,.wayyo-faq-title>svg,.wayyo-faq-list summary span{color:var(--wy-primary)}
+.wayyo-eyebrow>span:first-child{background:var(--wy-primary)}
+.wayyo-launch-pill,.wayyo-sidebar>div.active,.wayyo-stat-row>div>span,.wayyo-workflow label,.wayyo-flow-icon,.wayyo-feature-icon,.wayyo-release-card,.wayyo-flow-strip,.wayyo-use-section{background:var(--wy-light)}
+.wayyo-launch-pill,.wayyo-stat-row>div>span,.wayyo-workflow label,.wayyo-flow-icon,.wayyo-run,.wayyo-feature-icon,.wayyo-release-card>svg,.wayyo-faq-title>svg,.wayyo-faq-list summary span,.wayyo-sidebar>div.active,.wayyo-workflow-heading span,.wayyo-workflow p{color:var(--wy-primary)}
+.wayyo-window{border-color:var(--wy-line);background:var(--wy-light);box-shadow:0 25px 65px #203A7820}
+.wayyo-dash-hello button,.wayyo-header-cta,.wayyo-download{background:var(--wy-primary)}
+.wayyo-workflow-heading span,.wayyo-workflow p,.wayyo-run{background:var(--wy-light)}
+.wayyo-use-list article,.wayyo-control-orbit{border-color:#C9D6F1}
+.wayyo-control-art{background:var(--wy-light)}
+.wayyo-control-lock{background:var(--wy-primary);color:#fff;box-shadow:0 12px 30px #3559C755}
+.control-label{background:#DCE6FF;color:var(--wy-deep)}
+.wayyo-control-copy li svg{color:var(--wy-primary)}
+.wayyo-control-copy .wayyo-caveat{color:#71809A}
+.wayyo-audience{background:var(--wy-deep)}
+.wayyo-audience>div:first-child>span{color:#B9C9F8}
+.wayyo-header nav a:hover,.wayyo-footer>a:last-child:hover{color:var(--wy-primary)}
 `;

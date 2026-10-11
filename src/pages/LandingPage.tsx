@@ -777,28 +777,28 @@ export default function NearWeLandingPage() {
                         <div className="max-w-6xl mx-auto">
                             <Link
                                 to="/wayyo"
-                                className="group relative block overflow-hidden rounded-3xl border border-violet-400/20 bg-[#11101d] p-6 sm:p-10 transition-colors hover:border-violet-300/40"
+                                className="group relative block overflow-hidden rounded-3xl border border-[#3559C7]/35 bg-[#202A40] p-6 sm:p-10 transition-colors hover:border-[#8FAAFF]/70"
                             >
-                                <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ background: "radial-gradient(ellipse at 80% 30%, rgba(124,58,237,.18), transparent 48%)" }} />
+                                <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ background: "radial-gradient(ellipse at 80% 30%, rgba(53,89,199,.22), transparent 48%)" }} />
                                 <div className="relative grid lg:grid-cols-[1fr_1.05fr] gap-8 lg:gap-12 items-center">
                                     <div>
-                                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-violet-300/20 bg-violet-400/10 text-violet-200 text-xs font-bold uppercase tracking-wide mb-5">
-                                            <span className="w-2 h-2 rounded-full bg-violet-300" /> Coming soon · Wayyo by NearWe Labs
+                                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#8FAAFF]/30 bg-[#3559C7]/20 text-[#D8E2FF] text-xs font-bold uppercase tracking-wide mb-5">
+                                            <img src="/logo-bg-trans.png" alt="NearWe Labs" className="h-5 w-5 rounded bg-[#202A40] object-contain p-0.5" /> Coming soon · Wayyo by NearWe Labs
                                         </div>
                                         <h2 id="wayyo-launch-title" className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">
-                                            Your work.<br /><span className="text-violet-300">On autopilot.</span>
+                                            Your work.<br /><span className="text-[#AFC3FF]">On autopilot.</span>
                                         </h2>
                                         <p className="text-gray-300 leading-relaxed max-w-xl mb-6">
                                             Stop repeating tasks. Build visual workflows that schedule actions and handle everyday work on your Windows PC, with local-first automation.
                                         </p>
-                                        <span className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-violet-300 text-[#171127] font-bold text-sm group-hover:bg-violet-200 transition-colors">
+                                        <span className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#3559C7] text-white font-bold text-sm group-hover:bg-[#2849AA] transition-colors">
                                             Explore Wayyo <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                         </span>
                                         <p className="text-xs text-gray-500 mt-4">Windows desktop · Offline-first workflows · Visual builder</p>
                                     </div>
-                                    <div className="rounded-2xl border border-white/10 bg-[#fbf9ff] p-3 sm:p-4 text-[#191526] shadow-2xl shadow-violet-950/30" aria-label="Illustrative preview of the Wayyo workflow dashboard">
-                                        <div className="flex items-center justify-between gap-3 border-b border-violet-100 pb-3 mb-3">
-                                            <div className="flex items-center gap-2 text-xs font-bold"><span className="w-6 h-6 rounded-md bg-violet-600 text-white grid place-items-center">w</span> wayyo <span className="text-[10px] font-medium text-emerald-700">● Local engine ready</span></div>
+                                    <div className="rounded-2xl border border-[#BFCDF0] bg-[#EEF2FC] p-3 sm:p-4 text-[#202A40] shadow-2xl shadow-[#091635]/30" aria-label="Illustrative preview of the Wayyo workflow dashboard">
+                                        <div className="flex items-center justify-between gap-3 border-b border-[#D9E1F2] pb-3 mb-3">
+                                            <div className="flex items-center gap-2 text-xs font-bold"><span className="w-6 h-6 rounded-md bg-[#3559C7] text-white grid place-items-center">w</span> wayyo <span className="text-[10px] font-medium text-emerald-700">● Local engine ready</span></div>
                                             <span className="text-[10px] text-gray-500">LOCAL NODE · WINDOWS</span>
                                         </div>
                                         <div className="grid grid-cols-[1fr_1.45fr] gap-3">
@@ -806,15 +806,15 @@ export default function NearWeLandingPage() {
                                                 {[["⌂", "Home"], ["◇", "Visual Builder"], ["▦", "Templates"], ["◷", "Schedules"], ["⌁", "Activity"]].map(([icon, label]) => <div key={label} className={`rounded-md px-2 py-1.5 ${label === "Home" ? "bg-violet-100 text-violet-800" : ""}`}><span className="mr-2">{icon}</span>{label}</div>)}
                                             </div>
                                             <div>
-                                                <div className="rounded-lg bg-white border border-violet-100 p-3 mb-2">
-                                                    <div className="text-[9px] uppercase text-violet-600 font-bold">Your automations, at a glance</div>
+                                                <div className="rounded-lg bg-white border border-[#D9E1F2] p-3 mb-2">
+                                                    <div className="text-[9px] uppercase text-[#3559C7] font-bold">Your automations, at a glance</div>
                                                     <div className="text-base font-bold mt-1">Make routine work disappear.</div>
                                                     <div className="text-[9px] text-gray-500 mt-1">Create workflows. Run them locally.</div>
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-2 mb-2">
-                                                    {[ ["08", "Active workflows"], ["24", "Successful runs"] ].map(([value, label]) => <div key={label} className="rounded-lg border border-violet-100 bg-white p-2"><div className="font-bold text-sm">{value}</div><div className="text-[8px] text-gray-500">{label}</div></div>)}
+                                                    {[ ["08", "Active workflows"], ["24", "Successful runs"] ].map(([value, label]) => <div key={label} className="rounded-lg border border-[#D9E1F2] bg-white p-2"><div className="font-bold text-sm">{value}</div><div className="text-[8px] text-gray-500">{label}</div></div>)}
                                                 </div>
-                                                <div className="rounded-lg bg-white border border-violet-100 px-2.5 py-2 text-[9px] flex items-center justify-between"><span><b>Downloads Organizer</b><br /><span className="text-gray-500">File system event · Sort files → Move</span></span><span className="text-emerald-700">● Success</span></div>
+                                                <div className="rounded-lg bg-white border border-[#D9E1F2] px-2.5 py-2 text-[9px] flex items-center justify-between"><span><b>Downloads Organizer</b><br /><span className="text-gray-500">File system event · Sort files → Move</span></span><span className="text-emerald-700">● Success</span></div>
                                             </div>
                                         </div>
                                         <div className="text-right text-[9px] text-gray-400 mt-2">Illustrative product preview</div>
