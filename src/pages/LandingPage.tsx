@@ -29,6 +29,7 @@ import iosLogo from "../assets/logo/ios.png";
 import playstoreLogo from "../assets/logo/playstore.png";
 import nearweLogo from "../assets/logo/logo-removebg.png";
 import { services as companyServices } from "./CompanyServices";
+import { WAYYO_INSTALLER_URL } from "../utils/constants";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const APP_STORE_URL = "https://apps.apple.com/sv/app/nearwe/id6760259527?l=en-GB";
@@ -569,12 +570,12 @@ export default function NearWeLandingPage() {
         {
             Icon: Workflow,
             title: "Wayyo",
-            tag: "Windows Automation · Available Now",
-            desc: "A local-first desktop automation workspace for building visual workflows and handling repetitive Windows tasks.",
+            tag: "Windows Automation · Phase 1 Beta",
+            desc: "A local-first desktop automation workspace for building visual workflows. Phase 2 will bring AI-powered automation.",
             primary: "Explore Wayyo",
             secondary: "Download for Windows",
             onPrimary: () => navigate("/wayyo#download"),
-            onSecondary: () => navigate("/wayyo#download"),
+            onSecondary: () => window.location.assign(WAYYO_INSTALLER_URL),
             accent: "from-violet-400 to-fuchsia-500",
         },
     ];
@@ -913,8 +914,7 @@ export default function NearWeLandingPage() {
                                                 <button
                                                     type="button"
                                                     onClick={p.onSecondary}
-                                                    disabled={p.title === "Wayyo"}
-                                                    className={`px-5 py-3 text-sm border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:bg-cyan-500/10 rounded-full transition-colors ${p.title === "Wayyo" ? "opacity-60 cursor-not-allowed" : ""}`}
+                                                    className="px-5 py-3 text-sm border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:bg-cyan-500/10 rounded-full transition-colors"
                                                 >
                                                     {p.secondary}
                                                 </button>

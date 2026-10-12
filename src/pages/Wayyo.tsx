@@ -3,8 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useEffect, useState } from "react";
 import { ArrowDownToLine, ArrowRight, CalendarClock, Check, CircleHelp, FileCheck2, FolderSync, GitBranch, History, Laptop, LoaderCircle, LockKeyhole, Play, Workflow } from "lucide-react";
 import { core_services } from "../utils/api";
-
-const WAYYO_INSTALLER_URL = process.env.REACT_APP_WAYYO_INSTALLER_URL || "https://github.com/nearwe/nearwe-cms/releases/latest/download/WayyoSetup.exe";
+import { WAYYO_INSTALLER_URL } from "../utils/constants";
 let wayyoStatsRequest: Promise<number | null> | null = null;
 
 function getWayyoDownloadCount() {
@@ -76,7 +75,8 @@ function DownloadButton() {
         </a>
         <div className="wayyo-download-social-proof" aria-live="polite">
             <b>{downloadCount === null ? "Make Wayyo work your way." : `${downloadCount.toLocaleString()} download ${downloadCount === 1 ? "click" : "clicks"} so far.`}</b>
-            <span>Build automations around your needs. Try it free and make it fit the way you work.</span>
+            <span>Phase 1 Beta is live. Try it free and build automations around your needs.</span>
+            <span>Phase 2: AI-powered automation is on the way.</span>
         </div>
     </div>;
 }
@@ -185,7 +185,7 @@ const wayyoStyles = `
 .wayyo-audience{background:var(--wy-deep)}
 .wayyo-audience>div:first-child>span{color:#B9C9F8}
 .wayyo-header nav a:hover,.wayyo-footer>a:last-child:hover{color:var(--wy-primary)}
-.wayyo-download{opacity:1;cursor:pointer;text-decoration:none}
+.wayyo-page a.wayyo-download{color:#fff;opacity:1;cursor:pointer;text-decoration:none}
 .wayyo-download:hover{opacity:.9}
 .wayyo-download-wrap{display:grid;justify-items:start;gap:12px}
 .wayyo-download-social-proof{display:grid;gap:5px;max-width:480px;color:var(--wy-muted);font-size:12px;line-height:1.6}
