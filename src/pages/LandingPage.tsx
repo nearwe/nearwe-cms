@@ -21,7 +21,6 @@ import {
     Smartphone,
     Sparkles,
     X,
-    Workflow,
     type LucideIcon,
 } from "lucide-react";
 
@@ -29,7 +28,6 @@ import iosLogo from "../assets/logo/ios.png";
 import playstoreLogo from "../assets/logo/playstore.png";
 import nearweLogo from "../assets/logo/logo-removebg.png";
 import { services as companyServices } from "./CompanyServices";
-import { WAYYO_INSTALLER_URL } from "../utils/constants";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const APP_STORE_URL = "https://apps.apple.com/sv/app/nearwe/id6760259527?l=en-GB";
@@ -41,11 +39,6 @@ function getDeviceOS(): "ios" | "android" | "other" {
     if (/iPad|iPhone|iPod/.test(ua) && !(window as any).MSStream) return "ios";
     if (/android/i.test(ua)) return "android";
     return "other";
-}
-
-function openDownload() {
-    const url = getDeviceOS() === "ios" ? APP_STORE_URL : PLAY_STORE_URL;
-    window.open(url, "_blank", "noopener,noreferrer");
 }
 
 function openExternal(url: string) {
@@ -469,7 +462,7 @@ const styles = `
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const NAV_ITEMS = [
     { label: "Services", path: "/companyservices" },
-    { label: "Products", path: "#products" },
+    { label: "Products", path: "/products" },
     { label: "Process", path: "#process" },
     { label: "Careers", path: "/careers" },
     { label: "Contact", path: "/contact" },
@@ -543,42 +536,6 @@ export default function NearWeLandingPage() {
         gradient: s?.gradient || FALLBACK_GRADIENT,
         iconColor: s?.iconColor || "text-cyan-300",
     }));
-
-    const products = [
-        {
-            Icon: MapPin,
-            title: "NearWe App",
-            tag: "Community Platform",
-            desc: "A local discovery app for events, communities, nearby experiences and meaningful real-world connections.",
-            primary: "Download App",
-            secondary: "Explore App",
-            onPrimary: openDownload,
-            onSecondary: () => navigate("/nearwe-app"),
-            accent: "from-cyan-400 to-blue-500",
-        },
-        {
-            Icon: Bot,
-            title: "Vestora AI",
-            tag: "AI Trading Intelligence · SaaS",
-            desc: "An AI intelligence bot for trading and market analysis across markets, portfolios, risk, signals and approval-led execution.",
-            primary: "Watch Demo",
-            secondary: "View Product",
-            onPrimary: () => navigate("/vestora-ai/demo"),
-            onSecondary: () => navigate("/vestora-ai"),
-            accent: "from-emerald-400 to-cyan-500",
-        },
-        {
-            Icon: Workflow,
-            title: "Wayyo",
-            tag: "Windows Automation · Phase 1 Beta",
-            desc: "A local-first desktop automation workspace for building visual workflows. Phase 2 will bring AI-powered automation.",
-            primary: "Explore Wayyo",
-            secondary: "Download for Windows",
-            onPrimary: () => navigate("/wayyo#download"),
-            onSecondary: () => window.location.assign(WAYYO_INSTALLER_URL),
-            accent: "from-violet-400 to-fuchsia-500",
-        },
-    ];
 
     return (
         <>
@@ -732,7 +689,7 @@ export default function NearWeLandingPage() {
 
                                         <button
                                             type="button"
-                                            onClick={() => scrollToId("#products")}
+                                            onClick={() => navigate("/products")}
                                             className="px-8 py-4 border border-cyan-500/40 hover:border-cyan-400 text-cyan-300 hover:text-white font-semibold rounded-full transition-all duration-300 hover:bg-cyan-500/10 flex items-center justify-center gap-2"
                                         >
                                             <Layers className="w-5 h-5" />
@@ -870,66 +827,6 @@ export default function NearWeLandingPage() {
                                     className="inline-flex items-center gap-2 px-6 py-3 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:bg-cyan-500/10 rounded-full transition-colors"
                                 >
                                     View all services <ArrowRight className="w-4 h-4" />
-                                </Link>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* ── Products ── */}
-                    <section id="products" className="py-24 px-4 sm:px-6 scroll-mt-16 bg-gradient-to-b from-transparent via-[#0c1220] to-transparent">
-                        <div className="max-w-6xl mx-auto">
-                            <SectionHeading
-                                tag="Products"
-                                title="Products by NearWe Labs"
-                                subtitle="Our in-house platforms — built, run and improved by the same team that can build yours."
-                            />
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {products.map((p, i) => (
-                                    <Reveal key={p.title} delay={i * 100}>
-                                        <TiltCard className="nw-glass rounded-3xl p-6 sm:p-8 h-full flex flex-col">
-                                            <div className="flex items-start justify-between gap-3">
-                                                <div className={`w-14 h-14 min-w-[3.5rem] shrink-0 rounded-2xl bg-gradient-to-br ${p.accent} flex items-center justify-center shadow-lg`}>
-                                                    <p.Icon className="w-7 h-7 text-white" />
-                                                </div>
-                                                <span className="text-xs text-cyan-200/80 font-semibold px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-right">
-                                                    {p.tag}
-                                                </span>
-                                            </div>
-
-                                            <h3 className="font-display text-2xl font-bold mb-2 mt-5">
-                                                {p.title === "NearWe App" ? (
-                                                    <Link to="/nearwe-app" className="transition-colors hover:text-cyan-300">{p.title}</Link>
-                                                ) : p.title}
-                                            </h3>
-                                            <p className="text-gray-400 mb-6 leading-relaxed flex-1">{p.desc}</p>
-
-                                            <div className="flex flex-wrap gap-3">
-                                                <MagneticButton
-                                                    onClick={p.onPrimary}
-                                                    className="px-5 py-3 bg-gradient-to-r from-cyan-400 to-blue-500 text-[#04121a] text-sm font-bold rounded-full hover:shadow-lg hover:shadow-cyan-500/30"
-                                                >
-                                                    {p.primary}
-                                                </MagneticButton>
-                                                <button
-                                                    type="button"
-                                                    onClick={p.onSecondary}
-                                                    className="px-5 py-3 text-sm border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:bg-cyan-500/10 rounded-full transition-colors"
-                                                >
-                                                    {p.secondary}
-                                                </button>
-                                            </div>
-                                        </TiltCard>
-                                    </Reveal>
-                                ))}
-                            </div>
-
-                            <div className="text-center mt-10">
-                                <Link
-                                    to="/products"
-                                    className="inline-flex items-center gap-2 px-6 py-3 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:bg-cyan-500/10 rounded-full transition-colors"
-                                >
-                                    Browse all products <ArrowRight className="w-4 h-4" />
                                 </Link>
                             </div>
                         </div>
