@@ -76,11 +76,13 @@ export const core_services = {
             ? pagination.hasMore
             : undefined;
 
-        if (explicitHasMore !== undefined) {
+        if (!pageUsers.length) {
+          hasMore = false;
+        } else if (explicitHasMore !== undefined) {
           hasMore = explicitHasMore;
-        } else if (Number.isFinite(Number(totalPages))) {
+        } else if (totalPages != null && Number.isFinite(Number(totalPages))) {
           hasMore = page < Number(totalPages);
-        } else if (Number.isFinite(Number(total))) {
+        } else if (total != null && Number.isFinite(Number(total))) {
           hasMore = page * limit < Number(total);
         } else {
           hasMore = pageUsers.length === limit;
