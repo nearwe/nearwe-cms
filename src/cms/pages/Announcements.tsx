@@ -8,6 +8,7 @@ import {
   Select,
   message,
   Spin,
+  Pagination,
 } from "antd";
 import { APP_ROUTE_OPTIONS } from "../../utils/constants";
 import { core_services } from "../../utils/api";
@@ -82,6 +83,8 @@ const Announcements: React.FC = () => {
   const [sending, setSending] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
 
   
   const [notifDark, setNotifDark] = useState(true);
@@ -121,6 +124,11 @@ const Announcements: React.FC = () => {
     return data;
   }, [users, searchText]);
 
+  const visibleUsers = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredUsers.slice(start, start + pageSize);
+  }, [filteredUsers, currentPage, pageSize]);
+
   // ---------------- SELECT ----------------
   const toggleUser = (id: string) => {
     setSelectedUsers((prev) =>
@@ -129,12 +137,17 @@ const Announcements: React.FC = () => {
   };
 
   const handleSelectAll = () => {
-    if (selectedUsers.length === filteredUsers.length) {
-      setSelectedUsers([]);
+    const ids = filteredUsers.map((user) => user.UserId);
+    const allFilteredSelected = ids.length > 0 && ids.every((id) => selectedUsers.includes(id));
+    if (allFilteredSelected) {
+      setSelectedUsers((prev) => prev.filter((id) => !ids.includes(id)));
     } else {
-      setSelectedUsers(filteredUsers.map((u) => u.UserId));
+      setSelectedUsers((prev) => [...new Set([...prev, ...ids])]);
     }
   };
+
+  const allFilteredSelected = filteredUsers.length > 0 &&
+    filteredUsers.every((user) => selectedUsers.includes(user.UserId));
 
   const androidUsers = filteredUsers.filter((u: any) => getPlatform(u.pushToken) === "android");
   const iosUsers = filteredUsers.filter((u: any) => getPlatform(u.pushToken) === "ios");
@@ -316,7 +329,7 @@ const Announcements: React.FC = () => {
             <Text strong>Select Users</Text>
             <div className="flex gap-2 items-center flex-wrap">
               <Button onClick={handleSelectAll} size="small">
-                {selectedUsers.length === filteredUsers.length
+                {allFilteredSelected
                   ? "Deselect All"
                   : "Select All"}
               </Button>
@@ -347,7 +360,10 @@ const Announcements: React.FC = () => {
               <Input
                 placeholder="Search..."
                 value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
+                onChange={(e) => {
+                  setSearchText(e.target.value);
+                  setCurrentPage(1);
+                }}
                 style={{ width: 160 }}
                 size="small"
               />
@@ -412,17 +428,30 @@ const Announcements: React.FC = () => {
           </div>
         ) : viewMode === "grid" ? (
           <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {filteredUsers.map(renderGridCard)}
+            {visibleUsers.map(renderGridCard)}
           </div>
         ) : (
           <div className="flex flex-col gap-2">
-            {filteredUsers.map(renderListRow)}
+            {visibleUsers.map(renderListRow)}
           </div>
         )}
 
         <div className="text-xs text-gray-500 mt-3">
-          {selectedUsers.length} / {filteredUsers.length} selected
+          {filteredUsers.filter((user) => selectedUsers.includes(user.UserId)).length} / {filteredUsers.length} selected
         </div>
+        <Pagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={filteredUsers.length}
+          showSizeChanger
+          pageSizeOptions={["20", "50", "100"]}
+          showTotal={(total) => `${total} users`}
+          onChange={(page, size) => {
+            setCurrentPage(page);
+            setPageSize(size);
+          }}
+          style={{ marginTop: 16, textAlign: "right" }}
+        />
       </Card>
 
       {/* ---------------- FORM + PREVIEW ---------------- */}

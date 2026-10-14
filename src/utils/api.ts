@@ -70,13 +70,21 @@ export const core_services = {
         const pagination = data?.pagination;
         const totalPages = data?.totalPages ?? pagination?.totalPages;
         const total = data?.total ?? pagination?.total;
+        const explicitHasMore = typeof data?.hasMore === "boolean"
+          ? data.hasMore
+          : typeof pagination?.hasMore === "boolean"
+            ? pagination.hasMore
+            : undefined;
 
-        hasMore = !Array.isArray(data) && pageUsers.length > 0 && (
-          data.hasMore === true ||
-          pagination?.hasMore === true ||
-          (Number.isFinite(totalPages) && page < totalPages) ||
-          (Number.isFinite(total) && page * limit < total)
-        );
+        if (explicitHasMore !== undefined) {
+          hasMore = explicitHasMore;
+        } else if (Number.isFinite(Number(totalPages))) {
+          hasMore = page < Number(totalPages);
+        } else if (Number.isFinite(Number(total))) {
+          hasMore = page * limit < Number(total);
+        } else {
+          hasMore = pageUsers.length === limit;
+        }
         page += 1;
       }
 
