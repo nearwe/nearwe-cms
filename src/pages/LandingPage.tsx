@@ -463,6 +463,7 @@ const styles = `
 const NAV_ITEMS = [
     { label: "Services", path: "/companyservices" },
     { label: "Products", path: "/products" },
+    { label: "Portfolio", path: "/portfolio" },
     { label: "Process", path: "#process" },
     { label: "Careers", path: "/careers" },
     { label: "Contact", path: "/contact" },

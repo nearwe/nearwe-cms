@@ -36,6 +36,7 @@ import VestoraAIDemo from "./pages/VestoraAIDemo";
 import NearWeApp from "./pages/NearWeApp";
 import Wayyo from "./pages/Wayyo";
 import Products from "./pages/Products";
+import Portfolio from "./pages/Portfolio";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -107,6 +108,7 @@ const App = () => {
                       <Route path="/nearwe-app" element={<NearWeApp />} />
                       <Route path="/wayyo" element={<Wayyo />} />
                       <Route path="/products" element={<Products />} />
+                      <Route path="/portfolio" element={<Portfolio />} />
                       <Route path="/companyservices" element={<ServicesAgencyPage />} />
                       <Route path="/contact" element={<Contact />} />
                       <Route path="/terms" element={<TermsAndConditions />} />
