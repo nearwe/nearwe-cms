@@ -37,6 +37,7 @@ import NearWeApp from "./pages/NearWeApp";
 import Wayyo from "./pages/Wayyo";
 import Products from "./pages/Products";
 import Portfolio from "./pages/Portfolio";
+import RouteMetadata from "./components/RouteMetadata";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -69,6 +70,7 @@ const App = () => {
         <NotificationProvider>
           <Router>
             <ScrollToTop />
+            <RouteMetadata />
             <Layout className="min-h-screen bg-bg1">
               <Layout.Content>
                 <Routes>

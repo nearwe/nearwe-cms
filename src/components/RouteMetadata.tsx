@@ -1,0 +1,109 @@
+import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
+
+type PageMetadata = {
+    title: string;
+    description: string;
+};
+
+const metadataByPath: Record<string, PageMetadata> = {
+    "/": {
+        title: "NearWe Labs | Services, Software & Products",
+        description: "NearWe Labs builds custom software, CRM and CMS platforms, mobile apps, and digital products for businesses.",
+    },
+    "/aboutus": {
+        title: "About NearWe Labs | Technology & Product Studio",
+        description: "Learn about NearWe Labs, our team, and how we build useful digital products and software for businesses.",
+    },
+    "/services": {
+        title: "Services | NearWe Labs",
+        description: "Explore NearWe Labs services for web and mobile development, CRM, CMS, cloud, DevOps, design, and custom software.",
+    },
+    "/companyservices": {
+        title: "Custom Software Development Services | NearWe Labs",
+        description: "Build web platforms, mobile apps, CRM and CMS systems, cloud infrastructure, and custom business software with NearWe Labs.",
+    },
+    "/nearwe-app": {
+        title: "NearWe App | Local Events & Community",
+        description: "Discover local events, connect with your community, and find things to do nearby with the NearWe app.",
+    },
+    "/wayyo": {
+        title: "Wayyo | Windows Desktop Automation",
+        description: "Create visual workflows and automate repetitive desktop tasks locally on your Windows PC with Wayyo.",
+    },
+    "/products": {
+        title: "Products | NearWe Labs",
+        description: "Explore NearWe Labs products: NearWe for local communities, Vestora AI for market intelligence, and Wayyo for desktop automation.",
+    },
+    "/portfolio": {
+        title: "Portfolio | NearWe Labs",
+        description: "Explore client work and products from NearWe Labs, including custom CRM, CMS, and business software.",
+    },
+    "/contact": {
+        title: "Contact NearWe Labs",
+        description: "Contact NearWe Labs for client projects, software development, partnerships, support, and business enquiries.",
+    },
+    "/terms": {
+        title: "Terms & Conditions | NearWe Labs",
+        description: "Read the terms and conditions for using NearWe websites, apps, products, and services.",
+    },
+    "/advertise": {
+        title: "Advertise with NearWe",
+        description: "Explore advertising opportunities with NearWe and connect your brand with local communities.",
+    },
+    "/privacy": {
+        title: "Privacy Policy | NearWe Labs",
+        description: "Read how NearWe handles personal information across its websites, apps, and services.",
+    },
+    "/child-safety": {
+        title: "Child Safety | NearWe",
+        description: "Learn about NearWe's child safety standards, reporting process, and user protection policies.",
+    },
+    "/email-drafter": {
+        title: "Email Drafter | NearWe Labs",
+        description: "Draft clear business emails and messages with the NearWe Labs email drafting tool.",
+    },
+    "/vestora-ai": {
+        title: "Vestora AI | Market Intelligence",
+        description: "Explore Vestora AI for market analysis, portfolio insights, risk context, and decision support.",
+    },
+    "/vestora-ai/demo": {
+        title: "Vestora AI Demo | NearWe Labs",
+        description: "Explore an interactive demo of Vestora AI market intelligence and portfolio analysis tools.",
+    },
+    "/vestore_ai/demo": {
+        title: "Vestora AI Demo | NearWe Labs",
+        description: "Explore an interactive demo of Vestora AI market intelligence and portfolio analysis tools.",
+    },
+    "/careers": {
+        title: "Careers | NearWe Labs",
+        description: "Explore career opportunities and join the team building software and products at NearWe Labs.",
+    },
+    "/login": {
+        title: "Sign In | NearWe",
+        description: "Sign in to your NearWe account.",
+    },
+};
+
+export default function RouteMetadata() {
+    const { pathname } = useLocation();
+    const normalizedPath = pathname.replace(/\/+$/, "") || "/";
+    const page = metadataByPath[normalizedPath] ?? metadataByPath["/"];
+    const pageUrl = `https://www.nearwe.in${normalizedPath === "/" ? "" : normalizedPath}`;
+
+    return (
+        <Helmet>
+            <title>{page.title}</title>
+            <meta name="description" content={page.description} />
+            <meta property="og:type" content="website" />
+            <meta property="og:site_name" content="NearWe Labs" />
+            <meta property="og:title" content={page.title} />
+            <meta property="og:description" content={page.description} />
+            <meta property="og:url" content={pageUrl} />
+            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:title" content={page.title} />
+            <meta name="twitter:description" content={page.description} />
+            <link rel="canonical" href={pageUrl} />
+        </Helmet>
+    );
+}
