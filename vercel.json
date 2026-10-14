@@ -1,5 +1,23 @@
 {
   "rewrites": [
+    { "source": "/aboutus", "destination": "/aboutus/index.html" },
+    { "source": "/services", "destination": "/services/index.html" },
+    { "source": "/companyservices", "destination": "/companyservices/index.html" },
+    { "source": "/nearwe-app", "destination": "/nearwe-app/index.html" },
+    { "source": "/wayyo", "destination": "/wayyo/index.html" },
+    { "source": "/products", "destination": "/products/index.html" },
+    { "source": "/portfolio", "destination": "/portfolio/index.html" },
+    { "source": "/contact", "destination": "/contact/index.html" },
+    { "source": "/terms", "destination": "/terms/index.html" },
+    { "source": "/advertise", "destination": "/advertise/index.html" },
+    { "source": "/privacy", "destination": "/privacy/index.html" },
+    { "source": "/child-safety", "destination": "/child-safety/index.html" },
+    { "source": "/email-drafter", "destination": "/email-drafter/index.html" },
+    { "source": "/vestora-ai", "destination": "/vestora-ai/index.html" },
+    { "source": "/vestora-ai/demo", "destination": "/vestora-ai/demo/index.html" },
+    { "source": "/vestore_ai/demo", "destination": "/vestore_ai/demo/index.html" },
+    { "source": "/careers", "destination": "/careers/index.html" },
+    { "source": "/login", "destination": "/login/index.html" },
     {
       "source": "/(.*)",
       "destination": "/"
