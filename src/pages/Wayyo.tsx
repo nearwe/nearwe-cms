@@ -18,6 +18,49 @@ function getWayyoDownloadCount() {
     return wayyoStatsRequest;
 }
 
+/** UI effects: scroll progress, card spotlight, hero dashboard "running" loop. */
+function useWayyoFx() {
+    useEffect(() => {
+        const root = document.querySelector<HTMLElement>(".wayyo-page");
+        if (!root) return;
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        const onScroll = () => {
+            const d = document.documentElement;
+            const max = d.scrollHeight - d.clientHeight;
+            root.style.setProperty("--wy-progress", String(max > 0 ? d.scrollTop / max : 0));
+        };
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+
+        const onMove = (e: PointerEvent) => {
+            const card = (e.target as HTMLElement).closest<HTMLElement>(".wayyo-feature");
+            if (!card) return;
+            const r = card.getBoundingClientRect();
+            card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+            card.style.setProperty("--my", `${e.clientY - r.top}px`);
+        };
+        root.addEventListener("pointermove", onMove);
+
+        const rows = Array.from(root.querySelectorAll<HTMLElement>(".wayyo-workflow"));
+        const acts = Array.from(root.querySelectorAll<HTMLElement>(".wayyo-activity > div"));
+        let i = 0;
+        const tick = () => {
+            rows.forEach((r, k) => r.classList.toggle("is-running", k === i));
+            acts.forEach((a, k) => a.classList.toggle("is-running", k === i));
+            i = (i + 1) % Math.max(rows.length, 1);
+        };
+        tick();
+        const timer = reduce ? undefined : window.setInterval(tick, 2400);
+
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+            root.removeEventListener("pointermove", onMove);
+            if (timer) window.clearInterval(timer);
+        };
+    }, []);
+}
+
 const capabilities = [
     { icon: Workflow, title: "Build it visually. Make it work your way.", description: "Connect triggers, actions, conditions, loops and variables. Configure steps, save workflows and review results. Delete steps with a right-click or the Delete key; undo and redo as you refine." },
     { icon: Laptop, title: "An AI assistant that works on your computer.", description: "Draft workflows, ask automation questions, summarise text, suggest metadata, extract information and explain errors. Bundled Qwen3 0.6B runs locally. Choose tasks or example prompts, process or cancel, then review suggestions." },
@@ -131,9 +174,10 @@ function DashboardPreview() {
 }
 
 export default function Wayyo() {
+    useWayyoFx();
     return (
         <div className="wayyo-page">
-            <style>{wayyoStyles}</style>
+            <style>{wayyoStyles + wayyoEnhanceStyles}</style>
             <Helmet>
                 <title>Wayyo | Your Personal AI Automation Tool for Windows</title>
                 <meta name="description" content="Meet Wayyo, your personal AI automation tool for Windows. Build visual workflows, use local AI, organise documents, and create reports. Claim a free 5-year license." />
@@ -233,4 +277,175 @@ const wayyoStyles = `
 .wayyo-version-details[open] .wayyo-version-content{animation:wayyo-release-open 180ms cubic-bezier(.2,.8,.2,1) both;transform-origin:top}
 @keyframes wayyo-release-open{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.wayyo-version-details[open] .wayyo-version-content{animation:none}}
+`;
+
+/* ───────────── UI enhancement layer (appended after base styles so it overrides) ───────────── */
+const wayyoEnhanceStyles = `
+.wayyo-page{overflow:visible;overflow-x:clip}
+.wayyo-page::before{content:"";position:fixed;inset:0 0 auto 0;height:3px;z-index:60;background:linear-gradient(90deg,#3559C7,#7ea0ff);transform-origin:0 50%;transform:scaleX(var(--wy-progress,0));pointer-events:none}
+.wayyo-page a:focus-visible,.wayyo-page summary:focus-visible{outline:2px solid var(--wy-primary);outline-offset:3px;border-radius:8px}
+
+/* Header */
+.wayyo-page .wayyo-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.78);-webkit-backdrop-filter:saturate(1.6) blur(14px);backdrop-filter:saturate(1.6) blur(14px);border-bottom-color:var(--wy-line)}
+.wayyo-page .wayyo-header nav a:not(.wayyo-header-cta){position:relative;padding:4px 0}
+.wayyo-page .wayyo-header nav a:not(.wayyo-header-cta)::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--wy-primary);transform:scaleX(0);transform-origin:0 50%;transition:transform .25s ease}
+.wayyo-page .wayyo-header nav a:not(.wayyo-header-cta):hover::after{transform:scaleX(1)}
+.wayyo-page .wayyo-header-cta{border-radius:999px;padding:11px 18px;box-shadow:0 8px 20px #3559c740;transition:transform .2s,box-shadow .2s}
+.wayyo-page .wayyo-header-cta:hover{transform:translateY(-1px);box-shadow:0 12px 26px #3559c752}
+
+/* Hero */
+.wayyo-page .wayyo-hero{position:relative;isolation:isolate;max-width:1360px;padding-top:92px;padding-bottom:84px}
+.wayyo-page .wayyo-hero::before,.wayyo-page .wayyo-hero::after{content:"";position:absolute;left:50%;width:100vw;transform:translateX(-50%);top:-76px;height:820px;z-index:-1;pointer-events:none}
+.wayyo-page .wayyo-hero::before{background:radial-gradient(55% 55% at 80% 28%,#3559c730,transparent 70%),radial-gradient(40% 45% at 6% 4%,#8fb0ff2e,transparent 70%)}
+.wayyo-page .wayyo-hero::after{background:radial-gradient(#20407e2b 1px,transparent 1.3px) 0 0/24px 24px;-webkit-mask-image:linear-gradient(#000,transparent 80%);mask-image:linear-gradient(#000,transparent 80%);opacity:.55}
+.wayyo-page .wayyo-hero h1{font-size:clamp(40px,5.1vw,70px);line-height:1.02;letter-spacing:-.035em}
+.wayyo-page .wayyo-hero h1 span{background:linear-gradient(100deg,#3559C7 10%,#6f93ff 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wayyo-page .wayyo-intro{font-size:17px;max-width:560px}
+.wayyo-page .wayyo-intro strong{color:var(--wy-deep)}
+.wayyo-page .wayyo-launch-pill{border-radius:999px;padding:5px 10px;box-shadow:inset 0 0 0 1px #3559c71f}
+.wayyo-page .wayyo-trust{border-top-color:var(--wy-line)}
+.wayyo-page .wayyo-trust span{font-size:11px;font-weight:600}
+
+/* Primary download button */
+.wayyo-page a.wayyo-download{border-radius:12px;padding:16px 24px;font-size:14px;background:linear-gradient(135deg,#2f52bd,#4a74ec);box-shadow:0 14px 30px #3559c74a,inset 0 1px 0 #ffffff40;transition:transform .2s,box-shadow .2s}
+.wayyo-page a.wayyo-download:hover{transform:translateY(-2px);box-shadow:0 18px 38px #3559c75e,inset 0 1px 0 #ffffff40;opacity:1}
+.wayyo-page a.wayyo-download:active{transform:translateY(0) scale(.98)}
+.wayyo-page .wayyo-download-social-proof b{font-variant-numeric:tabular-nums}
+.wayyo-page .wayyo-secondary-cta{border-radius:12px;padding:15px 16px;transition:background .2s}
+.wayyo-page .wayyo-secondary-cta:hover{background:var(--wy-light)}
+.wayyo-page .wayyo-version-details{border-radius:12px;background:#fff;transition:box-shadow .2s,border-color .2s}
+.wayyo-page .wayyo-version-details:hover{border-color:#b9c8ee}
+.wayyo-page .wayyo-version-details[open]{box-shadow:0 14px 36px #20407e14}
+
+/* Hero dashboard */
+.wayyo-page .wayyo-window{border-radius:18px;border-color:#cfd9f1;background:#fff;box-shadow:0 2px 0 #ffffffcc inset,0 30px 60px -20px #20407e40,0 12px 24px -12px #20407e29}
+.wayyo-page .wayyo-window-top{height:48px;padding:0 16px}
+.wayyo-page .wayyo-window-top::before{content:"";width:9px;height:9px;border-radius:50%;background:#e1e7f5;box-shadow:15px 0 #e1e7f5,30px 0 #e1e7f5;margin-right:38px;flex:none}
+.wayyo-page .wayyo-search{border-radius:8px;background:var(--wy-light)}
+.wayyo-page .wayyo-sidebar>div{transition:background .2s}
+.wayyo-page .wayyo-workflow{position:relative;border-radius:10px;padding-inline:8px;border-top-color:transparent;transition:background .4s}
+.wayyo-page .wayyo-workflow.is-running{background:var(--wy-light)}
+.wayyo-page .wayyo-workflow::after{content:"";position:absolute;left:8px;right:8px;bottom:0;height:2px;border-radius:2px;background:var(--wy-primary);transform:scaleX(0);transform-origin:0 50%}
+.wayyo-page .wayyo-workflow.is-running::after{animation:wy-run 2.4s linear forwards}
+.wayyo-page .wayyo-run{transition:background .3s,color .3s}
+.wayyo-page .wayyo-workflow.is-running .wayyo-run{background:var(--wy-primary);color:#fff}
+.wayyo-page .wayyo-activity>div{border-left:2px solid transparent;transition:background .4s,border-color .4s}
+.wayyo-page .wayyo-activity>div.is-running{background:#dfe8ff;border-left-color:var(--wy-primary)}
+.wayyo-page .wayyo-stat-row>div,.wayyo-page .wayyo-dash-hello,.wayyo-page .wayyo-workflows,.wayyo-page .wayyo-activity{border-radius:12px}
+@media(min-width:901px){
+.wayyo-page .wayyo-window-body{grid-template-columns:150px 1fr;min-height:430px}
+.wayyo-page .wayyo-sidebar{font-size:11px}
+.wayyo-page .wayyo-sidebar small{font-size:9px}
+.wayyo-page .wayyo-dash-hello h3{font-size:24px}
+.wayyo-page .wayyo-dash-hello p{font-size:11px}
+.wayyo-page .wayyo-dash-hello small{font-size:9px}
+.wayyo-page .wayyo-stat-row small{font-size:9px}
+.wayyo-page .wayyo-stat-row b{font-size:20px}
+.wayyo-page .wayyo-stat-row>div>span{font-size:9px}
+.wayyo-page .wayyo-workflow-heading{font-size:11px}
+.wayyo-page .wayyo-workflow-heading span{font-size:9px}
+.wayyo-page .wayyo-workflow b{font-size:11px}
+.wayyo-page .wayyo-workflow label{font-size:9px}
+.wayyo-page .wayyo-workflow small,.wayyo-page .wayyo-workflow p{font-size:9px}
+.wayyo-page .wayyo-flow-icon{width:30px;height:30px;font-size:14px}
+.wayyo-page .wayyo-run{font-size:10px}
+.wayyo-page .wayyo-activity>b{font-size:11px}
+.wayyo-page .wayyo-activity>div b{font-size:10px}
+.wayyo-page .wayyo-activity>div small{font-size:9px}
+}
+
+/* Flow strip */
+.wayyo-page .wayyo-flow-strip{background:#fff;gap:20px 32px;border-color:var(--wy-line)}
+.wayyo-page .wayyo-flow-strip>div{flex-direction:row;align-items:center;gap:14px}
+.wayyo-page .wayyo-flow-strip small{color:var(--wy-muted)}
+.wayyo-page .wayyo-flow-strip b{background:var(--wy-light);border:1px solid var(--wy-line);border-radius:999px;padding:9px 16px;color:var(--wy-deep)}
+
+/* Features: bento */
+.wayyo-page .wayyo-feature-grid{grid-template-columns:repeat(6,1fr);gap:16px;border:0}
+.wayyo-page .wayyo-feature{grid-column:span 2;position:relative;overflow:hidden;border:1px solid var(--wy-line);border-radius:20px;background:#fff;min-height:220px;padding:28px;transition:transform .25s,border-color .25s,box-shadow .25s}
+.wayyo-page .wayyo-feature:nth-child(-n+2){grid-column:span 3;min-height:250px}
+.wayyo-page .wayyo-feature:nth-child(-n+2) h3{font-size:20px;max-width:420px}
+.wayyo-page .wayyo-feature::before{content:"";position:absolute;inset:0;background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),#3559c71f,transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.wayyo-page .wayyo-feature:hover{transform:translateY(-3px);border-color:#aebfec;box-shadow:0 22px 44px -18px #20407e3d}
+.wayyo-page .wayyo-feature:hover::before{opacity:1}
+.wayyo-page .wayyo-feature>small{display:none}
+.wayyo-page .wayyo-feature-icon{width:46px;height:46px;border-radius:14px;color:#fff;background:linear-gradient(135deg,#2f52bd,#5f86ff);box-shadow:0 10px 20px -8px #3559c799}
+.wayyo-page .wayyo-feature h3{margin-top:20px;letter-spacing:-.01em}
+.wayyo-page .wayyo-feature p{font-size:13px}
+
+/* Use cases */
+.wayyo-page .wayyo-use-section{background:linear-gradient(#f4f7fe,#eef2fc)}
+.wayyo-page .wayyo-use-list article{grid-template-columns:1fr 20px;padding:20px 18px;border-radius:14px;border-bottom-color:transparent;transition:background .2s,box-shadow .2s,transform .2s}
+.wayyo-page .wayyo-use-list article:first-child{border-top-color:transparent}
+.wayyo-page .wayyo-use-list article>span{display:none}
+.wayyo-page .wayyo-use-list article:hover{background:#fff;box-shadow:0 12px 30px -16px #20407e40;transform:translateX(4px)}
+.wayyo-page .wayyo-use-list article>svg{transition:transform .2s}
+.wayyo-page .wayyo-use-list article:hover>svg{transform:translateX(4px);color:var(--wy-primary)}
+
+/* Local control */
+.wayyo-page .wayyo-control-art{border-radius:24px;background:radial-gradient(60% 60% at 50% 50%,#dfe8ff,var(--wy-light) 70%);border:1px solid var(--wy-line)}
+.wayyo-page .wayyo-control-orbit::after{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--wy-primary);box-shadow:0 0 0 5px #3559c722}
+.wayyo-page .control-label{border-radius:999px;padding:8px 12px;box-shadow:0 8px 18px -10px #20407e66}
+
+/* Audience */
+.wayyo-page .wayyo-audience{background:radial-gradient(60% 120% at 100% 0%,#3559c740,transparent 60%),var(--wy-deep)}
+.wayyo-page .wayyo-audience-grid article{padding:22px;border:1px solid #ffffff1f;border-radius:16px;background:#ffffff0a;transition:background .25s,border-color .25s}
+.wayyo-page .wayyo-audience-grid article:hover{background:#ffffff14;border-color:#ffffff3d}
+
+/* Download panel */
+.wayyo-page .wayyo-download-section{max-width:1120px;margin:30px auto 90px;padding:60px;border-radius:30px;color:#fff;background:radial-gradient(70% 120% at 100% 0%,#8fb0ff66,transparent 60%),linear-gradient(135deg,#243f9c,#3559C7 55%,#4d74e6);box-shadow:0 40px 80px -30px #3559c78c}
+.wayyo-page .wayyo-download-copy h2{color:#fff}
+.wayyo-page .wayyo-download-copy>span{color:#cfdcff}
+.wayyo-page .wayyo-download-copy>p{color:#dbe5ff;font-size:14px}
+.wayyo-page .wayyo-download-section a.wayyo-download{background:#fff;color:var(--wy-deep);box-shadow:0 16px 34px -12px #0a1a5a99}
+.wayyo-page .wayyo-download-section a.wayyo-download:hover{box-shadow:0 20px 40px -12px #0a1a5ab3}
+.wayyo-page .wayyo-download-section .wayyo-download-social-proof{color:#dbe5ff}
+.wayyo-page .wayyo-download-section .wayyo-download-social-proof b{color:#fff}
+.wayyo-page .wayyo-release-card{background:#ffffff1a;border-color:#ffffff33;border-radius:18px;color:#fff;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.wayyo-page .wayyo-release-card>svg{color:#fff}
+.wayyo-page .wayyo-release-card p{color:#dbe5ff}
+
+/* FAQ */
+.wayyo-page .wayyo-faq-list details{padding:0;border-bottom-color:var(--wy-line)}
+.wayyo-page .wayyo-faq-list summary{padding:19px 4px;font-size:14px;transition:color .2s}
+.wayyo-page .wayyo-faq-list summary:hover{color:var(--wy-primary)}
+.wayyo-page .wayyo-faq-list summary span{transition:transform .25s}
+.wayyo-page .wayyo-faq-list details[open] summary{color:var(--wy-primary)}
+.wayyo-page .wayyo-faq-list details p{font-size:13px;margin:0 28px 20px 4px;animation:wy-fade .25s ease both}
+
+/* Footer */
+.wayyo-page .wayyo-footer{background:#f8faff}
+
+/* Responsive */
+@media(max-width:900px){
+.wayyo-page .wayyo-feature-grid{grid-template-columns:repeat(2,1fr)}
+.wayyo-page .wayyo-feature,.wayyo-page .wayyo-feature:nth-child(-n+2){grid-column:span 1;min-height:0}
+.wayyo-page .wayyo-download-section{margin-inline:16px;padding:40px 28px}
+}
+@media(max-width:560px){
+.wayyo-page .wayyo-feature-grid{grid-template-columns:1fr}
+.wayyo-page .wayyo-hero{padding-top:48px}
+.wayyo-page .wayyo-flow-strip>div{flex-direction:column;align-items:flex-start;gap:8px}
+.wayyo-page .wayyo-flow-strip b{border-radius:14px}
+.wayyo-page .wayyo-download-section{padding:32px 20px}
+}
+
+/* Motion (disabled for reduced-motion users) */
+@keyframes wy-run{to{transform:scaleX(1)}}
+@keyframes wy-fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@keyframes wy-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes wy-window{from{opacity:0;transform:perspective(1400px) rotateY(-9deg) translateY(28px)}to{opacity:1;transform:perspective(1400px) rotateY(-2deg)}}
+@keyframes wy-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:no-preference){
+.wayyo-page .wayyo-hero-copy>*{animation:wy-rise .7s cubic-bezier(.2,.8,.2,1) both}
+.wayyo-page .wayyo-hero-copy>:nth-child(2){animation-delay:.06s}
+.wayyo-page .wayyo-hero-copy>:nth-child(3){animation-delay:.12s}
+.wayyo-page .wayyo-hero-copy>:nth-child(4){animation-delay:.18s}
+.wayyo-page .wayyo-hero-copy>:nth-child(5){animation-delay:.24s}
+.wayyo-page .wayyo-hero-copy>:nth-child(n+6){animation-delay:.3s}
+.wayyo-page .wayyo-window{animation:wy-window 1s .2s cubic-bezier(.2,.8,.2,1) both}
+.wayyo-page .wayyo-control-orbit{animation:wy-spin 28s linear infinite}
+.wayyo-page .wayyo-control-orbit.orbit-two{animation-duration:18s;animation-direction:reverse}
+}
+@media(max-width:900px){.wayyo-page .wayyo-window{animation-name:none}}
 `;
