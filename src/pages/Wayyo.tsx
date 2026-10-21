@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useEffect, useState } from "react";
-import { ArrowDownToLine, ArrowRight, CalendarClock, Check, CircleHelp, FileCheck2, FolderSync, GitBranch, History, Laptop, LoaderCircle, LockKeyhole, Play, Workflow } from "lucide-react";
+import { ArrowDownToLine, ArrowRight, CalendarClock, Check, CircleHelp, FileCheck2, FolderSync, GitBranch, Laptop, LoaderCircle, LockKeyhole, Workflow } from "lucide-react";
 import { core_services } from "../utils/api";
 import { WAYYO_INSTALLER_URL } from "../utils/constants";
 let wayyoStatsRequest: Promise<number | null> | null = null;
@@ -19,29 +19,35 @@ function getWayyoDownloadCount() {
 }
 
 const capabilities = [
-    { icon: Workflow, title: "Build workflows visually", description: "Connect triggers, actions and conditions in a visual builder. Keep workflows easy to understand, change and reuse." },
-    { icon: CalendarClock, title: "Schedule recurring work", description: "Set supported workflows to run at a chosen time or on a recurring schedule." },
-    { icon: FolderSync, title: "Automate everyday tasks", description: "Organize files, launch applications, create folders and run supported scripts." },
-    { icon: GitBranch, title: "Add logic when you need it", description: "Combine conditions, delays, loops and error handling for more than a simple sequence." },
-    { icon: LockKeyhole, title: "Keep control on your device", description: "Wayyo is designed around local execution. Core workflows are intended to work without a cloud account or constant internet connection." },
-    { icon: History, title: "See what happened", description: "Review workflow history and execution logs to understand completed and failed steps." },
+    { icon: Workflow, title: "Build it visually. Make it work your way.", description: "Connect triggers, actions, conditions, loops and variables. Configure steps, save workflows and review results. Delete steps with a right-click or the Delete key; undo and redo as you refine." },
+    { icon: Laptop, title: "An AI assistant that works on your computer.", description: "Draft workflows, ask automation questions, summarise text, suggest metadata, extract information and explain errors. Bundled Qwen3 0.6B runs locally. Choose tasks or example prompts, process or cancel, then review suggestions." },
+    { icon: GitBranch, title: "Start with a template. Make it your own.", description: "Choose from 24 templates across 11 industries. Select an input CSV and output XLSX location; required inputs and columns are checked. Workflows open paused in the builder for review and manual testing." },
+    { icon: FileCheck2, title: "From spreadsheet exports to useful reports.", description: "Preview CSV and XLSX data. Filter, transform, group and aggregate it into reports, then save your reporting workflow to reuse with the next local export." },
+    { icon: FolderSync, title: "Keep your documents organised and close at hand.", description: "Import, search, tag and preview files in your local document library. Keep version history, restore earlier versions, create backups and watch selected folders." },
+    { icon: CalendarClock, title: "Put everyday Windows tasks in motion.", description: "Move files, launch apps, add delays and notifications. Use schedules and supported file or application triggers, with conditions, variables, loops, retries, timeouts and cancellation." },
 ];
 
 const useCases = [
-    { title: "Start your day", detail: "Open your development tools, prepare a workspace and run startup scripts on a schedule." },
-    { title: "Tidy your downloads", detail: "Sort supported files into folders using rules you configure." },
-    { title: "Prepare daily reports", detail: "Run a local script at a scheduled time and get a notification when it finishes." },
-    { title: "Repeat less at work", detail: "Combine file operations, app launches and other supported actions into reusable workflows." },
+    { title: "See where expenses go", detail: "Summarise expenses by category from a CSV export." },
+    { title: "Clean invoice records", detail: "Remove duplicate invoice records from a local export before reporting." },
+    { title: "Prepare attendance and timesheets", detail: "Turn attendance or project timesheet exports into reviewable reports." },
+    { title: "Spot low stock", detail: "Flag inventory records that fall below your chosen stock threshold." },
+    { title: "Keep files in order", detail: "Organise files with rules and monitor selected folders for changes." },
+    { title: "Get the gist of a document", detail: "Summarise document text with local AI, then review the result." },
+    { title: "Open your daily workspace", detail: "Launch your apps, prepare folders and show a notification when the sequence finishes." },
 ];
 
 const questions = [
-    { question: "What is Wayyo?", answer: "Wayyo is a Windows desktop application for creating and running visual workflow automations." },
-    { question: "Do I need to know how to code?", answer: "The visual builder is designed for no-code workflows. Advanced workflows may use scripts where supported." },
-    { question: "Does Wayyo work offline?", answer: "Wayyo is designed for local, offline-first execution. Actions that rely on online services still need an internet connection." },
-    { question: "Will workflows run while my computer is asleep or shut down?", answer: "Execution normally pauses during sleep, and a fully shut-down computer cannot run local workflows. Wake timers or missed-run recovery depend on Windows settings and hardware." },
-    { question: "Can it automate any Windows application?", answer: "Automation depends on supported actions, the target application's accessibility and permissions. Not every application can be automated reliably." },
-    { question: "Is Wayyo free, and which Windows versions are supported?", answer: "Pricing is not confirmed yet. Wayyo requires Windows 10 or newer, x64. Edge, Python, and compatible Office desktop applications are needed only for their respective advanced actions." },
-    { question: "How do I get the installer?", answer: "Use the Download for Windows button on this page to download the official Wayyo installer." },
+    { question: "What is Wayyo?", answer: "Wayyo is your personal AI automation tool for Windows. Build visual workflows, get help from local AI, organise documents and turn spreadsheet exports into reports." },
+    { question: "Is Wayyo free?", answer: "Wayyo offers a FREE License for the Next 5 Years. Get a 5-year Wayyo license for free and start building automations around the way you work." },
+    { question: "What does the free 5-year license offer mean?", answer: "The offer is a Wayyo license for 5 years at no cost. Use Claim Now & Download Wayyo to get the Windows installer." },
+    { question: "Does local AI require a cloud AI subscription?", answer: "No. The bundled Qwen3 0.6B model runs on your device without a cloud AI subscription. Review AI suggestions before using them. Advanced integrations may have their own software or service requirements." },
+    { question: "Can Wayyo work offline?", answer: "Yes. Core local workflows and local AI operate on your device. Website automation and network-using scripts may require internet access and your approval." },
+    { question: "Do I need coding skills?", answer: "You can build workflows visually without writing code. JavaScript, Python and reusable subworkflows are available for more advanced tasks." },
+    { question: "What can templates automate?", answer: "The 24 templates across 11 industries cover expense summaries, invoice cleanup, attendance, sales reporting, inventory exceptions and project timesheets. They process local CSV exports into XLSX reports, rather than connecting to external business systems. Inputs are checked, and workflows open paused for review and manual testing." },
+    { question: "Which Windows versions are supported?", answer: "Wayyo runs on Windows 10 and newer, x64." },
+    { question: "Can workflows run while the PC is asleep or shut down?", answer: "Local workflows need your PC to be awake and running. They cannot execute while it is shut down, and sleep interrupts execution." },
+    { question: "Do advanced actions require other software?", answer: "Some do. Edge browser automation requires Edge; Python actions require Python; supported Office actions require compatible Office desktop applications. Windows UI Automation depends on the target app and permissions, so support varies by application." },
 ];
 
 function DownloadButton() {
@@ -71,37 +77,36 @@ function DownloadButton() {
     return <div className="wayyo-download-wrap">
         <a className="wayyo-download" href={WAYYO_INSTALLER_URL} onClick={startDownload}>
             {isLoading ? <LoaderCircle size={18} className="animate-spin" aria-hidden="true" /> : <ArrowDownToLine size={18} />}
-            {isLoading ? "Starting download..." : "Download for Windows"}
+            {isLoading ? "Starting download..." : "Claim Now & Download Wayyo"}
         </a>
         <div className="wayyo-download-social-proof" aria-live="polite">
             <b>{downloadCount === null ? "Make Wayyo work your way." : `${downloadCount.toLocaleString()} download ${downloadCount === 1 ? "click" : "clicks"} so far.`}</b>
-            <span>Phase 1 Beta is live. Try it free and build automations around your needs.</span>
-            <span>Phase 2: AI-powered automation is on the way.</span>
+            <span>For Windows 10 and newer · x64</span>
         </div>
     </div>;
 }
 
 function ReleaseDetails() {
     return <details className="wayyo-version-details">
-        <summary>Version 1.0.1 release information</summary>
+        <summary>Windows x64 installer · Features and requirements</summary>
         <div className="wayyo-version-content">
-            <p className="wayyo-version-status">Installer generated; unsigned. Do not mark 1.0.1 as current/latest; wait to publish a current release until the 1.0.9 installer is built and verified.</p>
-            <p><b>Download:</b> <code>Wayyo-Setup-1.0.1-x64.exe</code><br /><b>Platform:</b> Windows x64<br /><b>Installer size:</b> approximately 117.6 MiB</p>
+            <p><b>Download:</b> Windows x64 installer<br /><b>Platform:</b> Windows 10 and newer · x64</p>
             <h3>What’s included</h3>
             <ul>
                 <li>Visual workflow builder with conditions, loops, variables, retries, timeouts, and cancellation</li>
+                <li>Local AI, 24 industry templates, document management and spreadsheet reporting</li>
                 <li>Local SQLite storage for workflows and execution history</li>
                 <li>File, CSV, Excel, JSON, and report actions</li>
                 <li>Schedules, file and application triggers, and local notifications</li>
-                <li>Sandboxed JavaScript execution</li>
+                <li>JavaScript actions for advanced workflows</li>
                 <li>Advanced actions for Edge browser automation, Python, Windows UI Automation, Office, and reusable workflows</li>
             </ul>
             <h3>Privacy and connectivity</h3>
-            <p>Workflows, settings, and run history are stored locally. Core local automations work offline. Browser workflows that visit websites require internet access. Trusted Python scripts may also access the network with your Windows account permissions.</p>
+            <p>Workflows, settings and run history use local SQLite storage. Core local workflows work offline. Website automation and network-using scripts may require internet access and your approval.</p>
             <h3>Requirements</h3>
             <p>Windows 10 or newer, x64. Edge, Python, and compatible Office desktop applications are needed only for their respective advanced actions.</p>
-            <h3>Known limitations</h3>
-            <p>This installer has not been tested through interactive install or uninstall. Edge, Python, and Office integrations have not been runtime-tested for this release.</p>
+            <h3>Review before running</h3>
+            <p>Review AI suggestions and manually test template workflows. Supported actions depend on the target application, Windows permissions and your computer being awake.</p>
         </div>
     </details>;
 }
@@ -109,16 +114,16 @@ function ReleaseDetails() {
 function DashboardPreview() {
     return (
         <div className="wayyo-window" aria-label="Illustrative Wayyo dashboard preview">
-            <div className="wayyo-window-top"><div className="wayyo-wordmark"><span className="wayyo-mark">w</span><b>wayyo</b><i>● Local Engine Active</i></div><div className="wayyo-search">⌕ &nbsp; Search workflows, actions, logs... <kbd>Ctrl+K</kbd></div><div className="wayyo-profile">◉ &nbsp; Engineer</div></div>
+            <div className="wayyo-window-top"><div className="wayyo-wordmark"><span className="wayyo-mark">w</span><b>wayyo</b><i>Illustrative preview</i></div><div className="wayyo-search">Workflows, documents and local AI</div><div className="wayyo-profile">Windows</div></div>
             <div className="wayyo-window-body">
-                <aside className="wayyo-sidebar">{["⌂  Home", "◇  Visual Builder", "▦  Templates", "◷  Schedules", "⌁  Activity", "☷  Settings"].map((item, index) => <div className={index === 0 ? "active" : ""} key={item}>{item}</div>)}<small>● Running locally<br />Automations <b>8 active</b><br />◉ SQLite</small></aside>
+                <aside className="wayyo-sidebar">{["⌂  Home", "◇  Visual Builder", "▦  Templates", "◷  Schedules", "⌁  Activity", "Documents", "Local AI", "Reporting", "☷  Settings"].map((item, index) => <div className={index === 0 ? "active" : ""} key={item}>{item}</div>)}<small>Local workspace<br />Review your runs<br />SQLite storage</small></aside>
                 <div className="wayyo-dash-content">
-                    <div className="wayyo-dash-hello"><small>LOCAL NODE · WINDOWS · ● Ready</small><h3>Good evening, Alex</h3><p>Let’s make your repetitive work disappear. Automations executing locally on Windows.</p><button type="button" disabled>＋ Create workflow</button></div>
-                    <div className="wayyo-stat-row"><div><small>Active workflows</small><b>08 <em>/ 10 installed</em></b><span>● Running in background</span></div><div><small>Successful runs today</small><b>24 <em>0 failed</em></b><span>● Success rate today</span></div><div><small>Time saved this week</small><b>4h 35m</b><span>↗ Compared with last week</span></div></div>
-                    <div className="wayyo-workspace"><section className="wayyo-workflows"><div className="wayyo-workflow-heading"><b>Your workflows</b><span>All (8)　 Active (6)　 Paused (2)</span></div>
-                        {[["▣", "Daily Project Setup", "Scheduled", "Every weekday at 9:00 AM", "Open apps → Prepare files → Notify"], ["▧", "Downloads Organizer", "File Watcher", "When a new file is added", "Sort extension → Move archive"], ["☁", "Evening Backup", "Scheduled", "Every day at 8:00 PM", "Zip directory → Copy NAS → Verify"]].map(([icon, name, tag, when, steps]) => <div className="wayyo-workflow" key={name}><span className="wayyo-flow-icon">{icon}</span><div><b>{name}</b><label>{tag}</label><small>◷ {when}</small><p>{steps}</p></div><span className="wayyo-run"><Play size={12} /> Run</span></div>)}
-                    </section><aside className="wayyo-activity"><b>◴ Recent activity</b>{["Daily Project Setup", "Downloads Organizer", "Git Workspace Pull"].map((item) => <div key={item}><b>{item}</b><small>● Success　 ·　 just now</small></div>)}</aside></div>
-                    <div className="wayyo-preview-note">Concept interface preview · Workflow examples are illustrative</div>
+                    <div className="wayyo-dash-hello"><small>ILLUSTRATIVE WORKSPACE · WINDOWS</small><h3>Your everyday workspace</h3><p>Build workflows, organise documents and get help from local AI.</p></div>
+                    <div className="wayyo-stat-row"><div><small>Visual Builder</small><b>Build</b><span>Connect steps</span></div><div><small>Local AI</small><b>Review</b><span>AI suggestions</span></div><div><small>Reporting</small><b>Export</b><span>CSV to XLSX</span></div></div>
+                    <div className="wayyo-workspace"><section className="wayyo-workflows"><div className="wayyo-workflow-heading"><b>Your workflows</b><span>Example workflows</span></div>
+                        {[["▣", "Daily Project Setup", "Scheduled", "Every weekday at 9:00 AM", "Open apps → Prepare files → Notify"], ["▧", "Downloads Organizer", "File Watcher", "When a new file is added", "Sort extension → Move archive"], ["▦", "Expense Summary", "Template", "Review before running", "Read CSV → Group categories → Export XLSX"]].map(([icon, name, tag, when, steps]) => <div className="wayyo-workflow" key={name}><span className="wayyo-flow-icon">{icon}</span><div><b>{name}</b><label>{tag}</label><small>◷ {when}</small><p>{steps}</p></div><span className="wayyo-run">Example</span></div>)}
+                    </section><aside className="wayyo-activity"><b>◴ Example activity</b>{["Daily Project Setup", "Downloads Organizer", "Expense Summary"].map((item) => <div key={item}><b>{item}</b><small>Sample result · illustrative</small></div>)}</aside></div>
+                    <div className="wayyo-preview-note">Illustrative preview · Sample workflows and activity</div>
                 </div>
             </div>
         </div>
@@ -130,8 +135,8 @@ export default function Wayyo() {
         <div className="wayyo-page">
             <style>{wayyoStyles}</style>
             <Helmet>
-                <title>Wayyo Download for Windows | Workflow Automation</title>
-                <meta name="description" content="Download Wayyo for Windows, a desktop automation app for building visual workflows, scheduling repetitive tasks and running supported automations locally." />
+                <title>Wayyo | Your Personal AI Automation Tool for Windows</title>
+                <meta name="description" content="Meet Wayyo, your personal AI automation tool for Windows. Build visual workflows, use local AI, organise documents, and create reports. Claim a free 5-year license." />
                 <meta name="robots" content="index, follow, max-image-preview:large" />
                 <meta name="application-name" content="Wayyo" />
                 <meta name="apple-mobile-web-app-title" content="Wayyo" />
@@ -140,25 +145,26 @@ export default function Wayyo() {
                 <link rel="icon" type="image/png" href="/wayyo-icon-cobalt.png" />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="Wayyo" />
-                <meta property="og:title" content="Wayyo for Windows | Your Work, On Autopilot" />
-                <meta property="og:description" content="Download Wayyo for Windows, a desktop automation app for building visual workflows and automating repetitive tasks locally." />
+                <meta property="og:title" content="Wayyo | Your Personal AI Automation Tool for Windows" />
+                <meta property="og:description" content="Meet Wayyo, your personal AI automation tool for Windows. Build visual workflows, use local AI, organise documents, and create reports. Claim a free 5-year license." />
                 <meta property="og:url" content="https://nearwe.in/wayyo" />
                 <meta property="og:image" content="https://nearwe.in/wayyo-og-cobalt.png" />
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />
-                <meta property="og:image:alt" content="Wayyo, a Windows desktop automation app for visual workflows" />
+                <meta property="og:image:alt" content="Wayyo, your personal AI automation tool for Windows" />
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="Wayyo for Windows | Your Work, On Autopilot" />
-                <meta name="twitter:description" content="Download Wayyo and build visual workflows to automate repetitive Windows tasks locally." />
+                <meta name="twitter:title" content="Wayyo | Your Personal AI Automation Tool for Windows" />
+                <meta name="twitter:description" content="Meet Wayyo, your personal AI automation tool for Windows. Build visual workflows, use local AI, organise documents, and create reports. Claim a free 5-year license." />
                 <meta name="twitter:image" content="https://nearwe.in/wayyo-og-cobalt.png" />
                 <script type="application/ld+json">{JSON.stringify({
                     "@context": "https://schema.org",
                     "@type": "SoftwareApplication",
                     name: "Wayyo",
                     url: "https://nearwe.in/wayyo",
-                    description: "A Windows desktop automation app for building visual workflows and running supported repetitive tasks locally.",
+                    description: "Meet Wayyo, your personal AI automation tool for Windows. Build visual workflows, use local AI, organise documents, and create reports. Claim a free 5-year license.",
                     applicationCategory: "UtilitiesApplication",
-                    operatingSystem: "Windows",
+                    operatingSystem: "Windows 10 and newer, x64",
+                    offers: { "@type": "Offer", price: "0", priceCurrency: "INR", description: "FREE License for the Next 5 Years", url: "https://nearwe.in/wayyo" },
                 })}</script>
                 <script type="application/ld+json">{JSON.stringify({
                     "@context": "https://schema.org",
@@ -172,15 +178,16 @@ export default function Wayyo() {
             </Helmet>
             <header className="wayyo-header"><Link to="/wayyo" className="wayyo-brand"><img className="wayyo-nearwe-logo" src="/logo-bg-trans.png" alt="NearWe Labs" /><span>wayyo<small>BY NEARWE LABS</small></span></Link><nav aria-label="Wayyo navigation"><a href="#features">Features</a><a href="#use-cases">Use cases</a><a href="#faq">FAQ</a><Link to="/">NearWe Labs <ArrowRight size={14} /></Link></nav><a className="wayyo-header-cta" href="#download">Get Wayyo <ArrowRight size={15} /></a></header>
             <main>
-                <section className="wayyo-hero"><div className="wayyo-hero-copy"><div className="wayyo-eyebrow"><span /> WAYYO · MADE FOR WINDOWS <span className="wayyo-launch-pill">AVAILABLE NOW</span></div><p className="wayyo-overline">Your personal automation workspace</p><h1>Stop repeating tasks.<br /><span>Start automating.</span></h1><p className="wayyo-intro">Wayyo is a Windows desktop automation app for building visual workflows. Schedule actions, connect steps and let Wayyo handle repetitive work locally on your PC.</p><div className="wayyo-hero-actions" id="download"><DownloadButton /><a className="wayyo-secondary-cta" href="#features">See how it works <ArrowRight size={17} /></a></div><p id="wayyo-release-note" className="wayyo-release-note">Version 1.0.1 installer details and requirements.</p><ReleaseDetails /><div className="wayyo-trust"><span><Check size={15} /> Local-first by design</span><span><Laptop size={15} /> Windows desktop</span><span><Workflow size={15} /> Visual workflows</span></div></div><DashboardPreview /></section>
+                <section className="wayyo-hero"><div className="wayyo-hero-copy"><div className="wayyo-eyebrow"><span /> WAYYO · YOUR PERSONAL AI AUTOMATION TOOL <span className="wayyo-launch-pill">AVAILABLE NOW</span></div><p className="wayyo-overline">Your Personal AI Automation Tool for Windows</p><h1>Your personal AI.<br /><span>Your everyday work, automated.</span></h1><p className="wayyo-intro">Build visual workflows, get help from local AI, organise documents, and turn spreadsheets into reports—all from your Windows desktop.</p><p className="wayyo-intro"><strong>FREE License for the Next 5 Years</strong><br />Get a 5-year Wayyo license for free. Start building automations around the way you work.</p><div className="wayyo-hero-actions" id="download"><DownloadButton /><a className="wayyo-secondary-cta" href="#features">Explore What Wayyo Can Do <ArrowRight size={17} /></a></div><p id="wayyo-release-note" className="wayyo-release-note">Windows x64 installer · Build workflows around your day.</p><ReleaseDetails /><div className="wayyo-trust"><span><Check size={15} /> Local-first by design</span><span><Laptop size={15} /> Windows desktop</span><span><Workflow size={15} /> Visual workflows</span></div></div><DashboardPreview /></section>
                 <section className="wayyo-flow-strip" aria-label="Example workflows"><div><small>DAILY WORKSPACE SETUP</small><b>Schedule <i>→</i> Open apps <i>→</i> Prepare files <i>→</i> Notify</b></div><div><small>DOWNLOADS ORGANIZER</small><b>Detect files <i>→</i> Sort by type <i>→</i> Move into folders</b></div></section>
-                <section className="wayyo-section" id="features"><div className="wayyo-section-heading"><span>LESS REPETITION, MORE FLOW</span><h2>Everything you do repeatedly<br />can become a workflow.</h2><p>Bring everyday desktop tasks together in one workspace you can shape around the way you work.</p></div><div className="wayyo-feature-grid">{capabilities.map(({ icon: Icon, title, description }, index) => <article className="wayyo-feature" key={title}><span className="wayyo-feature-icon"><Icon size={21} /></span><small>0{index + 1}</small><h3>{title}</h3><p>{description}</p></article>)}</div></section>
-                <section className="wayyo-use-section" id="use-cases"><div className="wayyo-use-inner"><div className="wayyo-use-heading"><span>MADE FOR THE IN-BETWEEN TASKS</span><h2>Automate the little things that take up your day.</h2><p>Start small, make a routine reusable, then add steps as your needs grow.</p></div><div className="wayyo-use-list">{useCases.map((item, index) => <article key={item.title}><span>0{index + 1}</span><div><h3>{item.title}</h3><p>{item.detail}</p></div><ArrowRight size={18} /></article>)}</div></div></section>
-                <section className="wayyo-control-section"><div className="wayyo-control-art"><div className="wayyo-control-orbit orbit-one" /><div className="wayyo-control-orbit orbit-two" /><div className="wayyo-control-lock"><LockKeyhole size={34} /></div><span className="control-label label-one">YOUR COMPUTER</span><span className="control-label label-two">YOUR WORKFLOWS</span><span className="control-label label-three">YOUR CONTROL</span></div><div className="wayyo-control-copy"><span>LOCAL BY DESIGN</span><h2>Your device.<br />Your rules.</h2><p>Wayyo is designed to prioritize local execution and user control. Keep workflow definitions on your device, review execution logs and decide which actions are allowed to run.</p><ul><li><Check size={16} /> Core workflows designed for local execution</li><li><Check size={16} /> No mandatory cloud account for local workflows</li><li><Check size={16} /> Online actions still require an internet connection</li></ul><p className="wayyo-caveat">What a workflow can do depends on its selected action, Windows permissions and the state of your computer.</p></div></section>
-                <section className="wayyo-audience"><div><span>FOR YOUR KIND OF WORK</span><h2>Made to fit your workflow.</h2></div><div className="wayyo-audience-grid"><article><b>Developers</b><p>Automate local scripts and development setup.</p></article><article><b>Professionals</b><p>Streamline recurring file and reporting tasks.</p></article><article><b>Creators</b><p>Organize assets and supported desktop routines.</p></article><article><b>Power users</b><p>Combine actions into workflows you can reuse.</p></article></div></section>
+                <section className="wayyo-section" id="features"><div className="wayyo-section-heading"><span>LESS REPETITION, MORE FLOW</span><h2>Your work, connected.<br />Your next step, simpler.</h2><p>Bring local AI, visual workflows, documents and reporting into one Windows workspace.</p></div><div className="wayyo-feature-grid">{capabilities.map(({ icon: Icon, title, description }, index) => <article className="wayyo-feature" key={title}><span className="wayyo-feature-icon"><Icon size={21} /></span><small>0{index + 1}</small><h3>{title}</h3><p>{description}</p></article>)}</div></section>
+                <section className="wayyo-use-section" id="use-cases"><div className="wayyo-use-inner"><div className="wayyo-use-heading"><span>MADE FOR THE IN-BETWEEN TASKS</span><h2>Turn everyday inputs into useful outcomes.</h2><p>Start with a local export, a document or a desktop routine. Review the workflow, test it and make it your own.</p></div><div className="wayyo-use-list">{useCases.map((item, index) => <article key={item.title}><span>0{index + 1}</span><div><h3>{item.title}</h3><p>{item.detail}</p></div><ArrowRight size={18} /></article>)}</div></div></section>
+                <section className="wayyo-control-section"><div className="wayyo-control-art"><div className="wayyo-control-orbit orbit-one" /><div className="wayyo-control-orbit orbit-two" /><div className="wayyo-control-lock"><LockKeyhole size={34} /></div><span className="control-label label-one">YOUR COMPUTER</span><span className="control-label label-two">YOUR WORKFLOWS</span><span className="control-label label-three">YOUR CONTROL</span></div><div className="wayyo-control-copy"><span>LOCAL BY DESIGN</span><h2>Your device.<br />Your rules.</h2><p>Keep workflows, settings and run history in local SQLite storage. Review execution logs and results to understand what ran and where a step needs attention.</p><ul><li><Check size={16} /> Core local workflows operate offline</li><li><Check size={16} /> Local AI works on your device</li><li><Check size={16} /> Network actions may need internet access and your approval</li></ul><p className="wayyo-caveat">What a workflow can do depends on its selected action, Windows permissions and the state of your computer.</p></div></section>
+                <section className="wayyo-audience"><div><span>FOR YOUR KIND OF WORK</span><h2>Made to fit your workflow.</h2></div><div className="wayyo-audience-grid"><article><b>Developers</b><p>Automate local scripts and development setup.</p></article><article><b>Professionals</b><p>Streamline recurring file and reporting tasks.</p></article><article><b>Creators</b><p>Organise assets and supported desktop routines.</p></article><article><b>Power users</b><p>Combine actions into workflows you can reuse.</p></article></div></section>
+                <section className="wayyo-download-section"><div className="wayyo-download-copy"><span>YOUR NEXT WORKFLOW STARTS HERE</span><h2>FREE License for the Next 5 Years</h2><p>Get a 5-year Wayyo license for free. Start building automations around the way you work.</p><DownloadButton /></div><div className="wayyo-release-card"><FileCheck2 size={24} /><div><b>Your personal AI automation tool</b><p>Visual workflows. Local AI. Documents in order. Reports you can reuse.</p><p>Windows 10 and newer · x64</p></div></div></section>
                 <section className="wayyo-faq-section" id="faq"><div className="wayyo-faq-title"><CircleHelp size={22} /><span>GOOD TO KNOW</span><h2>Questions, answered.</h2></div><div className="wayyo-faq-list">{questions.map(({ question, answer }) => <details key={question}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</div></section>
             </main>
-            <footer className="wayyo-footer"><Link to="/wayyo" className="wayyo-brand"><img className="wayyo-nearwe-logo" src="/logo-bg-trans.png" alt="NearWe Labs" /><span>wayyo<small>BY NEARWE LABS</small></span></Link><p>Your work. On autopilot.</p><Link to="/">A product by NearWe Labs <ArrowRight size={14} /></Link></footer>
+            <footer className="wayyo-footer"><Link to="/wayyo" className="wayyo-brand"><img className="wayyo-nearwe-logo" src="/logo-bg-trans.png" alt="NearWe Labs" /><span>wayyo<small>BY NEARWE LABS</small></span></Link><p>Your personal AI. Your everyday work, automated.</p><Link to="/">A product by NearWe Labs <ArrowRight size={14} /></Link></footer>
         </div>
     );
 }

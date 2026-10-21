@@ -61,7 +61,11 @@ const App = () => {
     }
 
     // optional: title bhi change kar lo
-    document.title = isCMS ? "NearWe Admin" : "NearWe";
+    document.title = isCMS
+      ? "NearWe Admin"
+      : window.location.pathname.replace(/\/+$/, "") === "/wayyo"
+        ? "Wayyo | Your Personal AI Automation Tool for Windows"
+        : "NearWe";
   }, [isCMS]);
 
   return (
