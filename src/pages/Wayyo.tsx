@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useEffect, useState } from "react";
-import { ArrowDownToLine, ArrowRight, CalendarClock, Check, CircleHelp, FileCheck2, FolderSync, GitBranch, Laptop, LoaderCircle, LockKeyhole, Workflow } from "lucide-react";
+import { ArrowDownToLine, ArrowRight, CalendarClock, Check, CircleHelp, FileCheck2, FileText, FolderSync, GitBranch, Infinity as InfinityIcon, Languages, Laptop, LoaderCircle, LockKeyhole, Mic, Sparkles, Video, Workflow } from "lucide-react";
 import { core_services } from "../utils/api";
 import { WAYYO_INSTALLER_URL } from "../utils/constants";
 let wayyoStatsRequest: Promise<number | null> | null = null;
@@ -80,7 +80,37 @@ const useCases = [
     { title: "Open your daily workspace", detail: "Launch your apps, prepare folders and show a notification when the sequence finishes." },
 ];
 
+const meetingPerks = [
+    { icon: InfinityIcon, title: "Unlimited meeting time", detail: "No 40-minute cut-offs. Talk as long as the conversation needs." },
+    { icon: Video, title: "One-click recording", detail: "Record every call in HD and keep it ready to replay or share." },
+    { icon: Languages, title: "Transcripts in any language", detail: "AI transcribes speech live—Hindi, English, Marathi, Spanish and many more." },
+    { icon: Sparkles, title: "MoMs on the fly", detail: "Get Minutes of Meeting, key decisions and action items the moment you hang up." },
+];
+
+function MeetingPreview() {
+    return (
+        <div className="wayyo-meet-window" aria-label="Illustrative Wayyo meeting preview">
+            <div className="wayyo-meet-top"><span className="wayyo-meet-rec"><i /> REC 01:12:48</span><b>Weekly Product Sync</b><span className="wayyo-meet-limit"><InfinityIcon size={12} /> No time limit</span></div>
+            <div className="wayyo-meet-body">
+                <div className="wayyo-meet-tiles">{[["AK", "Aniket"], ["PS", "Priya"], ["RM", "Rahul"], ["SJ", "Sara"]].map(([initials, name], i) => <div key={name} className={i === 0 ? "speaking" : undefined}><span>{initials}</span><small><Mic size={9} /> {name}</small></div>)}</div>
+                <aside className="wayyo-meet-side">
+                    <div className="wayyo-meet-transcript"><b><Languages size={12} /> Live transcript</b>
+                        <p><em>Aniket · EN</em>Let's lock the launch date for Friday.</p>
+                        <p><em>Priya · HI</em>Haan, design final ho gaya hai.</p>
+                        <p><em>Sara · ES</em>Enviaré el informe mañana.</p>
+                    </div>
+                    <div className="wayyo-meet-mom"><b><FileText size={12} /> AI Minutes of Meeting</b>
+                        <ul><li><Check size={10} /> Launch date: Friday</li><li><Check size={10} /> Design signed off</li><li><Check size={10} /> Sara → send report</li></ul>
+                    </div>
+                </aside>
+            </div>
+            <p className="wayyo-preview-note">Illustrative preview</p>
+        </div>
+    );
+}
+
 const questions = [
+    { question: "Does Wayyo include video meetings?", answer: "Yes. Host video calls with unlimited meeting time, record them, get AI transcripts in your preferred language and receive Minutes of Meeting with action items automatically—free with your Wayyo license." },
     { question: "What is Wayyo?", answer: "Wayyo is your personal AI automation tool for Windows. Build visual workflows, get help from local AI, organise documents and turn spreadsheet exports into reports." },
     { question: "Is Wayyo free?", answer: "Wayyo offers a FREE License for the Next 5 Years. Get a 5-year Wayyo license for free and start building automations around the way you work." },
     { question: "What does the free 5-year license offer mean?", answer: "The offer is a Wayyo license for 5 years at no cost. Use Claim Now & Download Wayyo to get the Windows installer." },
@@ -220,15 +250,26 @@ export default function Wayyo() {
                     })),
                 })}</script>
             </Helmet>
-            <header className="wayyo-header"><Link to="/wayyo" className="wayyo-brand"><img className="wayyo-nearwe-logo" src="/logo-bg-trans.png" alt="NearWe Labs" /><span>wayyo<small>BY NEARWE LABS</small></span></Link><nav aria-label="Wayyo navigation"><a href="#features">Features</a><a href="#use-cases">Use cases</a><a href="#faq">FAQ</a><Link to="/">NearWe Labs <ArrowRight size={14} /></Link></nav><a className="wayyo-header-cta" href="#download">Get Wayyo <ArrowRight size={15} /></a></header>
+            <header className="wayyo-header"><Link to="/wayyo" className="wayyo-brand"><img className="wayyo-nearwe-logo" src="/logo-bg-trans.png" alt="NearWe Labs" /><span>wayyo<small>BY NEARWE LABS</small></span></Link><nav aria-label="Wayyo navigation"><a href="#features">Features</a><a href="#meetings">AI Meetings</a><a href="#use-cases">Use cases</a><a href="#faq">FAQ</a><Link to="/">NearWe Labs <ArrowRight size={14} /></Link></nav><a className="wayyo-header-cta" href="#download">Get Wayyo <ArrowRight size={15} /></a></header>
             <main>
                 <section className="wayyo-hero"><div className="wayyo-hero-copy"><div className="wayyo-eyebrow"><span /> WAYYO · YOUR PERSONAL AI AUTOMATION TOOL <span className="wayyo-launch-pill">AVAILABLE NOW</span></div><p className="wayyo-overline">Your Personal AI Automation Tool for Windows</p><h1>Your personal AI.<br /><span>Your everyday work, automated.</span></h1><p className="wayyo-intro">Build visual workflows, get help from local AI, organise documents, and turn spreadsheets into reports—all from your Windows desktop.</p><p className="wayyo-intro"><strong>FREE License for the Next 5 Years</strong><br />Get a 5-year Wayyo license for free. Start building automations around the way you work.</p><div className="wayyo-hero-actions" id="download"><DownloadButton /><a className="wayyo-secondary-cta" href="#features">Explore What Wayyo Can Do <ArrowRight size={17} /></a></div><p id="wayyo-release-note" className="wayyo-release-note">Windows x64 installer · Build workflows around your day.</p><ReleaseDetails /><div className="wayyo-trust"><span><Check size={15} /> Local-first by design</span><span><Laptop size={15} /> Windows desktop</span><span><Workflow size={15} /> Visual workflows</span></div></div><DashboardPreview /></section>
                 <section className="wayyo-flow-strip" aria-label="Example workflows"><div><small>DAILY WORKSPACE SETUP</small><b>Schedule <i>→</i> Open apps <i>→</i> Prepare files <i>→</i> Notify</b></div><div><small>DOWNLOADS ORGANIZER</small><b>Detect files <i>→</i> Sort by type <i>→</i> Move into folders</b></div></section>
                 <section className="wayyo-section" id="features"><div className="wayyo-section-heading"><span>LESS REPETITION, MORE FLOW</span><h2>Your work, connected.<br />Your next step, simpler.</h2><p>Bring local AI, visual workflows, documents and reporting into one Windows workspace.</p></div><div className="wayyo-feature-grid">{capabilities.map(({ icon: Icon, title, description }, index) => <article className="wayyo-feature" key={title}><span className="wayyo-feature-icon"><Icon size={21} /></span><small>0{index + 1}</small><h3>{title}</h3><p>{description}</p></article>)}</div></section>
+                <section className="wayyo-meet-section" id="meetings"><div className="wayyo-meet-inner"><div className="wayyo-meet-copy"><span className="wayyo-meet-badge"><Sparkles size={12} /> NEW · AI MEETINGS · 100% FREE</span><h2>Meet without limits.<br /><span>Let AI take the notes.</span></h2><p>Video calls with unlimited time, one-click recording, AI transcripts in any language and Minutes of Meeting generated on the fly. No paid plans, no time caps, no more scribbling notes.</p><div className="wayyo-meet-perks">{meetingPerks.map(({ icon: Icon, title, detail }) => <article key={title}><span><Icon size={18} /></span><div><h3>{title}</h3><p>{detail}</p></div></article>)}</div><div className="wayyo-hero-actions"><DownloadButton /><span className="wayyo-meet-free"><Check size={15} /> Free with your 5-year license</span></div></div><MeetingPreview /></div></section>
                 <section className="wayyo-use-section" id="use-cases"><div className="wayyo-use-inner"><div className="wayyo-use-heading"><span>MADE FOR THE IN-BETWEEN TASKS</span><h2>Turn everyday inputs into useful outcomes.</h2><p>Start with a local export, a document or a desktop routine. Review the workflow, test it and make it your own.</p></div><div className="wayyo-use-list">{useCases.map((item, index) => <article key={item.title}><span>0{index + 1}</span><div><h3>{item.title}</h3><p>{item.detail}</p></div><ArrowRight size={18} /></article>)}</div></div></section>
                 <section className="wayyo-control-section"><div className="wayyo-control-art"><div className="wayyo-control-orbit orbit-one" /><div className="wayyo-control-orbit orbit-two" /><div className="wayyo-control-lock"><LockKeyhole size={34} /></div><span className="control-label label-one">YOUR COMPUTER</span><span className="control-label label-two">YOUR WORKFLOWS</span><span className="control-label label-three">YOUR CONTROL</span></div><div className="wayyo-control-copy"><span>LOCAL BY DESIGN</span><h2>Your device.<br />Your rules.</h2><p>Keep workflows, settings and run history in local SQLite storage. Review execution logs and results to understand what ran and where a step needs attention.</p><ul><li><Check size={16} /> Core local workflows operate offline</li><li><Check size={16} /> Local AI works on your device</li><li><Check size={16} /> Network actions may need internet access and your approval</li></ul><p className="wayyo-caveat">What a workflow can do depends on its selected action, Windows permissions and the state of your computer.</p></div></section>
                 <section className="wayyo-audience"><div><span>FOR YOUR KIND OF WORK</span><h2>Made to fit your workflow.</h2></div><div className="wayyo-audience-grid"><article><b>Developers</b><p>Automate local scripts and development setup.</p></article><article><b>Professionals</b><p>Streamline recurring file and reporting tasks.</p></article><article><b>Creators</b><p>Organise assets and supported desktop routines.</p></article><article><b>Power users</b><p>Combine actions into workflows you can reuse.</p></article></div></section>
-                <section className="wayyo-download-section"><div className="wayyo-download-copy"><span>YOUR NEXT WORKFLOW STARTS HERE</span><h2>FREE License for the Next 5 Years</h2><p>Get a 5-year Wayyo license for free. Start building automations around the way you work.</p><DownloadButton /></div><div className="wayyo-release-card"><FileCheck2 size={24} /><div><b>Your personal AI automation tool</b><p>Visual workflows. Local AI. Documents in order. Reports you can reuse.</p><p>Windows 10 and newer · x64</p></div></div></section>
+                <section className="wayyo-download-section"><div className="wayyo-download-copy"><span>YOUR NEXT WORKFLOW STARTS HERE</span><h2>FREE License for the Next 5 Years</h2><p>Get a 5-year Wayyo license for free. Start building automations around the way you work.</p><DownloadButton /></div><div className="wayyo-box-wrap">
+  <img
+    src="/assets/wayyo-product-box.png"
+    alt="Wayyo software box: Personal AI Automation Tool for Windows"
+    className="wayyo-box-img"
+    width={706}
+    height={910}
+    loading="lazy"
+    decoding="async"
+  />
+</div></section>
                 <section className="wayyo-faq-section" id="faq"><div className="wayyo-faq-title"><CircleHelp size={22} /><span>GOOD TO KNOW</span><h2>Questions, answered.</h2></div><div className="wayyo-faq-list">{questions.map(({ question, answer }) => <details key={question}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</div></section>
             </main>
             <footer className="wayyo-footer"><Link to="/wayyo" className="wayyo-brand"><img className="wayyo-nearwe-logo" src="/logo-bg-trans.png" alt="NearWe Labs" /><span>wayyo<small>BY NEARWE LABS</small></span></Link><p>Your personal AI. Your everyday work, automated.</p><Link to="/">A product by NearWe Labs <ArrowRight size={14} /></Link></footer>
@@ -448,4 +489,55 @@ const wayyoEnhanceStyles = `
 .wayyo-page .wayyo-control-orbit.orbit-two{animation-duration:18s;animation-direction:reverse}
 }
 @media(max-width:900px){.wayyo-page .wayyo-window{animation-name:none}}
+/* Product box */
+.wayyo-page .wayyo-box-wrap{display:grid;place-items:center}
+.wayyo-page .wayyo-box-img{width:100%;max-width:320px;height:auto;filter:drop-shadow(0 30px 40px #0a1a5a66);transition:transform .4s ease}
+.wayyo-page .wayyo-box-img:hover{transform:translateY(-6px) rotate(-1deg)}
+@media(prefers-reduced-motion:no-preference){.wayyo-page .wayyo-box-img{animation:wy-rise .8s .1s cubic-bezier(.2,.8,.2,1) both}}
+@media(max-width:900px){.wayyo-page .wayyo-box-img{max-width:240px}}
+@media(max-width:560px){.wayyo-page .wayyo-box-img{max-width:200px}}
+/* AI Meetings */
+.wayyo-page .wayyo-meet-section{padding:90px 24px;background:radial-gradient(60% 80% at 100% 0%,#8fb0ff33,transparent 60%),linear-gradient(180deg,#fff,#f4f7fe);border-block:1px solid var(--wy-line);scroll-margin-top:80px}
+.wayyo-page .wayyo-meet-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center}
+.wayyo-page .wayyo-meet-badge{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;background:linear-gradient(90deg,#3559C7,#6a8bf0);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px}
+.wayyo-page .wayyo-meet-copy h2{font:700 clamp(32px,4vw,46px)/1.08 'Space Grotesk',sans-serif;margin:16px 0 0}
+.wayyo-page .wayyo-meet-copy h2 span{color:var(--wy-primary)}
+.wayyo-page .wayyo-meet-copy>p{font-size:15px;line-height:1.7;color:var(--wy-muted);margin:16px 0 24px;max-width:520px}
+.wayyo-page .wayyo-meet-perks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:26px}
+.wayyo-page .wayyo-meet-perks article{display:flex;gap:11px;padding:14px;background:#fff;border:1px solid var(--wy-line);border-radius:12px;transition:transform .25s,box-shadow .25s}
+.wayyo-page .wayyo-meet-perks article:hover{transform:translateY(-3px);box-shadow:0 14px 30px -16px #3559c766}
+.wayyo-page .wayyo-meet-perks article>span{width:36px;height:36px;flex:none;border-radius:9px;display:grid;place-items:center;background:var(--wy-light);color:var(--wy-primary)}
+.wayyo-page .wayyo-meet-perks h3{font:700 14px 'Space Grotesk',sans-serif;margin:0 0 4px}
+.wayyo-page .wayyo-meet-perks p{font-size:12px;line-height:1.55;color:var(--wy-muted);margin:0}
+.wayyo-page .wayyo-meet-free{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--wy-green)}
+.wayyo-page .wayyo-meet-window{background:#141b2d;border-radius:14px;padding:12px;box-shadow:0 30px 70px -25px #0a1a5a99;color:#fff;min-width:0}
+.wayyo-page .wayyo-meet-top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:11px;padding:2px 4px 12px}
+.wayyo-page .wayyo-meet-rec{display:flex;align-items:center;gap:6px;color:#ff8a8a;font-weight:700;font-size:10px}
+.wayyo-page .wayyo-meet-rec i{width:8px;height:8px;border-radius:50%;background:#ff5a5a}
+.wayyo-page .wayyo-meet-limit{display:flex;align-items:center;gap:4px;font-size:9px;padding:4px 8px;border-radius:999px;background:#3559c740;color:#c9d6ff}
+.wayyo-page .wayyo-meet-body{display:grid;grid-template-columns:1.25fr 1fr;gap:10px}
+.wayyo-page .wayyo-meet-tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.wayyo-page .wayyo-meet-tiles>div{position:relative;aspect-ratio:4/3;border-radius:10px;background:linear-gradient(135deg,#25304c,#1b2338);display:grid;place-items:center;border:2px solid transparent}
+.wayyo-page .wayyo-meet-tiles>div.speaking{border-color:#6a8bf0;box-shadow:0 0 0 4px #6a8bf030}
+.wayyo-page .wayyo-meet-tiles span{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#3559C7;font:700 14px 'Space Grotesk',sans-serif}
+.wayyo-page .wayyo-meet-tiles small{position:absolute;left:7px;bottom:6px;display:flex;align-items:center;gap:3px;font-size:9px;color:#d5dcf0;background:#00000055;padding:2px 6px;border-radius:5px}
+.wayyo-page .wayyo-meet-side{display:flex;flex-direction:column;gap:8px;min-width:0}
+.wayyo-page .wayyo-meet-transcript,.wayyo-page .wayyo-meet-mom{background:#1e2740;border-radius:10px;padding:10px}
+.wayyo-page .wayyo-meet-side b{display:flex;align-items:center;gap:5px;font-size:10px;margin-bottom:7px;color:#c9d6ff}
+.wayyo-page .wayyo-meet-transcript p{font-size:10px;line-height:1.45;margin:0 0 6px;color:#e4e9f7}
+.wayyo-page .wayyo-meet-transcript em{display:block;font-style:normal;font-size:8px;color:#8fa3d6;margin-bottom:1px}
+.wayyo-page .wayyo-meet-mom{background:linear-gradient(135deg,#3559C7,#4d74e6)}
+.wayyo-page .wayyo-meet-mom b{color:#fff}
+.wayyo-page .wayyo-meet-mom ul{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.wayyo-page .wayyo-meet-mom li{display:flex;align-items:center;gap:5px;font-size:10px}
+.wayyo-page .wayyo-meet-window .wayyo-preview-note{color:#8a93ab;margin:8px 4px 0}
+@media(prefers-reduced-motion:no-preference){
+.wayyo-page .wayyo-meet-rec i{animation:wy-pulse 1.4s ease-in-out infinite}
+.wayyo-page .wayyo-meet-transcript p{animation:wy-rise .6s cubic-bezier(.2,.8,.2,1) both}
+.wayyo-page .wayyo-meet-transcript p:nth-of-type(2){animation-delay:.25s}
+.wayyo-page .wayyo-meet-transcript p:nth-of-type(3){animation-delay:.5s}
+}
+@keyframes wy-pulse{50%{opacity:.25}}
+@media(max-width:900px){.wayyo-page .wayyo-meet-inner{grid-template-columns:1fr;gap:40px}}
+@media(max-width:560px){.wayyo-page .wayyo-meet-section{padding:62px 16px}.wayyo-page .wayyo-meet-perks{grid-template-columns:1fr}.wayyo-page .wayyo-meet-body{grid-template-columns:1fr}.wayyo-page .wayyo-meet-top b{display:none}}
 `;

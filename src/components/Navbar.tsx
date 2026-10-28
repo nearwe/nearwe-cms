@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Layout, Popover } from "antd";
-import { useAuth } from "../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { BiLogOut } from "react-icons/bi";
-import { GoLocation } from "react-icons/go";
 
 const Navbar = () => {
-  const { isAuthenticated, logout } = useAuth();
-  const navigate = useNavigate();
-
   const [city, setCity] = useState<string>("Fetching location...");
   const [locationData, setLocationData] = useState<any>(null);
 

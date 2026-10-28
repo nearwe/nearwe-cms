@@ -1,11 +1,8 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { Layout } from "antd";
-import { AuthProvider } from "./contexts/AuthContext";
-import Login from "./pages/Login";
-import ProtectedRoute from "./components/ProtectedRoute";
+import { useEffect } from "react";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import "../src/utils/css/custom.css";
-import { UserProvider } from "./contexts/UserContext";
 
 // WEBSITE PAGES
 import NearWeLandingPage from "./pages/LandingPage";
@@ -17,18 +14,6 @@ import AdvertiseWithUs from "./pages/Advertise";
 import Contact from "./pages/Contact";
 import TermsAndConditions from "./pages/Terms";
 import ChildSafetyPolicy from "./pages/Child";
-
-// CMS PAGES
-import CmsHome from "./cms/cms_home";
-import UserManagement from "./cms/pages/UserManagement";
-import CategoryManagement from "./cms/pages/CategoryManagement";
-import EventManagement from "./cms/pages/EventManagement";
-import AppManagement from "./cms/pages/AppManagement";
-import InsightsDashboard from "./cms/pages/InsightsDashboard";
-import Announcements from "./cms/pages/Announcements";
-import Reports from "./cms/pages/Reports";
-import UserInterestDetail from "./cms/pages/Interest";
-import { useEffect } from "react";
 import EmailDrafter from "./pages/EmailDrafter";
 import CareersPage from "./pages/Careers";
 import VestoraAI from "./pages/VestoraAI";
@@ -50,92 +35,47 @@ function ScrollToTop() {
 }
 
 const App = () => {
-  const isCMS = window.location.hostname.includes("cms");
-
-  // 🔥 Dynamic favicon
   useEffect(() => {
     const favicon = document.querySelector("link[rel='icon']") as HTMLLinkElement;
+    if (favicon) favicon.href = "/favicon.ico";
 
-    if (favicon) {
-      favicon.href = isCMS ? "/cms-favicon.ico" : "/favicon.ico";
-    }
-
-    // optional: title bhi change kar lo
-    document.title = isCMS
-      ? "NearWe Admin"
-      : window.location.pathname.replace(/\/+$/, "") === "/wayyo"
+    document.title =
+      window.location.pathname.replace(/\/+$/, "") === "/wayyo"
         ? "Wayyo | Your Personal AI Automation Tool for Windows"
         : "NearWe";
-  }, [isCMS]);
+  }, []);
 
   return (
-    <AuthProvider>
-      <UserProvider>
-        <NotificationProvider>
-          <Router>
-            <ScrollToTop />
-            <RouteMetadata />
-            <Layout className="min-h-screen bg-bg1">
-              <Layout.Content>
-                <Routes>
-
-                  {/* ================= CMS ROUTES ================= */}
-                  {isCMS ? (
-                    <>
-                      <Route
-                        path="/"
-                        element={
-                          <ProtectedRoute>
-                            <CmsHome />
-                          </ProtectedRoute>
-                        }
-                      >
-                        <Route index element={<Navigate to="/insights" replace />} />
-
-                        <Route path="insights" element={<InsightsDashboard />} />
-                        <Route path="users" element={<UserManagement />} />
-                        <Route path="categories" element={<CategoryManagement />} />
-                        <Route path="events" element={<EventManagement />} />
-                        <Route path="app" element={<AppManagement />} />
-                        <Route path="announcements" element={<Announcements />} />
-                        <Route path="reports" element={<Reports />} />
-                        <Route path="interests" element={<UserInterestDetail />} />
-                      </Route>
-
-                      {/* LOGIN */}
-                      <Route path="/login" element={<Login />} />
-                    </>
-                  ) : (
-                    /* ================= WEBSITE ROUTES ================= */
-                    <>
-                      <Route path="/" element={<NearWeLandingPage />} />
-                      <Route path="/aboutus" element={<AboutUs />} />
-                      <Route path="/services" element={<ServicesPage />} />
-                      <Route path="/nearwe-app" element={<NearWeApp />} />
-                      <Route path="/wayyo" element={<Wayyo />} />
-                      <Route path="/products" element={<Products />} />
-                      <Route path="/portfolio" element={<Portfolio />} />
-                      <Route path="/companyservices" element={<ServicesAgencyPage />} />
-                      <Route path="/contact" element={<Contact />} />
-                      <Route path="/terms" element={<TermsAndConditions />} />
-                      <Route path="/advertise" element={<AdvertiseWithUs />} />
-                      <Route path="/privacy" element={<PrivacyPolicy />} />
-                      <Route path="/child-safety" element={<ChildSafetyPolicy />} />
-                      <Route path="/email-drafter" element={<EmailDrafter />} />
-                      <Route path="/vestora-ai" element={<VestoraAI />} />
-                      <Route path="/vestora-ai/demo" element={<VestoraAIDemo />} />
-                      <Route path="/vestore_ai/demo" element={<VestoraAIDemo />} />
-                      <Route path="/careers" element={<CareersPage />} />
-                    </>
-                  )}
-
-                </Routes>
-              </Layout.Content>
-            </Layout>
-          </Router>
-        </NotificationProvider>
-      </UserProvider>
-    </AuthProvider>
+    <NotificationProvider>
+      <Router>
+        <ScrollToTop />
+        <RouteMetadata />
+        <Layout className="min-h-screen bg-bg1">
+          <Layout.Content>
+            <Routes>
+              <Route path="/" element={<NearWeLandingPage />} />
+              <Route path="/aboutus" element={<AboutUs />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/nearwe-app" element={<NearWeApp />} />
+              <Route path="/wayyo" element={<Wayyo />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/companyservices" element={<ServicesAgencyPage />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/terms" element={<TermsAndConditions />} />
+              <Route path="/advertise" element={<AdvertiseWithUs />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/child-safety" element={<ChildSafetyPolicy />} />
+              <Route path="/email-drafter" element={<EmailDrafter />} />
+              <Route path="/vestora-ai" element={<VestoraAI />} />
+              <Route path="/vestora-ai/demo" element={<VestoraAIDemo />} />
+              <Route path="/vestore_ai/demo" element={<VestoraAIDemo />} />
+              <Route path="/careers" element={<CareersPage />} />
+            </Routes>
+          </Layout.Content>
+        </Layout>
+      </Router>
+    </NotificationProvider>
   );
 };
 
