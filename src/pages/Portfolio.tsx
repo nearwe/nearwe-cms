@@ -1,14 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { ArrowDownRight, ArrowRight, Bot, BriefcaseBusiness, Building2, Code2, Database, MapPin, Workflow } from "lucide-react";
-
-const clients = [
-    { name: "Cresco", detail: "Business client", logo: "/assets/cresco.png" },
-    { name: "Cloudflare", detail: "Technology client", logo: "https://cdn.simpleicons.org/cloudflare/F38020", style: "text-2xl font-bold tracking-tight text-white" },
-    { name: "Salesforce", detail: "Business client", logo: "/assets/Salesforce-Logo.png" },
-    { name: "Leading oil corporation", detail: "India · Energy", style: "text-sm font-bold uppercase tracking-[0.12em] text-white" },
-    { name: "Oracle", detail: "United States · Technology", logo: "/assets/Oracle-Logo-1.png" },
-];
+import { clients } from "../components/ClientsCarousel";
 
 const work = [
     {
@@ -80,10 +73,10 @@ export default function Portfolio() {
                         </div>
                         <p className="text-xs text-gray-500">Selected client names and sectors</p>
                     </div>
-                    <div className="grid grid-cols-2 border-l border-t border-white/10 sm:grid-cols-3 lg:grid-cols-5">
+                    <div className="grid grid-cols-2 border-l border-t border-white/10 sm:grid-cols-3 lg:grid-cols-6">
                         {clients.map((client) => (
                             <div key={client.name} className="flex min-h-28 flex-col justify-center gap-2 border-b border-r border-white/10 bg-white/[0.02] px-5 py-5 sm:px-6">
-                                {client.logo ? <img src={client.logo} alt={`${client.name} logo`} className={`h-20 w-auto max-w-[150px] object-contain object-left ${client.name === "Cresco" ? "brightness-0 invert" : ""}`} /> : <span className={client.style}>{client.name}</span>}
+                                {client.logo ? <img src={client.logo} alt={`${client.name} logo`} className={`h-20 w-auto max-w-[150px] object-contain object-left ${client.invert ? "brightness-0 invert" : ""}`} /> : <span className={client.style}>{client.name}</span>}
                                 <span className="text-[10px] uppercase tracking-[0.12em] text-gray-500">{client.detail}</span>
                             </div>
                         ))}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 120" role="img" aria-label="Reformia">
+  <title>Reformia</title>
+  <g fill="none" stroke="#0F4535" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <!-- nested chevrons -->
+    <path d="M40 10 L60 28 L80 10" />
+    <path d="M24 24 L60 56 L96 24" />
+    <!-- outer leaves -->
+    <path d="M12 44 C14 78 30 100 50 112" />
+    <path d="M108 44 C106 78 90 100 70 112" />
+    <!-- inner leaves -->
+    <path d="M30 62 C32 82 40 96 50 104" />
+    <path d="M90 62 C88 82 80 96 70 104" />
+  </g>
+  <!-- centre stem leaf -->
+  <path d="M60 62 C67 80 67 98 60 114 C53 98 53 80 60 62 Z" fill="#0F4535" />
+  <text x="136" y="78" fill="#0F4535" font-family="Poppins, Montserrat, 'Segoe UI', Arial, sans-serif" font-size="50" font-weight="600" letter-spacing="3">REFORMIA</text>
+</svg>

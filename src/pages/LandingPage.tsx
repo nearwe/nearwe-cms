@@ -28,6 +28,7 @@ import iosLogo from "../assets/logo/ios.png";
 import playstoreLogo from "../assets/logo/playstore.png";
 import nearweLogo from "../assets/logo/logo-removebg.png";
 import { services as companyServices } from "./CompanyServices";
+import ClientsCarousel from "../components/ClientsCarousel";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const APP_STORE_URL = "https://apps.apple.com/sv/app/nearwe/id6760259527?l=en-GB";
@@ -412,7 +413,7 @@ const styles = `
   @keyframes nw-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes nw-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
 
-  .nw-hero-word { display: block; animation: nw-slide-up .7s cubic-bezier(.16,1,.3,1) both; }
+  .nw-hero-word { display: inline-block; margin-right: .28em; animation: nw-slide-up .7s cubic-bezier(.16,1,.3,1) both; }
   .nw-hero-word:nth-child(1) { animation-delay: .15s; }
   .nw-hero-word:nth-child(2) { animation-delay: .3s; }
   .nw-hero-word:nth-child(3) { animation-delay: .45s; }
@@ -636,7 +637,7 @@ export default function NearWeLandingPage() {
 
                 <main>
                     {/* ── Hero ── */}
-                    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 overflow-hidden">
+                    <section className="relative flex items-center justify-center pt-28 pb-10 px-4 sm:px-6 overflow-hidden">
                         <ParticleCanvas />
 
                         <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }} aria-hidden="true">
@@ -662,7 +663,7 @@ export default function NearWeLandingPage() {
                                         <span className="text-cyan-300 text-sm font-semibold">AI-first IT consulting, services & products</span>
                                     </div>
 
-                                    <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold mb-5 leading-[1.1]">
+                                    <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4 leading-[1.15]">
                                         <span className="nw-hero-word nw-gradient-text pb-1">Build.</span>
                                         <span className="nw-hero-word nw-gradient-text pb-1">Launch.</span>
                                         <span className="nw-hero-word nw-gradient-text pb-1">Scale.</span>
@@ -717,7 +718,9 @@ export default function NearWeLandingPage() {
                                 </div>
                             </div>
 
-                            <div className="flex justify-center mt-14">
+                            <ClientsCarousel className="mt-12" />
+
+                            <div className="flex justify-center mt-8">
                                 <button
                                     type="button"
                                     onClick={() => scrollToId("#services")}
