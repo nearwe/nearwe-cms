@@ -113,7 +113,7 @@ const questions = [
     { question: "Does Wayyo include video meetings?", answer: "AI Meetings are coming soon to Wayyo. The meeting section previews planned video calls, recordings, transcripts and Minutes of Meeting." },
     { question: "What is Wayyo?", answer: "Wayyo is your personal AI automation tool for Windows. Build visual workflows, get help from local AI, organise documents and turn spreadsheet exports into reports." },
     { question: "Is Wayyo free?", answer: "Wayyo offers a FREE License for the Next 5 Years. Get a 5-year Wayyo license for free and start building automations around the way you work." },
-    { question: "What does the free 5-year license offer mean?", answer: "The offer is a Wayyo license for 5 years at no cost. Use Claim Now & Download Wayyo to get the Windows installer." },
+    { question: "What does the free 5-year license offer mean?", answer: "The offer is a Wayyo license for 5 years at no cost. Use Direct Download to get the Windows installer." },
     { question: "Does local AI require a cloud AI subscription?", answer: "No. The bundled Qwen3 0.6B model runs on your device without a cloud AI subscription. Review AI suggestions before using them. Advanced integrations may have their own software or service requirements." },
     { question: "Can Wayyo work offline?", answer: "Yes. Core local workflows and local AI operate on your device. Website automation and network-using scripts may require internet access and your approval." },
     { question: "Do I need coding skills?", answer: "You can build workflows visually without writing code. JavaScript, Python and reusable subworkflows are available for more advanced tasks." },
@@ -150,9 +150,10 @@ function DownloadButton() {
     return <div className="wayyo-download-wrap">
         <a className="wayyo-download" href={WAYYO_INSTALLER_URL} onClick={startDownload}>
             {isLoading ? <LoaderCircle size={18} className="animate-spin" aria-hidden="true" /> : <ArrowDownToLine size={18} />}
-            {isLoading ? "Starting download..." : "Claim Now & Download Wayyo"}
+            {isLoading ? "Starting download..." : "Direct Download"}
         </a>
         <div className="wayyo-download-social-proof" aria-live="polite">
+            <small>If the Microsoft Store link is not working, use Direct Download.</small>
             <b>{downloadCount === null ? "Make Wayyo work your way." : `${downloadCount.toLocaleString()} download ${downloadCount === 1 ? "click" : "clicks"} so far.`}</b>
             <span>For Windows 10 and newer · x64</span>
         </div>
