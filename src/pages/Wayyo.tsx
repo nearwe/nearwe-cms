@@ -195,8 +195,8 @@ export default function Wayyo() {
             <section className="wy-hero" id="download">
                 <HeroFloats />
                 <div className="wy-hero-center">
-                    <h1>wayyo</h1>
-                    <p>your personal ai that puts your windows pc on autopilot</p>
+                    <h1>Wayyo AI</h1>
+                    <p>Your personal ai that puts your windows pc on autopilot</p>
                     <DownloadButtons />
                 </div>
             </section>
