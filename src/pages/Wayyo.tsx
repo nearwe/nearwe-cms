@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, CalendarClock, FileSpreadsheet, FolderSync, Laptop, LayoutTemplate, Video, Workflow } from "lucide-react";
 import { CtaBand, DownloadButtons, LoveWall, MacWin, Pricing, WayyoShell } from "./wayyo/wayyoShared";
 
-const SEO_DESCRIPTION = "Meet Wayyo, your personal AI automation tool for Windows. Build visual workflows, use local AI, organise documents, and create reports. Free for 5 years.";
+const SEO_DESCRIPTION = "Meet Wayyo, your personal AI automation tool for Windows. Build visual workflows, use local AI, organise documents, and create reports. Free for now.";
 
 /** Lets visitors drag the floating hero windows around (desktop only). */
 function useDraggableFloats() {
@@ -188,7 +188,7 @@ export default function Wayyo() {
                     description: SEO_DESCRIPTION,
                     applicationCategory: "UtilitiesApplication",
                     operatingSystem: "Windows 10 and newer, x64",
-                    offers: { "@type": "Offer", price: "0", priceCurrency: "INR", description: "FREE License for the Next 5 Years", url: "https://nearwe.in/wayyo" },
+                    offers: { "@type": "Offer", price: "0", priceCurrency: "INR", description: "Free for now", url: "https://nearwe.in/wayyo" },
                 })}</script>
             </Helmet>
 

@@ -62,7 +62,7 @@ export function DownloadButtons({ showCount = true }: { showCount?: boolean }) {
                         {isLoading ? <LoaderCircle size={17} className="wy-spin" aria-hidden="true" /> : <span className="wy-ms" aria-hidden="true"><i /><i /><i /><i /></span>}
                         {isLoading ? "starting download…" : "download for windows"}
                     </a>
-                    <small>free for 5 years · windows 10 or higher</small>
+                    <small>free for now · windows 10 or higher</small>
                 </div>
                 <div className="wy-dl-item">
                     <span className="wy-dl-btn wy-dl-mac" aria-disabled="true" title="Wayyo for Mac is coming soon">
@@ -179,7 +179,7 @@ export function CtaBand({ title = "make your pc work for you." }: { title?: stri
     return (
         <section className="wy-cta">
             <h2>{title}</h2>
-            <p>free for 5 years. no card, no catch.</p>
+            <p>free for now. no card, no catch.</p>
             <DownloadButtons showCount={false} />
         </section>
     );
@@ -193,7 +193,7 @@ const loveNotes = [
     { name: "Devang Nema", role: "Developer · Bhopal", text: "local ai that actually runs on my laptop. no api key, no subscription. wild.", date: "Oct 28, 2026" },
     { name: "Sanidhya Bajaj", role: "Product Designer", text: "built my morning setup in 5 mins — opens vs code, figma, chrome and pings me when everything is ready ☕", date: "Oct 30, 2026" },
     { name: "Aman Yadav", role: "Content Creator", text: "my downloads folder finally looks like a human lives here 😭", date: "Nov 5, 2026" },
-    { name: "Jeesu Jain", role: "Engineering Student", text: "free for 5 years?? someone please check on the nearwe team", date: "Nov 8, 2026" },
+    { name: "Jeesu Jain", role: "Engineering Student", text: "free for now?? someone please check on the nearwe team", date: "Nov 8, 2026" },
     { name: "Yash Bunkar", role: "Automation Nerd", text: "the visual builder is so clean. loops, conditions, retries — zero code. this is the 10x version of my old bat scripts haha", date: "Oct 21, 2026" },
     { name: "Manas Pal", role: "Accountant", text: "duplicate invoices gone in one run. my CA thinks I hired someone.", date: "Oct 25, 2026" },
     { name: "Mahendra Patel", role: "Business Owner", text: "monthly attendance reports now take 2 minutes. no more excel crying.", date: "Nov 1, 2026" },
@@ -326,7 +326,7 @@ export function Pricing() {
                         <h3>free</h3>
                         <p className="wy-plan-sub">everything wayyo can do today.</p>
                         <small className="wy-plan-best">best for getting started</small>
-                        <div className="wy-plan-price"><b>₹0</b><small>free license for 5 years, no card needed</small></div>
+                        <div className="wy-plan-price"><b>₹0</b><small>free for now, no card needed</small></div>
                         <Link className="wy-plan-cta" to="/wayyo#download">get wayyo free</Link>
                         <div className="wy-plan-list">
                             <span>includes</span>

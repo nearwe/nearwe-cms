@@ -3,7 +3,7 @@ import { CtaBand, PageIntro, WayyoShell } from "./wayyoShared";
 
 const questions = [
     { question: "What is Wayyo?", answer: "Wayyo is your personal AI automation tool for Windows. Build visual workflows, get help from local AI, organise documents and turn spreadsheet exports into reports." },
-    { question: "Is Wayyo free?", answer: "Yes. Wayyo is ₹0 today with every current feature included — a free license for the next 5 years." },
+    { question: "Is Wayyo free?", answer: "Yes. Wayyo is free for now — ₹0 with every current feature included." },
     { question: "How much will Wayyo cost later?", answer: "A full Wayyo license, including AI Meetings, is coming soon at ₹19,999 (about US$229)." },
     { question: "Is Wayyo available for Mac?", answer: "Not yet. Wayyo runs on Windows 10 and newer (x64). A Mac version is coming soon." },
     { question: "Does Wayyo include video meetings?", answer: "AI Meetings are coming soon: unlimited call time, recording, live transcripts and Minutes of Meeting." },
