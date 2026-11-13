@@ -47,7 +47,25 @@
     <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>  <url>
+    <loc>https://nearwe.in/wayyo/features</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://nearwe.in/wayyo/meetings</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nearwe.in/wayyo/faq</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <url>
     <loc>https://nearwe.in/advertise</loc>
     <lastmod>2026-04-22</lastmod>

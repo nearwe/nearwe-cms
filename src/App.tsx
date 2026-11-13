@@ -20,6 +20,9 @@ import VestoraAI from "./pages/VestoraAI";
 import VestoraAIDemo from "./pages/VestoraAIDemo";
 import NearWeApp from "./pages/NearWeApp";
 import Wayyo from "./pages/Wayyo";
+import WayyoFeatures from "./pages/wayyo/WayyoFeatures";
+import WayyoMeetings from "./pages/wayyo/WayyoMeetings";
+import WayyoFaq from "./pages/wayyo/WayyoFaq";
 import Products from "./pages/Products";
 import Portfolio from "./pages/Portfolio";
 import RouteMetadata from "./components/RouteMetadata";
@@ -58,6 +61,9 @@ const App = () => {
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/nearwe-app" element={<NearWeApp />} />
               <Route path="/wayyo" element={<Wayyo />} />
+              <Route path="/wayyo/features" element={<WayyoFeatures />} />
+              <Route path="/wayyo/meetings" element={<WayyoMeetings />} />
+              <Route path="/wayyo/faq" element={<WayyoFaq />} />
               <Route path="/products" element={<Products />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/companyservices" element={<ServicesAgencyPage />} />
