@@ -2,7 +2,7 @@ export type Client = {
     name: string;
     detail: string;
     logo?: string;
-    /** Turn a dark logo white so it shows on the dark background. */
+    /** Legacy flag (logo was originally dark). Kept for compatibility; light theme shows logos as-is. */
     invert?: boolean;
     style?: string;
 };
@@ -10,9 +10,9 @@ export type Client = {
 export const clients: Client[] = [
     { name: "Reformia", detail: "Saudi Arabia · Consulting", logo: "/assets/reformia.svg", invert: true },
     { name: "Cresco", detail: "Business client", logo: "/assets/cresco.png", invert: true },
-    { name: "Cloudflare", detail: "Technology client", logo: "https://cdn.simpleicons.org/cloudflare/F38020", style: "text-2xl font-bold tracking-tight text-white" },
+    { name: "Cloudflare", detail: "Technology client", logo: "https://cdn.simpleicons.org/cloudflare/F38020", style: "text-2xl font-bold tracking-tight text-slate-800" },
     { name: "Salesforce", detail: "Business client", logo: "/assets/Salesforce-Logo.png" },
-    { name: "Leading oil corporation", detail: "India · Energy", style: "text-sm font-bold uppercase tracking-[0.12em] text-white" },
+    { name: "Leading oil corporation", detail: "India · Energy", style: "text-sm font-bold uppercase tracking-[0.12em] text-slate-800" },
     { name: "Oracle", detail: "United States · Technology", logo: "/assets/Oracle-Logo-1.png" },
 ];
 
@@ -32,12 +32,12 @@ function ClientItem({ client, hidden }: { client: Client; hidden?: boolean }) {
                     src={client.logo}
                     alt={hidden ? "" : `${client.name} logo`}
                     loading="lazy"
-                    className={`h-10 w-auto max-w-[150px] object-contain opacity-80 transition-opacity hover:opacity-100 ${client.invert ? "brightness-0 invert" : ""}`}
+                    className="h-10 w-auto max-w-[150px] object-contain opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
                 />
             ) : (
                 <span className={`text-center leading-tight ${client.style ?? ""}`}>{client.name}</span>
             )}
-            <span className="text-[9px] uppercase tracking-[0.12em] text-gray-500">{client.detail}</span>
+            <span className="text-[9px] uppercase tracking-[0.12em] text-slate-500">{client.detail}</span>
         </div>
     );
 }
@@ -47,7 +47,7 @@ export default function ClientsCarousel({ className = "" }: { className?: string
     return (
         <section aria-label="Clients we’ve worked with" className={className}>
             <style>{carouselStyles}</style>
-            <p className="mb-4 text-center text-[10px] font-bold uppercase tracking-[0.18em] text-cyan-300/80">Trusted by teams at</p>
+            <p className="mb-5 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">Trusted by teams at</p>
             <div className="nwc-viewport">
                 <div className="nwc-track">
                     {clients.map((client) => <ClientItem key={client.name} client={client} />)}

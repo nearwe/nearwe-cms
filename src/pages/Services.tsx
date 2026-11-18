@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import {
     Globe,
@@ -29,6 +29,11 @@ import {
 
 import iosLogo from "../assets/logo/ios.png";
 import playstoreLogo from "../assets/logo/playstore.png";
+import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
+
+const APP_STORE_URL = "https://apps.apple.com/sv/app/nearwe/id6760259527?l=en-GB";
+const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.pp2053.nearwe";
 
 // ─────────────────────────────────────────────
 // COMPANY SERVICES DATA
@@ -40,10 +45,10 @@ const companyServices = [
         tag: "Core",
         desc: "Full-stack web apps built for speed, scale, and SEO. From landing pages to complex SaaS platforms — React, Next.js, Node.js, PHP.",
         highlights: ["React / Next.js frontends", "Node.js & PHP backends", "REST API architecture", "Performance & Core Web Vitals"],
-        gradient: "from-cyan-500/20 to-blue-500/10",
-        iconColor: "text-cyan-400",
-        border: "border-cyan-500/30",
-        tagColor: "bg-cyan-500/15 text-cyan-400 border-cyan-500/30",
+        gradient: "from-cyan-50 to-blue-100",
+        iconColor: "text-cyan-600",
+        border: "border-slate-200",
+        tagColor: "bg-cyan-50 text-cyan-700 border-cyan-200",
     },
     {
         icon: Smartphone,
@@ -51,10 +56,10 @@ const companyServices = [
         tag: "Mobile",
         desc: "Cross-platform iOS & Android apps using React Native and Flutter. Ship once, run everywhere — with native-level performance.",
         highlights: ["React Native & Flutter", "iOS & Android publishing", "Real-time features", "Secure API integration"],
-        gradient: "from-blue-500/20 to-indigo-500/10",
-        iconColor: "text-blue-400",
-        border: "border-blue-500/30",
-        tagColor: "bg-blue-500/15 text-blue-400 border-blue-500/30",
+        gradient: "from-blue-50 to-indigo-100",
+        iconColor: "text-blue-600",
+        border: "border-slate-200",
+        tagColor: "bg-blue-50 text-blue-700 border-blue-200",
     },
     {
         icon: ShoppingCart,
@@ -62,10 +67,10 @@ const companyServices = [
         tag: "CMS",
         desc: "Custom WordPress themes, plugins, and WooCommerce stores built for conversions, speed, and easy management.",
         highlights: ["Custom themes & plugins", "WooCommerce setup", "Performance optimization", "SEO-first architecture"],
-        gradient: "from-orange-500/20 to-amber-500/10",
-        iconColor: "text-orange-400",
-        border: "border-orange-500/30",
-        tagColor: "bg-orange-500/15 text-orange-400 border-orange-500/30",
+        gradient: "from-orange-50 to-amber-100",
+        iconColor: "text-orange-600",
+        border: "border-slate-200",
+        tagColor: "bg-orange-50 text-orange-700 border-orange-200",
     },
     {
         icon: Paintbrush,
@@ -73,10 +78,10 @@ const companyServices = [
         tag: "Design",
         desc: "End-to-end design workflows — from wireframes to pixel-perfect prototypes. Figma, Adobe XD, Photoshop, and Illustrator.",
         highlights: ["Wireframing & prototyping", "Design systems", "Figma & Adobe XD", "Design-to-code handoff"],
-        gradient: "from-pink-500/20 to-rose-500/10",
-        iconColor: "text-pink-400",
-        border: "border-pink-500/30",
-        tagColor: "bg-pink-500/15 text-pink-400 border-pink-500/30",
+        gradient: "from-pink-50 to-rose-100",
+        iconColor: "text-pink-600",
+        border: "border-slate-200",
+        tagColor: "bg-pink-50 text-pink-700 border-pink-200",
     },
     {
         icon: Cloud,
@@ -84,10 +89,10 @@ const companyServices = [
         tag: "DevOps",
         desc: "CI/CD pipelines, Docker containerization, cloud infrastructure setup, domain & DNS management — production-ready from day one.",
         highlights: ["Azure DevOps CI/CD", "Docker & containerization", "Server & DNS management", "Nginx / Apache config"],
-        gradient: "from-sky-500/20 to-blue-500/10",
-        iconColor: "text-sky-400",
-        border: "border-sky-500/30",
-        tagColor: "bg-sky-500/15 text-sky-400 border-sky-500/30",
+        gradient: "from-sky-50 to-blue-100",
+        iconColor: "text-sky-600",
+        border: "border-slate-200",
+        tagColor: "bg-sky-50 text-sky-700 border-sky-200",
     },
     {
         icon: Search,
@@ -95,10 +100,10 @@ const companyServices = [
         tag: "Growth",
         desc: "Technical SEO audits, Core Web Vitals optimization, CDN strategies, and caching setups that drive organic traffic and rankings.",
         highlights: ["Technical SEO audits", "Core Web Vitals fixes", "CDN & caching strategies", "Analytics & Search Console"],
-        gradient: "from-green-500/20 to-emerald-500/10",
-        iconColor: "text-green-400",
-        border: "border-green-500/30",
-        tagColor: "bg-green-500/15 text-green-400 border-green-500/30",
+        gradient: "from-green-50 to-emerald-100",
+        iconColor: "text-green-600",
+        border: "border-slate-200",
+        tagColor: "bg-green-50 text-green-700 border-green-200",
     },
     {
         icon: Database,
@@ -106,10 +111,10 @@ const companyServices = [
         tag: "Backend",
         desc: "Robust, optimized database design and management using MongoDB and MySQL for fast, reliable, and scalable data layers.",
         highlights: ["MongoDB & MySQL", "Schema design & indexing", "Query optimization", "Data migration support"],
-        gradient: "from-violet-500/20 to-purple-500/10",
-        iconColor: "text-violet-400",
-        border: "border-violet-500/30",
-        tagColor: "bg-violet-500/15 text-violet-400 border-violet-500/30",
+        gradient: "from-violet-50 to-purple-100",
+        iconColor: "text-violet-600",
+        border: "border-slate-200",
+        tagColor: "bg-violet-50 text-violet-700 border-violet-200",
     },
     {
         icon: Shield,
@@ -117,10 +122,10 @@ const companyServices = [
         tag: "Security",
         desc: "Secure auth systems, role-based access control, API security best practices, and payment gateway integrations done right.",
         highlights: ["JWT & OAuth2 auth", "Role-based access control", "Payment gateway integration", "API security hardening"],
-        gradient: "from-red-500/20 to-rose-500/10",
-        iconColor: "text-red-400",
-        border: "border-red-500/30",
-        tagColor: "bg-red-500/15 text-red-400 border-red-500/30",
+        gradient: "from-red-50 to-rose-100",
+        iconColor: "text-red-600",
+        border: "border-slate-200",
+        tagColor: "bg-red-50 text-red-700 border-red-200",
     },
     {
         icon: Layers,
@@ -128,10 +133,10 @@ const companyServices = [
         tag: "Product",
         desc: "Got a product idea? We take it from concept to a fully containerized, scalable SaaS — architecture, development, and launch.",
         highlights: ["End-to-end product builds", "Scalable SaaS architecture", "Multi-tenant systems", "Subscription & billing setup"],
-        gradient: "from-teal-500/20 to-cyan-500/10",
-        iconColor: "text-teal-400",
-        border: "border-teal-500/30",
-        tagColor: "bg-teal-500/15 text-teal-400 border-teal-500/30",
+        gradient: "from-teal-50 to-cyan-100",
+        iconColor: "text-teal-600",
+        border: "border-slate-200",
+        tagColor: "bg-teal-50 text-teal-700 border-teal-200",
     },
     {
         icon: GitBranch,
@@ -139,10 +144,10 @@ const companyServices = [
         tag: "Backend",
         desc: "Clean, well-documented REST APIs and seamless third-party integrations — Firebase, payment systems, analytics, and more.",
         highlights: ["RESTful API design", "Third-party integrations", "Firebase & real-time APIs", "Postman documentation"],
-        gradient: "from-amber-500/20 to-yellow-500/10",
-        iconColor: "text-amber-400",
-        border: "border-amber-500/30",
-        tagColor: "bg-amber-500/15 text-amber-400 border-amber-500/30",
+        gradient: "from-amber-50 to-yellow-100",
+        iconColor: "text-amber-600",
+        border: "border-slate-200",
+        tagColor: "bg-amber-50 text-amber-700 border-amber-200",
     },
     {
         icon: Server,
@@ -150,10 +155,10 @@ const companyServices = [
         tag: "DevOps",
         desc: "Full server provisioning, environment configuration, and ongoing infrastructure management so your app stays online and fast.",
         highlights: ["VPS & cloud provisioning", "Multi-service Docker setups", "SSL & domain configuration", "Monitoring & uptime"],
-        gradient: "from-slate-400/20 to-gray-500/10",
-        iconColor: "text-slate-400",
-        border: "border-slate-500/30",
-        tagColor: "bg-slate-500/15 text-slate-400 border-slate-500/30",
+        gradient: "from-slate-50 to-gray-100",
+        iconColor: "text-slate-600",
+        border: "border-slate-200",
+        tagColor: "bg-slate-50 text-slate-700 border-slate-200",
     },
     {
         icon: MessageCircle,
@@ -161,10 +166,10 @@ const companyServices = [
         tag: "Consulting",
         desc: "Need a second opinion on your architecture? We provide expert reviews, mentoring for dev teams, and strategic tech planning.",
         highlights: ["Architecture consulting", "Code quality audits", "Team mentoring", "Tech stack recommendations"],
-        gradient: "from-indigo-500/20 to-blue-500/10",
-        iconColor: "text-indigo-400",
-        border: "border-indigo-500/30",
-        tagColor: "bg-indigo-500/15 text-indigo-400 border-indigo-500/30",
+        gradient: "from-indigo-50 to-blue-100",
+        iconColor: "text-indigo-600",
+        border: "border-slate-200",
+        tagColor: "bg-indigo-50 text-indigo-700 border-indigo-200",
     },
 ];
 
@@ -191,9 +196,9 @@ const appServices = [
         tag: "Core",
         desc: "Find events happening around you in real time. Filter by category, distance, date, or vibe — and never miss something worth showing up for.",
         highlights: ["Real-time location-based search", "Advanced filters by category & date", "Save and bookmark events"],
-        gradient: "from-cyan-500/20 to-blue-500/10",
-        iconColor: "text-cyan-400",
-        border: "border-cyan-500/30",
+        gradient: "from-cyan-50 to-blue-100",
+        iconColor: "text-cyan-600",
+        border: "border-slate-200",
     },
     {
         icon: Users,
@@ -201,9 +206,9 @@ const appServices = [
         tag: "Social",
         desc: "Meet people who share your interests. Build your local circle, follow profiles, and grow a network that actually means something.",
         highlights: ["Interest-based matchmaking", "Follow & connect with locals", "Build your community circle"],
-        gradient: "from-blue-500/20 to-indigo-500/10",
-        iconColor: "text-blue-400",
-        border: "border-blue-500/30",
+        gradient: "from-blue-50 to-indigo-100",
+        iconColor: "text-blue-600",
+        border: "border-slate-200",
     },
     {
         icon: Calendar,
@@ -211,9 +216,9 @@ const appServices = [
         tag: "Creator",
         desc: "Create and manage your own events in minutes. Set capacity, share details, and invite people — all from your phone.",
         highlights: ["Easy event creation flow", "Attendee management tools", "Share across platforms"],
-        gradient: "from-teal-500/20 to-cyan-500/10",
-        iconColor: "text-teal-400",
-        border: "border-teal-500/30",
+        gradient: "from-teal-50 to-cyan-100",
+        iconColor: "text-teal-600",
+        border: "border-slate-200",
     },
     {
         icon: Sparkles,
@@ -221,9 +226,9 @@ const appServices = [
         tag: "AI",
         desc: "Our AI learns your preferences and surfaces events and people you'll actually care about — personalized to you, not the crowd.",
         highlights: ["Personalized event feed", "Learns from your activity", "Improves over time"],
-        gradient: "from-violet-500/20 to-blue-500/10",
-        iconColor: "text-violet-400",
-        border: "border-violet-500/30",
+        gradient: "from-violet-50 to-blue-100",
+        iconColor: "text-violet-600",
+        border: "border-slate-200",
     },
     {
         icon: Bell,
@@ -231,9 +236,9 @@ const appServices = [
         tag: "Utility",
         desc: "Stay in the loop without the noise. Get timely alerts for events you care about, friend activity, and community updates.",
         highlights: ["Customizable alert preferences", "Event reminders & countdowns", "Community activity digest"],
-        gradient: "from-amber-500/20 to-orange-500/10",
-        iconColor: "text-amber-400",
-        border: "border-amber-500/30",
+        gradient: "from-amber-50 to-orange-100",
+        iconColor: "text-amber-600",
+        border: "border-slate-200",
     },
     {
         icon: MessageCircle,
@@ -241,9 +246,9 @@ const appServices = [
         tag: "Social",
         desc: "Chat with attendees before events, coordinate with your group, and keep the conversation going after the moment passes.",
         highlights: ["Event group chats", "Direct messaging", "Media & location sharing"],
-        gradient: "from-pink-500/20 to-rose-500/10",
-        iconColor: "text-pink-400",
-        border: "border-pink-500/30",
+        gradient: "from-pink-50 to-rose-100",
+        iconColor: "text-pink-600",
+        border: "border-slate-200",
     },
     {
         icon: Shield,
@@ -251,9 +256,9 @@ const appServices = [
         tag: "Trust",
         desc: "Every profile is verified. Every event is moderated. NearWe is built so you can connect with confidence.",
         highlights: ["Profile verification system", "Event & content moderation", "Report & block tools"],
-        gradient: "from-green-500/20 to-emerald-500/10",
-        iconColor: "text-green-400",
-        border: "border-green-500/30",
+        gradient: "from-green-50 to-emerald-100",
+        iconColor: "text-green-600",
+        border: "border-slate-200",
     },
     {
         icon: Zap,
@@ -261,19 +266,19 @@ const appServices = [
         tag: "Core",
         desc: "One tap to confirm your spot. Manage all your upcoming plans from a single dashboard, and get reminders so you never miss out.",
         highlights: ["One-tap RSVP", "Personal event dashboard", "Automatic reminders"],
-        gradient: "from-cyan-500/20 to-sky-500/10",
-        iconColor: "text-sky-400",
-        border: "border-sky-500/30",
+        gradient: "from-cyan-50 to-sky-100",
+        iconColor: "text-sky-600",
+        border: "border-slate-200",
     },
 ];
 
 const appTagColors: Record<string, string> = {
-    Core: "bg-cyan-500/15 text-cyan-400 border-cyan-500/30",
-    Social: "bg-blue-500/15 text-blue-400 border-blue-500/30",
-    Creator: "bg-teal-500/15 text-teal-400 border-teal-500/30",
-    AI: "bg-violet-500/15 text-violet-400 border-violet-500/30",
-    Utility: "bg-amber-500/15 text-amber-400 border-amber-500/30",
-    Trust: "bg-green-500/15 text-green-400 border-green-500/30",
+    Core: "bg-cyan-50 text-cyan-700 border-cyan-200",
+    Social: "bg-blue-50 text-blue-700 border-blue-200",
+    Creator: "bg-teal-50 text-teal-700 border-teal-200",
+    AI: "bg-violet-50 text-violet-700 border-violet-200",
+    Utility: "bg-amber-50 text-amber-700 border-amber-200",
+    Trust: "bg-green-50 text-green-700 border-green-200",
 };
 
 // ─────────────────────────────────────────────
@@ -283,13 +288,39 @@ type Tab = "company" | "app";
 
 export default function ServicesPage() {
     const [isVisible, setIsVisible] = useState(false);
-    // ✅ Default tab = company services
-    const [activeTab, setActiveTab] = useState<Tab>("company");
+    // Default tab = company services; "?tab=app" opens App Services (keeps tab in the URL so it can be linked/shared)
     const navigate = useNavigate();
+    const { search } = useLocation();
+    const activeTab: Tab = new URLSearchParams(search).get("tab") === "app" ? "app" : "company";
+    const switchTab = (tab: Tab) => navigate(tab === "app" ? "/services?tab=app" : "/services", { replace: true });
 
     useEffect(() => {
         setIsVisible(true);
     }, []);
+
+    const tabBtn = (tab: Tab) =>
+        `rounded-md px-4 py-2 text-sm font-semibold transition-colors ${
+            activeTab === tab ? "bg-blue-700 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
+        }`;
+
+    const gridBg = {
+        backgroundImage:
+            "linear-gradient(rgba(29,78,216,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(29,78,216,0.05) 1px, transparent 1px)",
+        backgroundSize: "56px 56px",
+        maskImage: "radial-gradient(ellipse at top, black 30%, transparent 75%)",
+        WebkitMaskImage: "radial-gradient(ellipse at top, black 30%, transparent 75%)",
+    } as React.CSSProperties;
+
+    const tabSwitcher = (
+        <div className="mb-8 inline-flex rounded-lg border border-slate-200 bg-white p-1 shadow-sm" role="tablist" aria-label="Service type">
+            <button type="button" role="tab" aria-selected={activeTab === "company"} onClick={() => switchTab("company")} className={tabBtn("company")}>
+                Company Services
+            </button>
+            <button type="button" role="tab" aria-selected={activeTab === "app"} onClick={() => switchTab("app")} className={tabBtn("app")}>
+                App Services
+            </button>
+        </div>
+    );
 
     return (
         <>
@@ -302,59 +333,8 @@ export default function ServicesPage() {
                 <meta name="robots" content="index, follow" />
             </Helmet>
 
-            <div className="bg-[#0a0e1a] text-white font-sans min-h-screen overflow-hidden">
-
-                {/* ── Navbar ── */}
-                <nav className="fixed top-0 w-full z-50 bg-[#0a0e1a]/80 backdrop-blur-md border-b border-cyan-500/10">
-                    <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                        <button
-                            onClick={() => navigate("/")}
-                            className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
-                        >
-                            NearWe
-                        </button>
-
-                        <div className="flex items-center gap-2">
-                            {/* Tab Switcher Pills */}
-                            <div className="flex items-center bg-[#11141c] border border-cyan-500/20 rounded-full p-1 mr-2">
-                                <button
-                                    onClick={() => setActiveTab("company")}
-                                    className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all duration-300 ${
-                                        activeTab === "company"
-                                            ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-black shadow-lg shadow-cyan-500/20"
-                                            : "text-gray-400 hover:text-white"
-                                    }`}
-                                >
-                                    Company Services
-                                </button>
-                                <button
-                                    onClick={() => setActiveTab("app")}
-                                    className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all duration-300 ${
-                                        activeTab === "app"
-                                            ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-black shadow-lg shadow-cyan-500/20"
-                                            : "text-gray-400 hover:text-white"
-                                    }`}
-                                >
-                                    App Services
-                                </button>
-                            </div>
-
-                            <button
-                                onClick={() => navigate("/")}
-                                className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold rounded-full transition-all duration-300"
-                            >
-                                Download
-                            </button>
-                        </div>
-                    </div>
-                </nav>
-
-                {/* ── Background Glows ── */}
-                <div className="fixed inset-0 pointer-events-none overflow-hidden">
-                    <div className="absolute top-32 left-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse" />
-                    <div className="absolute top-64 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1.5s" }} />
-                    <div className="absolute bottom-32 left-1/3 w-72 h-72 bg-violet-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "3s" }} />
-                </div>
+            <div className="bg-white text-slate-900 font-sans min-h-screen overflow-hidden">
+                <SiteHeader />
 
                 {/* ══════════════════════════════════════════
                     COMPANY SERVICES TAB
@@ -366,58 +346,64 @@ export default function ServicesPage() {
                         }`}
                     >
                         {/* Hero */}
-                        <section className="relative pt-36 pb-16 px-6 text-center">
-                            <div className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full mb-6">
-                                <Zap className="w-4 h-4 text-cyan-400" />
-                                <span className="text-cyan-400 font-semibold text-sm">
-                                    Full Stack Development Services
-                                </span>
-                            </div>
+                        <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-blue-50/70 to-white pt-36 pb-20 px-4 sm:px-6 text-center">
+                            <div className="pointer-events-none absolute inset-0" aria-hidden="true" style={gridBg} />
+                            <div className="relative">
+                                {tabSwitcher}
+                                <div className="flex justify-center">
+                                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-200 rounded-full mb-6">
+                                        <Zap className="w-4 h-4 text-blue-700" />
+                                        <span className="text-blue-700 font-semibold text-sm">
+                                            Full Stack Development Services
+                                        </span>
+                                    </div>
+                                </div>
 
-                            <h1 className="text-5xl lg:text-7xl font-black mb-6 leading-tight max-w-5xl mx-auto">
-                                <span className="bg-gradient-to-r from-white via-cyan-200 to-cyan-400 bg-clip-text text-transparent">
+                                <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.08] max-w-5xl mx-auto text-slate-900">
                                     We Build. We Ship.{" "}
-                                </span>
-                                <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                                    You Scale.
-                                </span>
-                            </h1>
+                                    <span className="bg-gradient-to-r from-blue-700 to-sky-600 bg-clip-text text-transparent">
+                                        You Scale.
+                                    </span>
+                                </h1>
 
-                            <p className="text-gray-300 text-xl max-w-2xl mx-auto leading-relaxed mb-12">
-                                From idea to production — web apps, mobile apps, design, DevOps, and everything in between.
-                                7+ years of experience. Real results.
-                            </p>
+                                <p className="text-slate-600 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-10">
+                                    From idea to production — web apps, mobile apps, design, DevOps, and everything in between.
+                                    7+ years of experience. Real results.
+                                </p>
 
-                            <button
-                                onClick={() => (window.location.href = "mailto:kevinponds007@gmail.com")}
-                                className="group inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-black font-bold rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/40"
-                            >
-                                Get Quotation By NearWe AI
-                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </button>
+                                <button
+                                    type="button"
+                                    onClick={() => (window.location.href = "mailto:kevinponds007@gmail.com")}
+                                    className="group inline-flex items-center gap-2 px-8 py-4 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded-md shadow-lg shadow-blue-900/15 transition-all duration-300"
+                                >
+                                    Get Quotation By NearWe AI
+                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                </button>
+                            </div>
                         </section>
 
                         {/* Stats */}
-                        <section className="py-12 px-6">
-                            <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <section className="py-14 px-4 sm:px-6">
+                            <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                                 {stats.map((s, i) => (
-                                    <div key={i} className="text-center p-6 bg-[#11141c] border border-cyan-500/15 rounded-2xl">
-                                        <div className="text-4xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-1">
+                                    <div key={i} className={`text-center p-6 sm:p-8 ${i % 2 ? "border-l" : ""} ${i > 1 ? "border-t md:border-t-0" : ""} ${i === 2 ? "md:border-l" : ""} border-slate-200`}>
+                                        <div className="text-3xl sm:text-4xl font-bold tracking-tight text-blue-700 mb-1">
                                             {s.value}
                                         </div>
-                                        <div className="text-gray-400 text-sm font-medium">{s.label}</div>
+                                        <div className="text-slate-600 text-sm font-medium">{s.label}</div>
                                     </div>
                                 ))}
                             </div>
                         </section>
 
                         {/* Services Grid */}
-                        <section className="px-6 py-16 max-w-7xl mx-auto">
+                        <section className="px-4 sm:px-6 py-20 max-w-7xl mx-auto">
                             <div className="text-center mb-14">
-                                <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
+                                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-blue-700">Capabilities</p>
+                                <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4 text-slate-900">
                                     What We Do
                                 </h2>
-                                <p className="text-gray-400 text-lg">
+                                <p className="text-slate-600 text-lg">
                                     A complete range of services to take your product from zero to launch
                                 </p>
                             </div>
@@ -426,48 +412,45 @@ export default function ServicesPage() {
                                 {companyServices.map((service, i) => (
                                     <div
                                         key={i}
-                                        className={`group relative p-7 bg-[#11141c] border ${service.border} rounded-2xl
-                                            hover:border-cyan-400/50 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-500/10
-                                            transition-all duration-300`}
+                                        className="group relative p-7 bg-white border border-slate-200 rounded-2xl shadow-sm
+                                            hover:border-blue-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/70
+                                            transition-all duration-300"
                                     >
-                                        <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                                        <div className="relative z-10">
-                                            <div className="flex items-start justify-between mb-4">
-                                                <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                                    <service.icon className={`w-6 h-6 ${service.iconColor}`} />
-                                                </div>
-                                                <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${service.tagColor}`}>
-                                                    {service.tag}
-                                                </span>
+                                        <div className="flex items-start justify-between mb-5">
+                                            <div className={`w-12 h-12 bg-gradient-to-br ${service.gradient} rounded-xl flex items-center justify-center ring-1 ring-slate-200/70 group-hover:scale-105 transition-transform duration-300`}>
+                                                <service.icon className={`w-6 h-6 ${service.iconColor}`} />
                                             </div>
-                                            <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
-                                            <p className="text-gray-400 text-sm leading-relaxed mb-5">{service.desc}</p>
-                                            <ul className="space-y-2">
-                                                {service.highlights.map((h, j) => (
-                                                    <li key={j} className="flex items-start gap-2 text-sm text-gray-300">
-                                                        <CheckCircle className="w-4 h-4 text-cyan-500 mt-0.5 shrink-0" />
-                                                        {h}
-                                                    </li>
-                                                ))}
-                                            </ul>
+                                            <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${service.tagColor}`}>
+                                                {service.tag}
+                                            </span>
                                         </div>
+                                        <h3 className="text-xl font-bold tracking-tight text-slate-900 mb-3">{service.title}</h3>
+                                        <p className="text-slate-600 text-sm leading-relaxed mb-5">{service.desc}</p>
+                                        <ul className="space-y-2 border-t border-slate-100 pt-5">
+                                            {service.highlights.map((h, j) => (
+                                                <li key={j} className="flex items-start gap-2 text-sm text-slate-700">
+                                                    <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" />
+                                                    {h}
+                                                </li>
+                                            ))}
+                                        </ul>
                                     </div>
                                 ))}
                             </div>
                         </section>
 
                         {/* Tech Stack */}
-                        <section className="py-16 px-6 bg-[#0d1120]">
+                        <section className="py-20 px-4 sm:px-6 bg-slate-50 border-y border-slate-200">
                             <div className="max-w-5xl mx-auto text-center">
-                                <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
+                                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-slate-900">
                                     Our Tech Stack
                                 </h2>
-                                <p className="text-gray-400 mb-10">The tools and technologies we work with every day</p>
+                                <p className="text-slate-600 mb-10">The tools and technologies we work with every day</p>
                                 <div className="flex flex-wrap justify-center gap-3">
                                     {techStack.map((tech, i) => (
                                         <span
                                             key={i}
-                                            className="px-5 py-2 bg-[#11141c] border border-cyan-500/20 hover:border-cyan-500/50 text-gray-300 hover:text-cyan-300 rounded-full text-sm font-medium transition-all duration-200 cursor-default"
+                                            className="px-5 py-2 bg-white border border-slate-200 hover:border-blue-300 text-slate-700 hover:text-blue-700 rounded-full text-sm font-medium shadow-sm transition-all duration-200 cursor-default"
                                         >
                                             {tech}
                                         </span>
@@ -477,25 +460,25 @@ export default function ServicesPage() {
                         </section>
 
                         {/* Why Us */}
-                        <section className="py-20 px-6">
+                        <section className="py-20 px-4 sm:px-6">
                             <div className="max-w-5xl mx-auto">
                                 <div className="text-center mb-14">
-                                    <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
+                                    <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-slate-900">
                                         Why Work With Us
                                     </h2>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                     {[
-                                        { icon: Star, title: "7+ Years of Real Experience", desc: "Not just tutorials and side projects — actual production systems, real clients, and shipped products.", color: "text-amber-400" },
-                                        { icon: Zap, title: "Full-Cycle Ownership", desc: "We handle design, development, deployment, and everything in between — one team, zero handoff chaos.", color: "text-cyan-400" },
-                                        { icon: Shield, title: "Built to Last", desc: "Clean code, proper architecture, security best practices — your codebase won't turn into a nightmare.", color: "text-green-400" },
+                                        { icon: Star, title: "7+ Years of Real Experience", desc: "Not just tutorials and side projects — actual production systems, real clients, and shipped products.", color: "text-amber-600 bg-amber-50" },
+                                        { icon: Zap, title: "Full-Cycle Ownership", desc: "We handle design, development, deployment, and everything in between — one team, zero handoff chaos.", color: "text-blue-700 bg-blue-50" },
+                                        { icon: Shield, title: "Built to Last", desc: "Clean code, proper architecture, security best practices — your codebase won't turn into a nightmare.", color: "text-emerald-600 bg-emerald-50" },
                                     ].map((item, i) => (
-                                        <div key={i} className="p-7 bg-[#11141c] border border-cyan-500/15 rounded-2xl text-center">
-                                            <div className="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center mx-auto mb-4">
-                                                <item.icon className={`w-7 h-7 ${item.color}`} />
+                                        <div key={i} className="p-7 bg-white border border-slate-200 rounded-2xl text-center shadow-sm">
+                                            <div className={`w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4 ${item.color}`}>
+                                                <item.icon className="w-7 h-7" />
                                             </div>
-                                            <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                                            <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                                            <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
+                                            <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -503,27 +486,31 @@ export default function ServicesPage() {
                         </section>
 
                         {/* CTA */}
-                        <section className="py-24 px-6 bg-gradient-to-r from-[#0a0e1a] via-[#1a1f2e] to-[#0a0e1a]">
-                            <div className="max-w-3xl mx-auto text-center">
-                                <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
-                                    Have a Project in Mind?
-                                </h2>
-                                <p className="text-xl text-gray-300 mb-10">
-                                    Let's talk about what you're building. We'll figure out the best path forward together.
-                                </p>
-                                <button
-                                    onClick={() => (window.location.href = "mailto:kevinponds007@gmail.com")}
-                                    className="group inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-black font-bold rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/40 text-lg"
-                                >
-                                    Get in Touch
-                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </button>
-                                <p className="mt-6 text-gray-500 text-sm">
-                                    Or email directly at{" "}
-                                    <a href="mailto:support@nearwe.in" className="text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
-                                        support@nearwe.in
-                                    </a>
-                                </p>
+                        <section className="px-4 sm:px-6 pb-24">
+                            <div className="relative max-w-6xl mx-auto overflow-hidden rounded-3xl bg-gradient-to-br from-blue-800 to-blue-950 px-6 py-16 text-center text-white shadow-xl shadow-blue-900/20 sm:px-12">
+                                <div className="pointer-events-none absolute -right-20 -top-28 h-80 w-80 rounded-full bg-sky-400/20 blur-[90px]" aria-hidden="true" />
+                                <div className="relative max-w-3xl mx-auto">
+                                    <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-6">
+                                        Have a Project in Mind?
+                                    </h2>
+                                    <p className="text-lg sm:text-xl text-blue-100 mb-10">
+                                        Let's talk about what you're building. We'll figure out the best path forward together.
+                                    </p>
+                                    <button
+                                        type="button"
+                                        onClick={() => (window.location.href = "mailto:kevinponds007@gmail.com")}
+                                        className="group inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-blue-50 text-slate-900 font-semibold rounded-md transition-all duration-300 text-lg"
+                                    >
+                                        Get in Touch
+                                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                    </button>
+                                    <p className="mt-6 text-blue-200 text-sm">
+                                        Or email directly at{" "}
+                                        <a href="mailto:support@nearwe.in" className="text-white font-medium hover:text-blue-100 underline underline-offset-4">
+                                            support@nearwe.in
+                                        </a>
+                                    </p>
+                                </div>
                             </div>
                         </section>
                     </div>
@@ -539,102 +526,94 @@ export default function ServicesPage() {
                         }`}
                     >
                         {/* Hero */}
-                        <section className="relative pt-36 pb-20 px-6 text-center">
-                            <div className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full mb-6">
-                                <Zap className="w-4 h-4 text-cyan-400" />
-                                <span className="text-cyan-400 font-semibold text-sm">What NearWe Offers</span>
+                        <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-blue-50/70 to-white pt-36 pb-20 px-4 sm:px-6 text-center">
+                            <div className="pointer-events-none absolute inset-0" aria-hidden="true" style={gridBg} />
+                            <div className="relative">
+                                {tabSwitcher}
+                                <div className="flex justify-center">
+                                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-200 rounded-full mb-6">
+                                        <Zap className="w-4 h-4 text-blue-700" />
+                                        <span className="text-blue-700 font-semibold text-sm">What NearWe Offers</span>
+                                    </div>
+                                </div>
+
+                                <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.08] max-w-4xl mx-auto text-slate-900">
+                                    Everything You Need to <span className="text-blue-700">Connect.</span>
+                                </h1>
+
+                                <p className="text-slate-600 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
+                                    NearWe brings a full suite of tools to help you discover, host, and build meaningful connections — all in one place.
+                                </p>
                             </div>
-
-                            <h1 className="text-5xl lg:text-7xl font-black mb-6 leading-tight max-w-4xl mx-auto">
-                                <span className="bg-gradient-to-r from-white via-cyan-200 to-cyan-400 bg-clip-text text-transparent">
-                                    Everything You Need to Connect.
-                                </span>
-                            </h1>
-
-                            <p className="text-gray-300 text-xl max-w-2xl mx-auto leading-relaxed">
-                                NearWe brings a full suite of tools to help you discover, host, and build meaningful connections — all in one place.
-                            </p>
                         </section>
 
                         {/* Services Grid */}
-                        <section className="px-6 pb-24 max-w-7xl mx-auto">
+                        <section className="px-4 sm:px-6 py-20 max-w-7xl mx-auto">
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {appServices.map((service, i) => (
                                     <div
                                         key={i}
-                                        style={{ animationDelay: `${i * 80}ms` }}
-                                        className={`group relative p-7 bg-[#11141c] border ${service.border} rounded-2xl
-                                            hover:border-cyan-400/50 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-500/10
-                                            transition-all duration-300`}
+                                        className="group relative p-7 bg-white border border-slate-200 rounded-2xl shadow-sm
+                                            hover:border-blue-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/70
+                                            transition-all duration-300"
                                     >
-                                        <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                                        <div className="relative z-10">
-                                            <span className={`inline-block text-xs font-semibold px-3 py-1 rounded-full border mb-4 ${appTagColors[service.tag] ?? "bg-gray-500/10 text-gray-400 border-gray-500/30"}`}>
-                                                {service.tag}
-                                            </span>
-                                            <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                                                <service.icon className={`w-6 h-6 ${service.iconColor}`} />
-                                            </div>
-                                            <h3 className="text-lg font-bold text-white mb-2">{service.title}</h3>
-                                            <p className="text-gray-400 text-sm leading-relaxed mb-5">{service.desc}</p>
-                                            <ul className="space-y-2">
-                                                {service.highlights.map((h, j) => (
-                                                    <li key={j} className="flex items-start gap-2 text-sm text-gray-300">
-                                                        <CheckCircle className="w-4 h-4 text-cyan-500 mt-0.5 shrink-0" />
-                                                        {h}
-                                                    </li>
-                                                ))}
-                                            </ul>
+                                        <span className={`inline-block text-xs font-semibold px-3 py-1 rounded-full border mb-4 ${appTagColors[service.tag] ?? "bg-slate-50 text-slate-600 border-slate-200"}`}>
+                                            {service.tag}
+                                        </span>
+                                        <div className={`w-12 h-12 bg-gradient-to-br ${service.gradient} rounded-xl flex items-center justify-center mb-4 ring-1 ring-slate-200/70 group-hover:scale-105 transition-transform duration-300`}>
+                                            <service.icon className={`w-6 h-6 ${service.iconColor}`} />
                                         </div>
+                                        <h3 className="text-lg font-bold tracking-tight text-slate-900 mb-2">{service.title}</h3>
+                                        <p className="text-slate-600 text-sm leading-relaxed mb-5">{service.desc}</p>
+                                        <ul className="space-y-2 border-t border-slate-100 pt-5">
+                                            {service.highlights.map((h, j) => (
+                                                <li key={j} className="flex items-start gap-2 text-sm text-slate-700">
+                                                    <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" />
+                                                    {h}
+                                                </li>
+                                            ))}
+                                        </ul>
                                     </div>
                                 ))}
                             </div>
                         </section>
 
                         {/* CTA */}
-                        <section className="py-24 px-6 bg-gradient-to-r from-[#0a0e1a] via-[#1a1f2e] to-[#0a0e1a]">
-                            <div className="max-w-4xl mx-auto text-center">
-                                <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
-                                    Ready to Join?
-                                </h2>
-                                <p className="text-xl text-gray-300 mb-12">
-                                    Download NearWe and start experiencing all these features today.
-                                </p>
-                                <div className="flex justify-center gap-4 flex-wrap">
-                                    <button
-                                        onClick={() => window.open("https://apps.apple.com", "_blank")}
-                                        className="flex items-center gap-3 px-8 py-4 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold rounded-full shadow-lg hover:shadow-cyan-500/40 transition"
-                                    >
-                                        <img src={iosLogo} className="w-6 h-6" alt="iOS" />
-                                        App Store
-                                    </button>
-                                    <button
-                                        onClick={() => window.open("https://play.google.com/store/apps/details?id=YOUR_APP_ID", "_blank")}
-                                        className="flex items-center gap-3 px-8 py-4 border border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black transition rounded-full"
-                                    >
-                                        <img src={playstoreLogo} className="w-6 h-6" alt="Play Store" />
-                                        Google Play
-                                    </button>
+                        <section className="px-4 sm:px-6 pb-24">
+                            <div className="relative max-w-6xl mx-auto overflow-hidden rounded-3xl bg-gradient-to-br from-blue-800 to-blue-950 px-6 py-16 text-center text-white shadow-xl shadow-blue-900/20 sm:px-12">
+                                <div className="pointer-events-none absolute -right-20 -top-28 h-80 w-80 rounded-full bg-sky-400/20 blur-[90px]" aria-hidden="true" />
+                                <div className="relative max-w-4xl mx-auto">
+                                    <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-6">
+                                        Ready to Join?
+                                    </h2>
+                                    <p className="text-lg sm:text-xl text-blue-100 mb-10">
+                                        Download NearWe and start experiencing all these features today.
+                                    </p>
+                                    <div className="flex justify-center gap-4 flex-wrap">
+                                        <button
+                                            type="button"
+                                            onClick={() => window.open(APP_STORE_URL, "_blank", "noopener,noreferrer")}
+                                            className="flex items-center gap-3 px-7 py-3.5 bg-white hover:bg-blue-50 text-slate-900 font-semibold rounded-md shadow-sm transition"
+                                        >
+                                            <img src={iosLogo} className="w-6 h-6" alt="" />
+                                            App Store
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => window.open(PLAY_STORE_URL, "_blank", "noopener,noreferrer")}
+                                            className="flex items-center gap-3 px-7 py-3.5 border border-white/30 text-white font-semibold hover:bg-white/10 transition rounded-md"
+                                        >
+                                            <img src={playstoreLogo} className="w-6 h-6" alt="" />
+                                            Google Play
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </section>
                     </div>
                 )}
 
-                {/* ── Footer (shared) ── */}
-                <footer className="py-8 px-6 bg-[#0a0e1a] border-t border-cyan-500/10 text-center text-gray-400">
-                    <p>© {new Date().getFullYear()} NearWe. Connecting communities worldwide.</p>
-                    <p className="mt-2 text-sm flex justify-center items-center gap-3">
-                        <span>support@nearwe.in</span>
-                        <span className="opacity-40">|</span>
-                        <button
-                            onClick={() => navigate("/aboutus")}
-                            className="text-cyan-400 hover:text-cyan-300 transition underline underline-offset-4"
-                        >
-                            About Us
-                        </button>
-                    </p>
-                </footer>
+                <SiteFooter />
             </div>
         </>
     );

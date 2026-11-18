@@ -2,6 +2,8 @@
 import React from "react";
 import { Shield } from "lucide-react";
 import { Helmet } from "react-helmet-async";
+import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
 
 export default function PrivacyPolicy() {
   return (
@@ -17,30 +19,32 @@ export default function PrivacyPolicy() {
         <meta name="robots" content="index, follow" />
         <meta name="canonical" content="https://nearwe.in/privacy" />
       </Helmet>
-      <div className="bg-[#0a0e1a] text-white min-h-screen pt-28 px-6">
-      <section className="max-w-4xl mx-auto">
+      <div className="bg-white text-slate-900 min-h-screen">
+      <SiteHeader />
+      <div className="border-b border-slate-200 bg-gradient-to-b from-blue-50/70 to-white">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 pt-32 pb-20">
 
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full mb-6">
-            <Shield className="w-5 h-5 text-cyan-400" />
-            <span className="text-cyan-400 font-semibold text-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-200 rounded-full mb-6">
+            <Shield className="w-4 h-4 text-blue-700" />
+            <span className="text-blue-700 font-semibold text-sm">
               Legal
             </span>
           </div>
 
-          <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 text-slate-900">
             Privacy Policy
           </h1>
 
-          <p className="text-gray-400">
+          <p className="text-slate-500">
             Last updated: {new Date().toLocaleDateString()}
           </p>
         </div>
 
-        <div className="space-y-8 text-gray-300 leading-relaxed">
+        <div className="space-y-8 text-slate-600 leading-relaxed rounded-2xl border border-slate-200 bg-white p-6 sm:p-10 shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
 
           <section>
-            <h2 className="text-xl font-semibold text-cyan-400 mb-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-2">
               1. Introduction
             </h2>
             <p>
@@ -50,7 +54,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-cyan-400 mb-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-2">
               2. Information We Collect
             </h2>
             <p>
@@ -65,7 +69,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-cyan-400 mb-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-2">
               3. How We Use Your Information
             </h2>
             <p>
@@ -80,7 +84,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-cyan-400 mb-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-2">
               4. Third-Party Services
             </h2>
             <p>
@@ -97,7 +101,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-cyan-400 mb-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-2">
               5. Children’s Privacy
             </h2>
             <p>
@@ -109,7 +113,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-cyan-400 mb-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-2">
               6. Data Security
             </h2>
             <p>
@@ -119,7 +123,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-cyan-400 mb-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-2">
               7. Your Rights
             </h2>
             <p>
@@ -128,13 +132,13 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-cyan-400 mb-2">
+            <h2 className="text-lg font-semibold text-slate-900 mb-2">
               8. Contact Us
             </h2>
             <p>
               If you have questions about this Privacy Policy, contact us at:
               <br />
-              <span className="text-cyan-400 font-medium">
+              <span className="text-blue-700 font-medium">
                 support@nearwe.in
               </span>
             </p>
@@ -142,6 +146,8 @@ export default function PrivacyPolicy() {
 
         </div>
       </section>
+      </div>
+      <SiteFooter />
     </div>
     </>
   );

@@ -20,6 +20,8 @@ import {
     Star,
     MessageCircle,
 } from "lucide-react";
+import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
 
 
 
@@ -35,10 +37,10 @@ export const services = [
             "REST API architecture",
             "Performance & Core Web Vitals",
         ],
-        gradient: "from-cyan-500/20 to-blue-500/10",
-        iconColor: "text-cyan-400",
-        border: "border-cyan-500/30",
-        tagColor: "bg-cyan-500/15 text-cyan-400 border-cyan-500/30",
+        gradient: "from-cyan-50 to-blue-100",
+        iconColor: "text-cyan-600",
+        border: "border-slate-200",
+        tagColor: "bg-cyan-50 text-cyan-700 border-cyan-200",
     },
     {
         icon: Smartphone,
@@ -51,10 +53,10 @@ export const services = [
             "Real-time features",
             "Secure API integration",
         ],
-        gradient: "from-blue-500/20 to-indigo-500/10",
-        iconColor: "text-blue-400",
-        border: "border-blue-500/30",
-        tagColor: "bg-blue-500/15 text-blue-400 border-blue-500/30",
+        gradient: "from-blue-50 to-indigo-100",
+        iconColor: "text-blue-600",
+        border: "border-slate-200",
+        tagColor: "bg-blue-50 text-blue-700 border-blue-200",
     },
     {
         icon: ShoppingCart,
@@ -67,10 +69,10 @@ export const services = [
             "Performance optimization",
             "SEO-first architecture",
         ],
-        gradient: "from-orange-500/20 to-amber-500/10",
-        iconColor: "text-orange-400",
-        border: "border-orange-500/30",
-        tagColor: "bg-orange-500/15 text-orange-400 border-orange-500/30",
+        gradient: "from-orange-50 to-amber-100",
+        iconColor: "text-orange-600",
+        border: "border-slate-200",
+        tagColor: "bg-orange-50 text-orange-700 border-orange-200",
     },
     {
         icon: Paintbrush,
@@ -83,10 +85,10 @@ export const services = [
             "Figma & Adobe XD",
             "Design-to-code handoff",
         ],
-        gradient: "from-pink-500/20 to-rose-500/10",
-        iconColor: "text-pink-400",
-        border: "border-pink-500/30",
-        tagColor: "bg-pink-500/15 text-pink-400 border-pink-500/30",
+        gradient: "from-pink-50 to-rose-100",
+        iconColor: "text-pink-600",
+        border: "border-slate-200",
+        tagColor: "bg-pink-50 text-pink-700 border-pink-200",
     },
     {
         icon: Cloud,
@@ -99,10 +101,10 @@ export const services = [
             "Server & DNS management",
             "Nginx / Apache config",
         ],
-        gradient: "from-sky-500/20 to-blue-500/10",
-        iconColor: "text-sky-400",
-        border: "border-sky-500/30",
-        tagColor: "bg-sky-500/15 text-sky-400 border-sky-500/30",
+        gradient: "from-sky-50 to-blue-100",
+        iconColor: "text-sky-600",
+        border: "border-slate-200",
+        tagColor: "bg-sky-50 text-sky-700 border-sky-200",
     },
     {
         icon: Search,
@@ -115,10 +117,10 @@ export const services = [
             "CDN & caching strategies",
             "Analytics & Search Console",
         ],
-        gradient: "from-green-500/20 to-emerald-500/10",
-        iconColor: "text-green-400",
-        border: "border-green-500/30",
-        tagColor: "bg-green-500/15 text-green-400 border-green-500/30",
+        gradient: "from-green-50 to-emerald-100",
+        iconColor: "text-green-600",
+        border: "border-slate-200",
+        tagColor: "bg-green-50 text-green-700 border-green-200",
     },
     {
         icon: Database,
@@ -131,10 +133,10 @@ export const services = [
             "Query optimization",
             "Data migration support",
         ],
-        gradient: "from-violet-500/20 to-purple-500/10",
-        iconColor: "text-violet-400",
-        border: "border-violet-500/30",
-        tagColor: "bg-violet-500/15 text-violet-400 border-violet-500/30",
+        gradient: "from-violet-50 to-purple-100",
+        iconColor: "text-violet-600",
+        border: "border-slate-200",
+        tagColor: "bg-violet-50 text-violet-700 border-violet-200",
     },
     {
         icon: Shield,
@@ -147,10 +149,10 @@ export const services = [
             "Payment gateway integration",
             "API security hardening",
         ],
-        gradient: "from-red-500/20 to-rose-500/10",
-        iconColor: "text-red-400",
-        border: "border-red-500/30",
-        tagColor: "bg-red-500/15 text-red-400 border-red-500/30",
+        gradient: "from-red-50 to-rose-100",
+        iconColor: "text-red-600",
+        border: "border-slate-200",
+        tagColor: "bg-red-50 text-red-700 border-red-200",
     },
     {
         icon: Layers,
@@ -163,10 +165,10 @@ export const services = [
             "Multi-tenant systems",
             "Subscription & billing setup",
         ],
-        gradient: "from-teal-500/20 to-cyan-500/10",
-        iconColor: "text-teal-400",
-        border: "border-teal-500/30",
-        tagColor: "bg-teal-500/15 text-teal-400 border-teal-500/30",
+        gradient: "from-teal-50 to-cyan-100",
+        iconColor: "text-teal-600",
+        border: "border-slate-200",
+        tagColor: "bg-teal-50 text-teal-700 border-teal-200",
     },
     {
         icon: GitBranch,
@@ -179,10 +181,10 @@ export const services = [
             "Firebase & real-time APIs",
             "Postman documentation",
         ],
-        gradient: "from-amber-500/20 to-yellow-500/10",
-        iconColor: "text-amber-400",
-        border: "border-amber-500/30",
-        tagColor: "bg-amber-500/15 text-amber-400 border-amber-500/30",
+        gradient: "from-amber-50 to-yellow-100",
+        iconColor: "text-amber-600",
+        border: "border-slate-200",
+        tagColor: "bg-amber-50 text-amber-700 border-amber-200",
     },
     {
         icon: Server,
@@ -195,10 +197,10 @@ export const services = [
             "SSL & domain configuration",
             "Monitoring & uptime",
         ],
-        gradient: "from-slate-400/20 to-gray-500/10",
-        iconColor: "text-slate-400",
-        border: "border-slate-500/30",
-        tagColor: "bg-slate-500/15 text-slate-400 border-slate-500/30",
+        gradient: "from-slate-50 to-gray-100",
+        iconColor: "text-slate-600",
+        border: "border-slate-200",
+        tagColor: "bg-slate-50 text-slate-700 border-slate-200",
     },
     {
         icon: MessageCircle,
@@ -211,10 +213,10 @@ export const services = [
             "Team mentoring",
             "Tech stack recommendations",
         ],
-        gradient: "from-indigo-500/20 to-blue-500/10",
-        iconColor: "text-indigo-400",
-        border: "border-indigo-500/30",
-        tagColor: "bg-indigo-500/15 text-indigo-400 border-indigo-500/30",
+        gradient: "from-indigo-50 to-blue-100",
+        iconColor: "text-indigo-600",
+        border: "border-slate-200",
+        tagColor: "bg-indigo-50 text-indigo-700 border-indigo-200",
     },
 ];
 
@@ -240,78 +242,73 @@ export default function ServicesAgencyPage() {
     }, []);
 
     return (
-        <div className="bg-[#0a0e1a] text-white font-sans min-h-screen overflow-hidden">
-
-            {/* Navbar */}
-            <nav className="fixed top-0 w-full z-50 bg-[#0a0e1a]/80 backdrop-blur-md border-b border-cyan-500/10">
-                <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                    <button
-                        onClick={() => navigate("/")}
-                        className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
-                    >
-                        NearWe
-                    </button>
-                    <div className="flex items-center gap-4">
-                        <button
-                            onClick={() => navigate("/companyservices")}
-                            className="text-gray-300 hover:text-cyan-400 font-medium transition-colors duration-300 mr-4"
-                        >
-                           Company Services
-                        </button>
-                        <button
-                            onClick={() => navigate("/services")}
-                            className="text-cyan-400 font-medium transition-colors duration-300"
-                        >
-                            App Services
-                        </button>
-                        <button
-                            onClick={() => navigate("/")}
-                            className="px-6 py-2 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold rounded-full transition-all duration-300"
-                        >
-                            Download
-                        </button>
-                    </div>
-                </div>
-            </nav>
-
-            {/* Background glows */}
-            <div className="fixed inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-32 left-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse" />
-                <div className="absolute top-64 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1.5s" }} />
-                <div className="absolute bottom-32 left-1/3 w-72 h-72 bg-violet-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "3s" }} />
-            </div>
+        <div className="bg-white text-slate-900 font-sans min-h-screen overflow-hidden">
+            <SiteHeader />
 
             {/* HERO */}
-            <section className="relative pt-36 pb-16 px-6 text-center">
+            <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-blue-50/70 to-white pt-36 pb-20 px-4 sm:px-6 text-center">
                 <div
-                    className={`transition-all duration-1000 transform ${
+                    className="pointer-events-none absolute inset-0"
+                    aria-hidden="true"
+                    style={{
+                        backgroundImage:
+                            "linear-gradient(rgba(29,78,216,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(29,78,216,0.05) 1px, transparent 1px)",
+                        backgroundSize: "56px 56px",
+                        maskImage: "radial-gradient(ellipse at top, black 30%, transparent 75%)",
+                        WebkitMaskImage: "radial-gradient(ellipse at top, black 30%, transparent 75%)",
+                    }}
+                />
+                <div
+                    className={`relative transition-all duration-1000 transform ${
                         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                     }`}
                 >
-                    <div className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full mb-6">
-                        <Zap className="w-4 h-4 text-cyan-400" />
-                        <span className="text-cyan-400 font-semibold text-sm">
-                            Full Stack Development Services
-                        </span>
+                    <div className="mb-8 inline-flex rounded-lg border border-slate-200 bg-white p-1 shadow-sm" role="tablist" aria-label="Service type">
+                        <button
+                            type="button"
+                            role="tab"
+                            aria-selected="true"
+                            onClick={() => navigate("/companyservices")}
+                            className="rounded-md bg-blue-700 px-4 py-2 text-sm font-semibold text-white"
+                        >
+                            Company Services
+                        </button>
+                        <button
+                            type="button"
+                            role="tab"
+                            aria-selected="false"
+                            onClick={() => navigate("/services?tab=app")}
+                            className="rounded-md px-4 py-2 text-sm font-semibold text-slate-600 transition-colors hover:text-slate-900"
+                        >
+                            App Services
+                        </button>
                     </div>
 
-                    <h1 className="text-5xl lg:text-7xl font-black mb-6 leading-tight max-w-5xl mx-auto">
-                        <span className="bg-gradient-to-r from-white via-cyan-200 to-cyan-400 bg-clip-text text-transparent">
-                            We Build. We Ship.{" "}
-                        </span>
-                        <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                    <div className="flex justify-center">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-200 rounded-full mb-6">
+                            <Zap className="w-4 h-4 text-blue-700" />
+                            <span className="text-blue-700 font-semibold text-sm">
+                                Full Stack Development Services
+                            </span>
+                        </div>
+                    </div>
+
+                    <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.08] max-w-5xl mx-auto text-slate-900">
+                        We Build. We Ship.{" "}
+                        <span className="bg-gradient-to-r from-blue-700 to-sky-600 bg-clip-text text-transparent">
                             You Scale.
                         </span>
                     </h1>
 
-                    <p className="text-gray-300 text-xl max-w-2xl mx-auto leading-relaxed mb-12">
+                    <p className="text-slate-600 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-10">
                         From idea to production — web apps, mobile apps, design, DevOps, and everything in between.
                         7+ years of experience. Real results.
                     </p>
 
                     <button
+                        type="button"
                         onClick={() => window.location.href = "mailto:kevinponds007@gmail.com"}
-                        className="group inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-black font-bold rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/40"
+                        className="group inline-flex items-center gap-2 px-8 py-4 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded-md shadow-lg shadow-blue-900/15 transition-all duration-300"
                     >
                         Get Quotation By NearWe AI
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -320,26 +317,27 @@ export default function ServicesAgencyPage() {
             </section>
 
             {/* STATS */}
-            <section className="py-12 px-6">
-                <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+            <section className="py-14 px-4 sm:px-6 bg-white">
+                <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                     {stats.map((s, i) => (
-                        <div key={i} className="text-center p-6 bg-[#11141c] border border-cyan-500/15 rounded-2xl">
-                            <div className="text-4xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-1">
+                        <div key={i} className={`text-center p-6 sm:p-8 ${i % 2 ? "border-l" : ""} ${i > 1 ? "border-t md:border-t-0" : ""} ${i === 2 ? "md:border-l" : ""} border-slate-200`}>
+                            <div className="text-3xl sm:text-4xl font-bold tracking-tight text-blue-700 mb-1">
                                 {s.value}
                             </div>
-                            <div className="text-gray-400 text-sm font-medium">{s.label}</div>
+                            <div className="text-slate-600 text-sm font-medium">{s.label}</div>
                         </div>
                     ))}
                 </div>
             </section>
 
             {/* SERVICES GRID */}
-            <section className="px-6 py-16 max-w-7xl mx-auto">
+            <section className="px-4 sm:px-6 py-20 max-w-7xl mx-auto">
                 <div className="text-center mb-14">
-                    <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
+                    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-blue-700">Capabilities</p>
+                    <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-4 text-slate-900">
                         What We Do
                     </h2>
-                    <p className="text-gray-400 text-lg">
+                    <p className="text-slate-600 text-lg">
                         A complete range of services to take your product from zero to launch
                     </p>
                 </div>
@@ -348,18 +346,13 @@ export default function ServicesAgencyPage() {
                     {services.map((service, i) => (
                         <div
                             key={i}
-                            className={`group relative p-7 bg-[#11141c] border ${service.border} rounded-2xl
-                                hover:border-cyan-400/50 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-500/10
-                                transition-all duration-300`}
+                            className="group relative p-7 bg-white border border-slate-200 rounded-2xl shadow-sm
+                                hover:border-blue-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/70
+                                transition-all duration-300"
                         >
-                            {/* Hover gradient overlay */}
-                            <div
-                                className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                            />
-
                             <div className="relative z-10">
-                                <div className="flex items-start justify-between mb-4">
-                                    <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                <div className="flex items-start justify-between mb-5">
+                                    <div className={`w-12 h-12 bg-gradient-to-br ${service.gradient} rounded-xl flex items-center justify-center ring-1 ring-slate-200/70 group-hover:scale-105 transition-transform duration-300`}>
                                         <service.icon className={`w-6 h-6 ${service.iconColor}`} />
                                     </div>
                                     <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${service.tagColor}`}>
@@ -367,18 +360,18 @@ export default function ServicesAgencyPage() {
                                     </span>
                                 </div>
 
-                                <h3 className="text-xl font-bold text-white mb-3">
+                                <h3 className="text-xl font-bold tracking-tight text-slate-900 mb-3">
                                     {service.title}
                                 </h3>
 
-                                <p className="text-gray-400 text-sm leading-relaxed mb-5">
+                                <p className="text-slate-600 text-sm leading-relaxed mb-5">
                                     {service.desc}
                                 </p>
 
-                                <ul className="space-y-2">
+                                <ul className="space-y-2 border-t border-slate-100 pt-5">
                                     {service.highlights.map((h, j) => (
-                                        <li key={j} className="flex items-start gap-2 text-sm text-gray-300">
-                                            <CheckCircle className="w-4 h-4 text-cyan-500 mt-0.5 shrink-0" />
+                                        <li key={j} className="flex items-start gap-2 text-sm text-slate-700">
+                                            <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" />
                                             {h}
                                         </li>
                                     ))}
@@ -390,18 +383,18 @@ export default function ServicesAgencyPage() {
             </section>
 
             {/* TECH STACK */}
-            <section className="py-16 px-6 bg-[#0d1120]">
+            <section className="py-20 px-4 sm:px-6 bg-slate-50 border-y border-slate-200">
                 <div className="max-w-5xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
+                    <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-slate-900">
                         Our Tech Stack
                     </h2>
-                    <p className="text-gray-400 mb-10">The tools and technologies we work with every day</p>
+                    <p className="text-slate-600 mb-10">The tools and technologies we work with every day</p>
 
                     <div className="flex flex-wrap justify-center gap-3">
                         {techStack.map((tech, i) => (
                             <span
                                 key={i}
-                                className="px-5 py-2 bg-[#11141c] border border-cyan-500/20 hover:border-cyan-500/50 text-gray-300 hover:text-cyan-300 rounded-full text-sm font-medium transition-all duration-200 cursor-default"
+                                className="px-5 py-2 bg-white border border-slate-200 hover:border-blue-300 text-slate-700 hover:text-blue-700 rounded-full text-sm font-medium shadow-sm transition-all duration-200 cursor-default"
                             >
                                 {tech}
                             </span>
@@ -411,10 +404,10 @@ export default function ServicesAgencyPage() {
             </section>
 
             {/* WHY US */}
-            <section className="py-20 px-6">
+            <section className="py-20 px-4 sm:px-6">
                 <div className="max-w-5xl mx-auto">
                     <div className="text-center mb-14">
-                        <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
+                        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-slate-900">
                             Why Work With Us
                         </h2>
                     </div>
@@ -425,27 +418,27 @@ export default function ServicesAgencyPage() {
                                 icon: Star,
                                 title: "7+ Years of Real Experience",
                                 desc: "Not just tutorials and side projects — actual production systems, real clients, and shipped products.",
-                                color: "text-amber-400",
+                                color: "text-amber-600 bg-amber-50",
                             },
                             {
                                 icon: Zap,
                                 title: "Full-Cycle Ownership",
                                 desc: "We handle design, development, deployment, and everything in between — one team, zero handoff chaos.",
-                                color: "text-cyan-400",
+                                color: "text-blue-700 bg-blue-50",
                             },
                             {
                                 icon: Shield,
                                 title: "Built to Last",
                                 desc: "Clean code, proper architecture, security best practices — your codebase won't turn into a nightmare.",
-                                color: "text-green-400",
+                                color: "text-emerald-600 bg-emerald-50",
                             },
                         ].map((item, i) => (
-                            <div key={i} className="p-7 bg-[#11141c] border border-cyan-500/15 rounded-2xl text-center">
-                                <div className="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center mx-auto mb-4">
-                                    <item.icon className={`w-7 h-7 ${item.color}`} />
+                            <div key={i} className="p-7 bg-white border border-slate-200 rounded-2xl text-center shadow-sm">
+                                <div className={`w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4 ${item.color}`}>
+                                    <item.icon className="w-7 h-7" />
                                 </div>
-                                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                                <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                                <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
+                                <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -453,48 +446,37 @@ export default function ServicesAgencyPage() {
             </section>
 
             {/* CTA */}
-            <section className="py-24 px-6 bg-gradient-to-r from-[#0a0e1a] via-[#1a1f2e] to-[#0a0e1a]">
-                <div className="max-w-3xl mx-auto text-center">
-                    <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
-                        Have a Project in Mind?
-                    </h2>
-                    <p className="text-xl text-gray-300 mb-10">
-                        Let's talk about what you're building. We'll figure out the best path forward together.
-                    </p>
+            <section className="px-4 sm:px-6 pb-24">
+                <div className="relative max-w-6xl mx-auto overflow-hidden rounded-3xl bg-gradient-to-br from-blue-800 to-blue-950 px-6 py-16 text-center text-white shadow-xl shadow-blue-900/20 sm:px-12">
+                    <div className="pointer-events-none absolute -right-20 -top-28 h-80 w-80 rounded-full bg-sky-400/20 blur-[90px]" aria-hidden="true" />
+                    <div className="relative max-w-3xl mx-auto">
+                        <h2 className="text-3xl sm:text-5xl font-bold tracking-tight mb-6">
+                            Have a Project in Mind?
+                        </h2>
+                        <p className="text-lg sm:text-xl text-blue-100 mb-10">
+                            Let's talk about what you're building. We'll figure out the best path forward together.
+                        </p>
 
-                    <button
-                        onClick={() => window.location.href = "mailto:kevinponds007@gmail.com"}
-                        className="group inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-black font-bold rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/40 text-lg"
-                    >
-                        Get in Touch
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </button>
+                        <button
+                            type="button"
+                            onClick={() => window.location.href = "mailto:kevinponds007@gmail.com"}
+                            className="group inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-blue-50 text-slate-900 font-semibold rounded-md transition-all duration-300 text-lg"
+                        >
+                            Get in Touch
+                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </button>
 
-                    <p className="mt-6 text-gray-500 text-sm">
-                        Or email directly at{" "}
-                        <a href="mailto:support@nearwe.in" className="text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
-                            support@nearwe.in
-                        </a>
-                    </p>
+                        <p className="mt-6 text-blue-200 text-sm">
+                            Or email directly at{" "}
+                            <a href="mailto:support@nearwe.in" className="text-white font-medium hover:text-blue-100 underline underline-offset-4">
+                                support@nearwe.in
+                            </a>
+                        </p>
+                    </div>
                 </div>
             </section>
 
-            {/* FOOTER */}
-            <footer className="py-8 px-6 bg-[#0a0e1a] border-t border-cyan-500/10 text-center text-gray-400">
-                <p>
-                    © {new Date().getFullYear()} NearWe. Connecting communities worldwide.
-                </p>
-                <p className="mt-2 text-sm flex justify-center items-center gap-3">
-                    <span>support@nearwe.in</span>
-                    <span className="opacity-40">|</span>
-                    <button
-                        onClick={() => navigate("/aboutus")}
-                        className="text-cyan-400 hover:text-cyan-300 transition underline underline-offset-4"
-                    >
-                        About Us
-                    </button>
-                </p>
-            </footer>
+            <SiteFooter />
         </div>
     );
 }

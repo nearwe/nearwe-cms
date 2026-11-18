@@ -40,7 +40,7 @@ const Navbar = () => {
   }, []);
 
   const popoverContent = (
-    <div className="text-xs text-white space-y-2">
+    <div className="text-xs text-slate-900 space-y-2">
       <p>
         <strong>Full Address:</strong><br />
         {locationData?.display_name || "N/A"}
@@ -66,13 +66,14 @@ const Navbar = () => {
 
 
   return (
-    <Layout.Header className="flex justify-between items-center border-b border-gray-700 bg-bg1 text-white px-4 shadow-gray-800 shadow-sm animate-fade">
+    <Layout.Header className="flex justify-between items-center border-b border-slate-200 bg-white text-slate-900 px-4 shadow-slate-200 shadow-sm animate-fade">
       <Popover
         content={popoverContent}
         trigger="click"
         overlayInnerStyle={{
-          backgroundColor: "#020f2cf3",
-          color: "white",
+          backgroundColor: "#ffffff",
+          color: "#0f172a",
+          border: "1px solid #e2e8f0",
           padding: "10px",
           marginLeft: "10px",
           borderRadius: "10px",
@@ -81,7 +82,7 @@ const Navbar = () => {
           overflowY: "auto",
         }}
       >
-        <div className="flex items-center text-sm font-medium gap-1 text-white cursor-pointer active:scale-95 transition">
+        <div className="flex items-center text-sm font-medium gap-1 text-slate-900 cursor-pointer active:scale-95 transition">
           {/* <GoLocation /> */}
           <span>{city}</span>
         </div>
@@ -90,7 +91,7 @@ const Navbar = () => {
 
       {/* {isAuthenticated && (
         <button
-          className="bg-bg4 p-2 rounded-full border-none text-bg6 flex items-center gap-1 hover:text-bg1 hover:bg-bg2"
+          className="bg-slate-200 p-2 rounded-full border-none text-bg6 flex items-center gap-1 hover:text-bg1 hover:bg-bg2"
           onClick={() => {
             logout();
             navigate("/login");

@@ -4,13 +4,13 @@ const LiveEventCard = ({ match, setSelectedMatch, setShowBetPopup }:any) => {
     return (
         <Card
             key={match.id}
-            className="bg-white/10 backdrop-blur-md border border-white/20 shadow-md text-white rounded-xl cursor-pointer"
+            className="bg-white backdrop-blur-md border border-slate-200 shadow-md text-slate-900 rounded-xl cursor-pointer"
             onClick={() => setSelectedMatch(match)}
         >
             <div className="flex justify-between items-center mb-2">
                 <div>
                     <div className="font-bold team-names">{match.teamA} vs {match.teamB}</div>
-                    <div className="text-sm text-gray-400">{match.score}</div>
+                    <div className="text-sm text-slate-500">{match.score}</div>
                     <span className={`text-xs ${match?.status === 'Live' ? 'text-green-400' : 'text-orange-500'}`}>{match?.status}</span>
                 </div>
                 <Button

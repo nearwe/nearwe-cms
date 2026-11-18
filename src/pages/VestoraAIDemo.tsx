@@ -91,7 +91,7 @@ function Reveal({
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">
+    <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-blue-700">
       {children}
     </p>
   );
@@ -106,7 +106,7 @@ function GlassCard({
 }) {
   return (
     <div
-      className={`rounded-2xl border border-white/10 bg-white/[0.035] backdrop-blur-sm transition hover:border-cyan-300/30 hover:bg-white/[0.055] ${className}`}
+      className={`rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-xl hover:shadow-slate-200/70 hover:border-blue-200 hover:bg-white ${className}`}
     >
       {children}
     </div>
@@ -123,10 +123,10 @@ function IconBadge({
   size?: "sm" | "md" | "lg";
 }) {
   const tones: Record<string, string> = {
-    cyan: "bg-cyan-400/10 text-cyan-300 border-cyan-300/20",
-    green: "bg-emerald-400/10 text-emerald-300 border-emerald-300/20",
-    red: "bg-rose-400/10 text-rose-300 border-rose-300/20",
-    amber: "bg-amber-400/10 text-amber-300 border-amber-300/20",
+    cyan: "bg-blue-50 text-blue-700 border-blue-100",
+    green: "bg-emerald-50 text-emerald-700 border-emerald-100",
+    red: "bg-rose-50 text-rose-700 border-rose-100",
+    amber: "bg-amber-50 text-amber-700 border-amber-100",
   };
   const sizes: Record<string, string> = {
     sm: "h-9 w-9 rounded-xl [&>svg]:h-4 [&>svg]:w-4",
@@ -354,21 +354,21 @@ export default function VestoraAI() {
         <meta name="robots" content="index, follow" />
       </Helmet>
 
-      <div className="min-h-screen bg-[#080b13] text-white antialiased overflow-x-hidden">
+      <div className="min-h-screen bg-white text-slate-900 antialiased overflow-x-hidden">
         {/* ============================== NAV ============================== */}
         <nav
           className={`fixed top-0 left-0 right-0 z-50 border-b transition-colors ${
             scrolled
-              ? "border-white/10 bg-[#080b13]/90 backdrop-blur-xl"
+              ? "border-slate-200 bg-white/90 backdrop-blur-xl"
               : "border-transparent bg-transparent"
           }`}
         >
           <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
             <button
               onClick={() => navigate("/")}
-              className="flex items-center gap-2 text-lg font-black tracking-tight text-white"
+              className="flex items-center gap-2 text-lg font-black tracking-tight text-slate-900"
             >
-              <span className="text-slate-200">NearWe</span>
+              <span className="text-slate-800">NearWe</span>
               <span className="text-slate-500 font-semibold">Labs</span>
             </button>
 
@@ -377,7 +377,7 @@ export default function VestoraAI() {
                 <a
                   key={item}
                   href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="text-sm font-semibold text-slate-300 transition hover:text-white"
+                  className="text-sm font-semibold text-slate-600 transition hover:text-slate-900"
                 >
                   {item}
                 </a>
@@ -386,7 +386,7 @@ export default function VestoraAI() {
 
             <button
               onClick={goToDemo}
-              className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-bold text-[#080b13] transition hover:bg-cyan-200"
+              className="inline-flex items-center gap-2 rounded-full bg-blue-700 px-5 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-blue-800"
             >
               See Demo
               <ArrowRight className="h-4 w-4" />
@@ -397,12 +397,12 @@ export default function VestoraAI() {
         {/* ============================== HERO ============================== */}
         <section className="relative min-h-screen px-5 pb-20 pt-32 sm:pt-40" id="product">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(34,211,238,0.20),transparent_32%),radial-gradient(circle_at_88%_12%,rgba(59,130,246,0.16),transparent_30%),linear-gradient(180deg,#080b13_0%,#0d1321_60%,#080b13_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(59,130,246,0.12),transparent_35%),radial-gradient(circle_at_88%_12%,rgba(14,165,233,0.10),transparent_32%),linear-gradient(180deg,#eff6ff_0%,#ffffff_70%)]" />
             <div
               className="absolute inset-0 opacity-[0.07]"
               style={{
                 backgroundImage:
-                  "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)",
+                  "linear-gradient(rgba(29,78,216,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(29,78,216,0.6) 1px, transparent 1px)",
                 backgroundSize: "52px 52px",
               }}
             />
@@ -411,7 +411,7 @@ export default function VestoraAI() {
           <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
             <div>
               <Reveal>
-                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-xs sm:text-sm font-semibold text-cyan-200">
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-xs sm:text-sm font-semibold text-blue-700">
                   <Sparkles className="h-4 w-4" />
                   AI-powered portfolio intelligence, by NearWe Labs
                 </div>
@@ -419,18 +419,18 @@ export default function VestoraAI() {
 
               <Reveal delay={80}>
                 <h1 className="max-w-4xl text-5xl font-black leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
-                  Vestora <span className="text-cyan-300">AI</span>
+                  Vestora <span className="text-blue-700">AI</span>
                 </h1>
               </Reveal>
 
               <Reveal delay={140}>
-                <p className="mt-6 max-w-xl text-lg italic text-cyan-200/90 sm:text-xl">
+                <p className="mt-6 max-w-xl text-lg italic text-blue-700 sm:text-xl">
                   Analyze. Approve. Invest.
                 </p>
               </Reveal>
 
               <Reveal delay={180}>
-                <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
+                <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
                   Vestora AI continuously studies your live portfolio against real-time
                   market signals, then sends a clear, reasoned Buy / Sell / Hold call
                   straight to WhatsApp. Nothing ever executes until you tap approve.
@@ -441,14 +441,14 @@ export default function VestoraAI() {
                 <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                   <button
                     onClick={goToDemo}
-                    className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 px-8 py-4 text-base font-black text-[#06101c] shadow-2xl shadow-cyan-500/25 transition hover:from-cyan-300 hover:to-blue-400"
+                    className="group inline-flex items-center justify-center gap-2 rounded-full bg-blue-700 px-8 py-4 text-base font-bold text-slate-900 shadow-lg shadow-blue-900/20 transition hover:bg-blue-800"
                   >
                     See demo of Vestora AI
                     <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
                   </button>
                   <a
                     href="mailto:support@nearwe.in?subject=Vestora%20AI%20Inquiry"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-8 py-4 text-base font-bold text-white transition hover:border-cyan-300/60 hover:bg-white/5"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 px-8 py-4 text-base font-bold text-slate-900 transition hover:border-slate-400 hover:bg-slate-50"
                   >
                     Talk to NearWe Labs
                   </a>
@@ -462,8 +462,8 @@ export default function VestoraAI() {
                     ["7+", "Broker integrations"],
                     ["0", "Trades without approval"],
                   ].map(([value, label]) => (
-                    <div key={label} className="border-l border-cyan-300/30 pl-4">
-                      <div className="text-2xl font-black text-white">{value}</div>
+                    <div key={label} className="border-l border-blue-200 pl-4">
+                      <div className="text-2xl font-black text-slate-900">{value}</div>
                       <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
                         {label}
                       </div>
@@ -476,8 +476,8 @@ export default function VestoraAI() {
             {/* Hero visual: WhatsApp approval mock — the signature element */}
             <Reveal delay={160} className="relative">
               <div className="relative mx-auto max-w-sm">
-                <div className="absolute -inset-8 -z-10 rounded-[3rem] bg-cyan-500/10 blur-3xl" />
-                <div className="rounded-[2.2rem] border border-white/10 bg-[#0c1220] p-3 shadow-2xl shadow-black/50">
+                <div className="absolute -inset-8 -z-10 rounded-[3rem] bg-blue-200/60 blur-3xl" />
+                <div className="rounded-[2.2rem] border border-slate-800 bg-[#0c1220] p-3 shadow-2xl shadow-slate-400/50">
                   <div className="rounded-[1.7rem] border border-white/10 bg-[#0b141a] overflow-hidden">
                     {/* chat header */}
                     <div className="flex items-center gap-3 bg-[#1f2c34] px-4 py-3">
@@ -553,7 +553,7 @@ export default function VestoraAI() {
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <Eyebrow>The Problem</Eyebrow>
-              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 Retail investors are flying blind, every single trading day.
               </h2>
             </Reveal>
@@ -563,15 +563,15 @@ export default function VestoraAI() {
                 <Reveal key={p.title} delay={i * 80}>
                   <GlassCard className="h-full p-6">
                     <IconBadge icon={p.icon} tone="red" />
-                    <h3 className="mt-5 text-lg font-black text-white">{p.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-400">{p.desc}</p>
+                    <h3 className="mt-5 text-lg font-black text-slate-900">{p.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">{p.desc}</p>
                   </GlassCard>
                 </Reveal>
               ))}
             </div>
 
             <Reveal delay={200}>
-              <p className="mt-8 italic text-cyan-200/80">
+              <p className="mt-8 italic text-blue-800/80">
                 19.5 crore+ Demat accounts in India are managed with zero systematic,
                 AI-driven decision support.
               </p>
@@ -580,16 +580,16 @@ export default function VestoraAI() {
         </section>
 
         {/* ============================== SOLUTION ============================== */}
-        <section className="px-5 py-20 sm:py-24 bg-[#0c1220]" id="how-it-works">
+        <section className="px-5 py-20 sm:py-24 bg-slate-50" id="how-it-works">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-14 lg:grid-cols-2 lg:items-start">
               <div>
                 <Reveal>
                   <Eyebrow>The Solution</Eyebrow>
-                  <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+                  <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                     The intelligence layer between the market and your money.
                   </h2>
-                  <p className="mt-5 text-base leading-7 text-slate-300 sm:text-lg">
+                  <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
                     Vestora AI continuously studies your live portfolio — holdings, P&amp;L
                     and risk — against real-time market signals, then prepares a clear,
                     reasoned trade recommendation. Nothing executes until you say so.
@@ -607,12 +607,12 @@ export default function VestoraAI() {
                       <React.Fragment key={step.label}>
                         <div className="flex flex-col items-center gap-2">
                           <IconBadge icon={step.icon} tone="cyan" />
-                          <span className="text-xs font-semibold text-slate-300">
+                          <span className="text-xs font-semibold text-slate-600">
                             {step.label}
                           </span>
                         </div>
                         {i < 3 && (
-                          <ChevronRight className="hidden h-5 w-5 flex-shrink-0 text-slate-600 sm:block" />
+                          <ChevronRight className="hidden h-5 w-5 flex-shrink-0 text-slate-400 sm:block" />
                         )}
                       </React.Fragment>
                     ))}
@@ -622,14 +622,14 @@ export default function VestoraAI() {
 
               <Reveal delay={100}>
                 <GlassCard className="p-7">
-                  <div className="text-xs font-bold uppercase tracking-wider text-cyan-300">
+                  <div className="text-xs font-bold uppercase tracking-wider text-blue-700">
                     Why it's different
                   </div>
                   <div className="mt-5 space-y-5">
                     {differentiators.map((d) => (
                       <div key={d} className="flex items-start gap-3">
-                        <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-300" />
-                        <span className="text-sm font-medium text-slate-200 sm:text-base">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-700" />
+                        <span className="text-sm font-medium text-slate-800 sm:text-base">
                           {d}
                         </span>
                       </div>
@@ -642,17 +642,17 @@ export default function VestoraAI() {
             {/* Signal grid */}
             <Reveal delay={80}>
               <div className="mt-16">
-                <h3 className="text-xl font-black text-white sm:text-2xl">
+                <h3 className="text-xl font-black text-slate-900 sm:text-2xl">
                   Twelve signal streams, fused into one recommendation
                 </h3>
                 <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
                   {signals.map((s) => (
                     <div
                       key={s.label}
-                      className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5 transition hover:border-cyan-300/30"
+                      className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3.5 transition hover:border-blue-200"
                     >
                       <IconBadge icon={s.icon} tone="cyan" size="sm" />
-                      <span className="text-sm font-semibold text-slate-200">
+                      <span className="text-sm font-semibold text-slate-800">
                         {s.label}
                       </span>
                     </div>
@@ -668,10 +668,10 @@ export default function VestoraAI() {
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <Eyebrow>AI Output</Eyebrow>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 Every recommendation, fully reasoned.
               </h2>
-              <p className="mt-4 max-w-2xl text-slate-400">
+              <p className="mt-4 max-w-2xl text-slate-600">
                 No black-box tips. Each call ships with the numbers behind it.
               </p>
             </Reveal>
@@ -684,15 +684,15 @@ export default function VestoraAI() {
                       BUY
                     </span>
                     <div>
-                      <div className="text-2xl font-black text-white">Tata Motors</div>
+                      <div className="text-2xl font-black text-slate-900">Tata Motors</div>
                       <div className="text-xs text-slate-500">NSE: TATAMOTORS</div>
                     </div>
-                    <span className="ml-auto rounded-full border border-cyan-300/30 bg-cyan-400/10 px-4 py-1.5 text-xs font-bold text-cyan-200">
+                    <span className="ml-auto rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-xs font-bold text-blue-700">
                       92% Confidence
                     </span>
                   </div>
 
-                  <div className="mt-7 grid grid-cols-2 gap-6 border-t border-white/10 pt-6 sm:grid-cols-3">
+                  <div className="mt-7 grid grid-cols-2 gap-6 border-t border-slate-200 pt-6 sm:grid-cols-3">
                     {[
                       ["Current Price", "₹865"],
                       ["Target Price", "₹920"],
@@ -705,16 +705,16 @@ export default function VestoraAI() {
                         <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                           {label}
                         </div>
-                        <div className="mt-1 text-lg font-black text-white">{value}</div>
+                        <div className="mt-1 text-lg font-black text-slate-900">{value}</div>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-7 border-t border-white/10 pt-6">
-                    <div className="text-[11px] font-bold uppercase tracking-wide text-cyan-300">
+                  <div className="mt-7 border-t border-slate-200 pt-6">
+                    <div className="text-[11px] font-bold uppercase tracking-wide text-blue-700">
                       AI Reasoning
                     </div>
-                    <p className="mt-2 text-sm leading-6 text-slate-400">
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
                       Strong volume breakout · Positive earnings surprise · Bullish
                       technical setup confirmed across 3 indicators.
                     </p>
@@ -724,27 +724,27 @@ export default function VestoraAI() {
 
               <Reveal delay={100}>
                 <div>
-                  <div className="mb-3 text-xs font-bold uppercase tracking-wider text-cyan-300">
+                  <div className="mb-3 text-xs font-bold uppercase tracking-wider text-blue-700">
                     More AI calls today
                   </div>
                   <div className="space-y-3">
                     {otherCalls.map(([action, name, tone]) => (
                       <div
                         key={name}
-                        className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5"
+                        className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white px-4 py-3.5"
                       >
                         <span
                           className={`w-24 flex-shrink-0 rounded-full px-3 py-1 text-center text-xs font-black ${
                             tone === "green"
-                              ? "bg-emerald-400/15 text-emerald-300"
+                              ? "bg-emerald-100 text-emerald-700"
                               : tone === "red"
-                              ? "bg-rose-400/15 text-rose-300"
-                              : "bg-amber-400/15 text-amber-300"
+                              ? "bg-rose-100 text-rose-700"
+                              : "bg-amber-100 text-amber-700"
                           }`}
                         >
                           {action}
                         </span>
-                        <span className="font-bold text-white">{name}</span>
+                        <span className="font-bold text-slate-900">{name}</span>
                       </div>
                     ))}
                   </div>
@@ -755,14 +755,14 @@ export default function VestoraAI() {
         </section>
 
         {/* ============================== HUMAN IN THE LOOP BANNER ============================== */}
-        <section className="px-5 py-20 sm:py-24 bg-gradient-to-b from-[#0c1220] to-[#080b13]">
+        <section className="px-5 py-20 sm:py-24 bg-gradient-to-b from-slate-50 to-white">
           <div className="mx-auto max-w-5xl text-center">
             <Reveal>
               <Eyebrow>The Differentiator</Eyebrow>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 Vestora AI never trades without your approval.
               </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+              <p className="mx-auto mt-4 max-w-2xl text-slate-600">
                 A true human-in-the-loop system. The AI thinks. You decide. Only then
                 does execution happen.
               </p>
@@ -778,7 +778,7 @@ export default function VestoraAI() {
                 ].map((f) => (
                   <GlassCard key={f.label} className="flex flex-col items-center gap-3 p-6">
                     <IconBadge icon={f.icon} tone="cyan" size="lg" />
-                    <span className="text-sm font-bold text-white">{f.label}</span>
+                    <span className="text-sm font-bold text-slate-900">{f.label}</span>
                   </GlassCard>
                 ))}
               </div>
@@ -791,10 +791,10 @@ export default function VestoraAI() {
           <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-2 lg:items-center">
             <Reveal>
               <Eyebrow>Approval Flow</Eyebrow>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
                 Approve trades from your WhatsApp — literally.
               </h2>
-              <p className="mt-4 text-slate-400">
+              <p className="mt-4 text-slate-600">
                 No new app to learn. Recommendations land where 500M+ Indians already are.
               </p>
 
@@ -807,8 +807,8 @@ export default function VestoraAI() {
                   <div key={n.title} className="flex items-start gap-4">
                     <IconBadge icon={n.icon} tone="cyan" />
                     <div>
-                      <div className="font-black text-white">{n.title}</div>
-                      <div className="mt-1 text-sm text-slate-400">{n.desc}</div>
+                      <div className="font-black text-slate-900">{n.title}</div>
+                      <div className="mt-1 text-sm text-slate-600">{n.desc}</div>
                     </div>
                   </div>
                 ))}
@@ -817,8 +817,8 @@ export default function VestoraAI() {
 
             <Reveal delay={120}>
               <div className="relative mx-auto max-w-sm">
-                <div className="absolute -inset-8 -z-10 rounded-[3rem] bg-blue-500/10 blur-3xl" />
-                <div className="rounded-[2.2rem] border border-white/10 bg-[#0c1220] p-3 shadow-2xl shadow-black/50">
+                <div className="absolute -inset-8 -z-10 rounded-[3rem] bg-blue-50 blur-3xl" />
+                <div className="rounded-[2.2rem] border border-slate-800 bg-[#0c1220] p-3 shadow-2xl shadow-slate-400/50">
                   <div className="overflow-hidden rounded-[1.7rem] border border-white/10 bg-[#0b141a]">
                     <div className="flex items-center gap-3 bg-[#1f2c34] px-4 py-3">
                       <div className="flex h-9 w-9 items-center justify-center rounded-full bg-cyan-400 text-sm font-black text-[#06101c]">
@@ -862,14 +862,14 @@ export default function VestoraAI() {
         </section>
 
         {/* ============================== BROKERS ============================== */}
-        <section className="px-5 py-20 sm:py-24 bg-[#0c1220]">
+        <section className="px-5 py-20 sm:py-24 bg-slate-50">
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <Eyebrow>Integrations</Eyebrow>
-              <h2 className="mt-3 max-w-2xl text-3xl font-black tracking-tight text-white sm:text-4xl">
+              <h2 className="mt-3 max-w-2xl text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
                 One-time connect. Every future trade, automated.
               </h2>
-              <p className="mt-4 max-w-2xl text-slate-400">
+              <p className="mt-4 max-w-2xl text-slate-600">
                 Vestora AI connects securely to your Demat account once — approved
                 trades then execute automatically through your existing broker.
               </p>
@@ -880,27 +880,27 @@ export default function VestoraAI() {
                 {brokers.map((b) => (
                   <div
                     key={b}
-                    className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4"
+                    className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-4"
                   >
-                    <Landmark className="h-5 w-5 flex-shrink-0 text-cyan-300" />
-                    <span className="text-sm font-bold text-white">{b}</span>
+                    <Landmark className="h-5 w-5 flex-shrink-0 text-blue-700" />
+                    <span className="text-sm font-bold text-slate-900">{b}</span>
                   </div>
                 ))}
-                <div className="flex items-center justify-center rounded-2xl border border-dashed border-white/15 px-4 py-4 text-sm italic text-slate-500">
+                <div className="flex items-center justify-center rounded-2xl border border-dashed border-slate-300 px-4 py-4 text-sm italic text-slate-500">
                   + more coming soon
                 </div>
               </div>
             </Reveal>
 
             <Reveal delay={160}>
-              <div className="mt-6 flex items-center gap-2 text-sm italic text-cyan-200/70">
+              <div className="mt-6 flex items-center gap-2 text-sm italic text-blue-800/70">
                 Connect once <ArrowRight className="h-4 w-4" /> broker API on file{" "}
                 <ArrowRight className="h-4 w-4" /> approvals auto-execute forever
               </div>
 
               <GlassCard className="mt-6 flex items-center gap-4 p-5">
                 <IconBadge icon={Lock} tone="cyan" />
-                <p className="text-sm text-slate-300">
+                <p className="text-sm text-slate-600">
                   Bank-grade OAuth authentication — Vestora AI never stores your broker
                   password or trading PIN.
                 </p>
@@ -914,7 +914,7 @@ export default function VestoraAI() {
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <Eyebrow>Architecture</Eyebrow>
-              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 From market tick to executed trade in one AI-governed pipeline.
               </h2>
             </Reveal>
@@ -925,10 +925,10 @@ export default function VestoraAI() {
                   <div key={n.label} className="relative">
                     <GlassCard className="flex h-full flex-col items-center gap-3 p-6 text-center">
                       <IconBadge icon={n.icon} tone="cyan" />
-                      <span className="text-sm font-bold text-white">{n.label}</span>
+                      <span className="text-sm font-bold text-slate-900">{n.label}</span>
                     </GlassCard>
                     {i < pipeline.length - 1 && i % 4 !== 3 && (
-                      <ChevronRight className="absolute -right-3 top-1/2 hidden h-6 w-6 -translate-y-1/2 text-slate-600 sm:block" />
+                      <ChevronRight className="absolute -right-3 top-1/2 hidden h-6 w-6 -translate-y-1/2 text-slate-400 sm:block" />
                     )}
                   </div>
                 ))}
@@ -941,11 +941,11 @@ export default function VestoraAI() {
         </section>
 
         {/* ============================== AI MODULES ============================== */}
-        <section className="px-5 py-20 sm:py-24 bg-[#0c1220]">
+        <section className="px-5 py-20 sm:py-24 bg-slate-50">
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <Eyebrow>The AI Stack</Eyebrow>
-              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 Twelve specialized AI modules, working as one analyst.
               </h2>
             </Reveal>
@@ -955,7 +955,7 @@ export default function VestoraAI() {
                 {modules.map((m) => (
                   <GlassCard key={m.label} className="flex flex-col items-center gap-3 p-6 text-center">
                     <IconBadge icon={m.icon} tone="cyan" />
-                    <span className="text-sm font-bold text-white">{m.label}</span>
+                    <span className="text-sm font-bold text-slate-900">{m.label}</span>
                   </GlassCard>
                 ))}
               </div>
@@ -968,7 +968,7 @@ export default function VestoraAI() {
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <Eyebrow>Product</Eyebrow>
-              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 A command center for your entire portfolio.
               </h2>
             </Reveal>
@@ -976,12 +976,12 @@ export default function VestoraAI() {
             <Reveal delay={100}>
               <GlassCard className="mt-12 p-5 sm:p-8">
                 {/* top stats */}
-                <div className="grid grid-cols-2 gap-6 border-b border-white/10 pb-6 sm:grid-cols-4">
+                <div className="grid grid-cols-2 gap-6 border-b border-slate-200 pb-6 sm:grid-cols-4">
                   {[
-                    ["Portfolio Value", "₹18,42,600", "text-white"],
-                    ["Today's P&L", "+₹24,180 (1.3%)", "text-emerald-300"],
-                    ["AI Confidence", "87%", "text-cyan-300"],
-                    ["Pending Approvals", "3", "text-amber-300"],
+                    ["Portfolio Value", "₹18,42,600", "text-slate-900"],
+                    ["Today's P&L", "+₹24,180 (1.3%)", "text-emerald-700"],
+                    ["AI Confidence", "87%", "text-blue-700"],
+                    ["Pending Approvals", "3", "text-amber-700"],
                   ].map(([label, value, color]) => (
                     <div key={label}>
                       <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
@@ -997,7 +997,7 @@ export default function VestoraAI() {
                 <div className="grid gap-8 py-8 lg:grid-cols-3">
                   {/* sector heatmap */}
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-wide text-cyan-300">
+                    <div className="text-xs font-bold uppercase tracking-wide text-blue-700">
                       Sector Heatmap
                     </div>
                     <div className="mt-4 grid grid-cols-4 gap-2">
@@ -1015,10 +1015,10 @@ export default function VestoraAI() {
                           key={label}
                           className={`rounded-lg border px-2 py-2.5 text-center text-[11px] font-bold ${
                             tone === "green"
-                              ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-200"
+                              ? "border-emerald-200 bg-emerald-50 text-emerald-700"
                               : tone === "red"
-                              ? "border-rose-400/30 bg-rose-400/10 text-rose-200"
-                              : "border-amber-400/30 bg-amber-400/10 text-amber-200"
+                              ? "border-rose-200 bg-rose-50 text-rose-700"
+                              : "border-amber-200 bg-amber-50 text-amber-700"
                           }`}
                         >
                           {label}
@@ -1029,36 +1029,36 @@ export default function VestoraAI() {
 
                   {/* risk + sentiment */}
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-wide text-cyan-300">
+                    <div className="text-xs font-bold uppercase tracking-wide text-blue-700">
                       Risk Meter
                     </div>
-                    <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-white/10">
+                    <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-slate-100">
                       <div className="h-full w-3/5 rounded-full bg-amber-400" />
                     </div>
-                    <div className="mt-2 text-sm text-slate-400">Moderate Risk · 60/100</div>
+                    <div className="mt-2 text-sm text-slate-600">Moderate Risk · 60/100</div>
 
-                    <div className="mt-6 text-xs font-bold uppercase tracking-wide text-cyan-300">
+                    <div className="mt-6 text-xs font-bold uppercase tracking-wide text-blue-700">
                       Market Sentiment
                     </div>
-                    <div className="mt-2 flex items-center gap-2 text-lg font-black text-emerald-300">
+                    <div className="mt-2 flex items-center gap-2 text-lg font-black text-emerald-700">
                       Bullish <TrendingUp className="h-5 w-5" />
                     </div>
                   </div>
 
                   {/* recommended trades */}
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-wide text-cyan-300">
+                    <div className="text-xs font-bold uppercase tracking-wide text-blue-700">
                       Recommended Trades
                     </div>
                     <div className="mt-4 space-y-3">
                       {[
-                        ["BUY", "TCS", "text-emerald-300"],
-                        ["SELL", "Infosys", "text-rose-300"],
-                        ["HOLD", "Reliance", "text-amber-300"],
+                        ["BUY", "TCS", "text-emerald-700"],
+                        ["SELL", "Infosys", "text-rose-700"],
+                        ["HOLD", "Reliance", "text-amber-700"],
                       ].map(([action, name, color]) => (
                         <div key={name} className="flex items-center gap-3 text-sm">
                           <span className={`w-14 font-black ${color}`}>{action}</span>
-                          <span className="font-bold text-white">{name}</span>
+                          <span className="font-bold text-slate-900">{name}</span>
                         </div>
                       ))}
                     </div>
@@ -1066,15 +1066,15 @@ export default function VestoraAI() {
                 </div>
 
                 {/* performance analytics */}
-                <div className="border-t border-white/10 pt-6">
-                  <div className="text-xs font-bold uppercase tracking-wide text-cyan-300">
+                <div className="border-t border-slate-200 pt-6">
+                  <div className="text-xs font-bold uppercase tracking-wide text-blue-700">
                     Performance Analytics
                   </div>
                   <div className="mt-5 flex items-end gap-2 sm:gap-3">
                     {[30, 50, 40, 70, 55, 85, 65].map((v, i) => (
                       <div
                         key={i}
-                        className="w-6 rounded-t-md bg-gradient-to-t from-cyan-500/40 to-cyan-300 sm:w-10"
+                        className="w-6 rounded-t-md bg-gradient-to-t from-blue-600/50 to-sky-400 sm:w-10"
                         style={{ height: `${v}px` }}
                       />
                     ))}
@@ -1089,11 +1089,11 @@ export default function VestoraAI() {
         </section>
 
         {/* ============================== SECURITY ============================== */}
-        <section className="px-5 py-20 sm:py-24 bg-[#0c1220]" id="security">
+        <section className="px-5 py-20 sm:py-24 bg-slate-50" id="security">
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <Eyebrow>Trust &amp; Safety</Eyebrow>
-              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 Security isn't a feature here — it's the entire premise.
               </h2>
             </Reveal>
@@ -1103,8 +1103,8 @@ export default function VestoraAI() {
                 {security.map((it) => (
                   <GlassCard key={it.title} className="p-6">
                     <IconBadge icon={it.icon} tone="cyan" size="sm" />
-                    <h3 className="mt-4 font-black text-white">{it.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-400">{it.desc}</p>
+                    <h3 className="mt-4 font-black text-slate-900">{it.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">{it.desc}</p>
                   </GlassCard>
                 ))}
               </div>
@@ -1117,7 +1117,7 @@ export default function VestoraAI() {
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <Eyebrow>Governance</Eyebrow>
-              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 A compliance roadmap built for India's regulatory reality.
               </h2>
             </Reveal>
@@ -1125,16 +1125,16 @@ export default function VestoraAI() {
             <div className="mt-12 grid gap-6 lg:grid-cols-2">
               <Reveal>
                 <GlassCard className="h-full p-7">
-                  <div className="text-xs font-bold uppercase tracking-wider text-cyan-300">
+                  <div className="text-xs font-bold uppercase tracking-wider text-blue-700">
                     Key Frameworks
                   </div>
                   <div className="mt-5 space-y-5">
                     {regs.map((r) => (
                       <div key={r.title} className="flex items-start gap-3">
-                        <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-cyan-300" />
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-blue-700" />
                         <div>
-                          <div className="font-bold text-white">{r.title}</div>
-                          <div className="mt-1 text-sm text-slate-400">{r.desc}</div>
+                          <div className="font-bold text-slate-900">{r.title}</div>
+                          <div className="mt-1 text-sm text-slate-600">{r.desc}</div>
                         </div>
                       </div>
                     ))}
@@ -1144,18 +1144,18 @@ export default function VestoraAI() {
 
               <Reveal delay={100}>
                 <GlassCard className="h-full p-7">
-                  <div className="text-xs font-bold uppercase tracking-wider text-cyan-300">
+                  <div className="text-xs font-bold uppercase tracking-wider text-blue-700">
                     Operational Commitments
                   </div>
                   <div className="mt-5 space-y-4">
                     {opsCommitments.map((o) => (
                       <div key={o} className="flex items-center gap-3">
-                        <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-emerald-300" />
-                        <span className="text-sm font-medium text-slate-200">{o}</span>
+                        <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-emerald-700" />
+                        <span className="text-sm font-medium text-slate-800">{o}</span>
                       </div>
                     ))}
                   </div>
-                  <p className="mt-6 border-t border-white/10 pt-5 text-xs italic leading-5 text-slate-500">
+                  <p className="mt-6 border-t border-slate-200 pt-5 text-xs italic leading-5 text-slate-500">
                     The exact regulatory pathway — execution platform, research tool, or
                     registered advisory — will be finalized with legal counsel ahead of
                     launch.
@@ -1167,11 +1167,11 @@ export default function VestoraAI() {
         </section>
 
         {/* ============================== BUSINESS MODEL ============================== */}
-        <section className="px-5 py-20 sm:py-24 bg-[#0c1220]">
+        <section className="px-5 py-20 sm:py-24 bg-slate-50">
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <Eyebrow>Business Model</Eyebrow>
-              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 Seven monetization layers, one platform.
               </h2>
             </Reveal>
@@ -1181,8 +1181,8 @@ export default function VestoraAI() {
                 {businessModel.map((m) => (
                   <GlassCard key={m.title} className="p-6">
                     <IconBadge icon={m.icon} tone="cyan" size="sm" />
-                    <h3 className="mt-4 font-black text-white">{m.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-400">{m.desc}</p>
+                    <h3 className="mt-4 font-black text-slate-900">{m.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">{m.desc}</p>
                   </GlassCard>
                 ))}
               </div>
@@ -1195,7 +1195,7 @@ export default function VestoraAI() {
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <Eyebrow>Who We Serve</Eyebrow>
-              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 Built for every layer of India's investing ecosystem.
               </h2>
             </Reveal>
@@ -1205,8 +1205,8 @@ export default function VestoraAI() {
                 {targetUsers.map((u) => (
                   <GlassCard key={u.title} className="p-6">
                     <IconBadge icon={u.icon} tone="cyan" size="sm" />
-                    <h3 className="mt-4 font-black text-white">{u.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-400">{u.desc}</p>
+                    <h3 className="mt-4 font-black text-slate-900">{u.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">{u.desc}</p>
                   </GlassCard>
                 ))}
               </div>
@@ -1215,11 +1215,11 @@ export default function VestoraAI() {
         </section>
 
         {/* ============================== MARKET OPPORTUNITY ============================== */}
-        <section className="px-5 py-20 sm:py-24 bg-[#0c1220]">
+        <section className="px-5 py-20 sm:py-24 bg-slate-50">
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <Eyebrow>Market Opportunity</Eyebrow>
-              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 India's retail investing boom needs an AI layer.
               </h2>
             </Reveal>
@@ -1228,10 +1228,10 @@ export default function VestoraAI() {
               <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
                 {marketStats.map((s) => (
                   <div key={s.label}>
-                    <div className="text-4xl font-black text-cyan-300 sm:text-5xl">
+                    <div className="text-4xl font-black text-blue-700 sm:text-5xl">
                       {s.value}
                     </div>
-                    <div className="mt-2 text-sm text-slate-400">{s.label}</div>
+                    <div className="mt-2 text-sm text-slate-600">{s.label}</div>
                   </div>
                 ))}
               </div>
@@ -1240,15 +1240,15 @@ export default function VestoraAI() {
             <div className="mt-12 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
               <Reveal delay={140}>
                 <GlassCard className="p-7">
-                  <div className="text-xs font-bold uppercase tracking-wide text-cyan-300">
+                  <div className="text-xs font-bold uppercase tracking-wide text-blue-700">
                     Demat Account Growth (Cr)
                   </div>
                   <div className="mt-6 flex items-end gap-3 sm:gap-5">
                     {demoAccounts.map((d) => (
                       <div key={d.year} className="flex flex-1 flex-col items-center gap-2">
-                        <span className="text-xs font-bold text-white">{d.value}</span>
+                        <span className="text-xs font-bold text-slate-900">{d.value}</span>
                         <div
-                          className="w-full rounded-t-md bg-gradient-to-t from-cyan-500/30 to-cyan-300"
+                          className="w-full rounded-t-md bg-gradient-to-t from-blue-600/40 to-sky-400"
                           style={{ height: `${d.value * 8}px` }}
                         />
                         <span className="text-[11px] text-slate-500">{d.year}</span>
@@ -1260,14 +1260,14 @@ export default function VestoraAI() {
 
               <Reveal delay={200}>
                 <GlassCard className="h-full p-7">
-                  <div className="text-xs font-bold uppercase tracking-wide text-cyan-300">
+                  <div className="text-xs font-bold uppercase tracking-wide text-blue-700">
                     Growth Drivers
                   </div>
                   <div className="mt-5 space-y-4">
                     {growthDrivers.map((d) => (
                       <div key={d} className="flex items-start gap-3">
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-300" />
-                        <span className="text-sm text-slate-200">{d}</span>
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-700" />
+                        <span className="text-sm text-slate-800">{d}</span>
                       </div>
                     ))}
                   </div>
@@ -1282,7 +1282,7 @@ export default function VestoraAI() {
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <Eyebrow>Roadmap</Eyebrow>
-              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 Six phases from portfolio AI to global markets.
               </h2>
             </Reveal>
@@ -1292,10 +1292,10 @@ export default function VestoraAI() {
                 {roadmap.map((p) => (
                   <div key={p.phase} className="flex w-40 flex-shrink-0 flex-col items-center text-center sm:w-auto">
                     <IconBadge icon={p.icon} tone="cyan" size="lg" />
-                    <div className="mt-4 text-xs font-bold uppercase tracking-wide text-cyan-300">
+                    <div className="mt-4 text-xs font-bold uppercase tracking-wide text-blue-700">
                       {p.phase}
                     </div>
-                    <div className="mt-1 text-sm font-black text-white">{p.title}</div>
+                    <div className="mt-1 text-sm font-black text-slate-900">{p.title}</div>
                   </div>
                 ))}
               </div>
@@ -1309,32 +1309,32 @@ export default function VestoraAI() {
 
         {/* ============================== CLOSING / ABOUT ============================== */}
         <section className="relative px-5 py-24 sm:py-28">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(34,211,238,0.14),transparent_45%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.10),transparent_45%)]" />
           <div className="relative mx-auto max-w-4xl text-center">
             <Reveal>
               <p className="text-sm font-semibold text-slate-500">
-                <span className="text-cyan-300">NearWe</span> Labs — an AI-first
+                <span className="text-blue-700">NearWe</span> Labs — an AI-first
                 technology company building intelligent products across fintech,
                 location intelligence, automation &amp; enterprise SaaS.
               </p>
-              <h2 className="mt-6 text-4xl font-black tracking-tight text-white sm:text-5xl">
-                Vestora <span className="text-cyan-300">AI</span>
+              <h2 className="mt-6 text-4xl font-black tracking-tight text-slate-900 sm:text-5xl">
+                Vestora <span className="text-blue-700">AI</span>
               </h2>
-              <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-400">
+              <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
                 Let's bring AI-governed, human-approved investing to every Indian
                 portfolio.
               </p>
               <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <button
                   onClick={goToDemo}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-9 py-4 text-base font-black text-[#080b13] transition hover:bg-cyan-200"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-700 px-9 py-4 text-base font-bold text-slate-900 shadow-lg shadow-blue-900/20 transition hover:bg-blue-800"
                 >
                   See demo of Vestora AI
                   <ArrowRight className="h-5 w-5" />
                 </button>
                 <a
                   href="mailto:support@nearwe.in?subject=Vestora%20AI%20Inquiry"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-9 py-4 text-base font-bold text-white transition hover:border-cyan-300/60 hover:bg-white/5"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 px-9 py-4 text-base font-bold text-slate-900 transition hover:border-slate-400 hover:bg-slate-50"
                 >
                   support@nearwe.in
                 </a>
@@ -1343,7 +1343,7 @@ export default function VestoraAI() {
           </div>
         </section>
 
-        <footer className="border-t border-white/10 px-5 py-8 text-center text-sm text-slate-500">
+        <footer className="border-t border-slate-200 px-5 py-8 text-center text-sm text-slate-500">
           © {new Date().getFullYear()} NearWe Labs. Vestora AI is a product by NearWe Labs.
         </footer>
       </div>

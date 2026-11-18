@@ -13,8 +13,8 @@ const ProgressBar = ({ attendees, eventData }:any) => {
                 <Progress 
                     percent={percent} 
                     showInfo={false}
-                    strokeColor="#4CAF50"
-                    trailColor="#555"
+                    strokeColor="#1d4ed8"
+                    trailColor="#e2e8f0"
                 />
             </Tooltip>
 

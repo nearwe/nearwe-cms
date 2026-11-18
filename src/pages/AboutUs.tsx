@@ -1,11 +1,12 @@
 "use client";
 
-import { Users } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Users } from "lucide-react";
 import { Helmet } from "react-helmet-async";
+import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
 
 export default function AboutUs() {
-  
-
   return (
     <>
       <Helmet>
@@ -19,70 +20,58 @@ export default function AboutUs() {
         <meta name="robots" content="index, follow" />
         <meta name="canonical" content="https://nearwe.in/aboutus" />
       </Helmet>
-      <div className="bg-[#0a0e1a] text-white font-sans min-h-screen pt-28 px-6">
+      <div className="bg-white text-slate-900 min-h-screen">
+        <SiteHeader />
 
-      {/* ================= HERO SECTION ================= */}
-      <section className="max-w-5xl mx-auto text-center mb-20">
-        <div className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full mb-6">
-          <Users className="w-5 h-5 text-cyan-400" />
-          <span className="text-cyan-400 font-semibold text-sm">
-            About NearWe
-          </span>
-        </div>
-
-        <h1 className="text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
-          <span className="bg-gradient-to-r from-white via-cyan-200 to-cyan-400 bg-clip-text text-transparent">
-            Our Mission is to Connect People.
-          </span>
-        </h1>
-
-        <p className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed">
-          NearWe was created with a vision to bring communities closer.
-          We help people discover events, meet like-minded friends, and build
-          real human connections in the digital era. Our mission is simple —
-          make the world feel smaller, warmer, and more connected.
-        </p>
-      </section>
-
-      {/* ================= TEAM SECTION ================= */}
-      {/* <section className="max-w-7xl mx-auto mb-24">
-        <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
-          Meet Our Team
-        </h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 px-4">
-          {team.map((member, i) => (
-            <div
-              key={i}
-              className="p-6 bg-[#11141c] border border-cyan-500/20 rounded-2xl
-                         shadow-lg hover:shadow-cyan-500/20
-                         hover:border-cyan-500/50 hover:-translate-y-2
-                         transition-all duration-300 text-center"
-            >
-              <div className="w-28 h-28 mx-auto rounded-full overflow-hidden border-2 border-cyan-500/40 mb-4">
-                <img
-                  src={member.img}
-                  alt={member.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              <h3 className="text-xl font-semibold text-white">
-                {member.name}
-              </h3>
-              <p className="text-cyan-400 text-sm font-medium">
-                {member.role}
-              </p>
+        {/* ================= HERO SECTION ================= */}
+        <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-blue-50/70 to-white px-4 sm:px-6 pt-36 pb-24">
+          <div
+            className="pointer-events-none absolute inset-0"
+            aria-hidden="true"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(29,78,216,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(29,78,216,0.05) 1px, transparent 1px)",
+              backgroundSize: "56px 56px",
+              maskImage: "radial-gradient(ellipse at top, black 30%, transparent 75%)",
+              WebkitMaskImage: "radial-gradient(ellipse at top, black 30%, transparent 75%)",
+            }}
+          />
+          <div className="relative max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-200 rounded-full mb-6">
+              <Users className="w-4 h-4 text-blue-700" />
+              <span className="text-blue-700 font-semibold text-sm">About NearWe</span>
             </div>
-          ))}
-        </div>
-      </section> */}
 
-      {/* ================= FOOTER ================= */}
-      <footer className="py-8 border-t border-cyan-500/10 text-center text-gray-500">
-        <p>© {new Date().getFullYear()} NearWe. Connecting people everywhere.</p>
-      </footer>
-    </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight text-slate-900">
+              Our Mission is to <span className="text-blue-700">Connect People.</span>
+            </h1>
+
+            <p className="text-slate-600 text-lg max-w-3xl mx-auto leading-relaxed">
+              NearWe was created with a vision to bring communities closer.
+              We help people discover events, meet like-minded friends, and build
+              real human connections in the digital era. Our mission is simple —
+              make the world feel smaller, warmer, and more connected.
+            </p>
+
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Link
+                to="/companyservices"
+                className="inline-flex items-center gap-2 rounded-md bg-blue-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-800"
+              >
+                Explore our services <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-800 transition-colors hover:border-slate-400 hover:bg-slate-50"
+              >
+                Contact us
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <SiteFooter />
+      </div>
     </>
   );
 }

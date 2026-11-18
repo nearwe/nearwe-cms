@@ -42,15 +42,15 @@ const UpcomingEventCard = ({ match }:any) => {
   return (
     <Card
       key={match.id}
-      className="bg-white/10 backdrop-blur-md border border-white/20 shadow-md text-white rounded-xl"
+      className="bg-white backdrop-blur-md border border-slate-200 shadow-md text-slate-900 rounded-xl"
     >
       <div className="flex justify-between items-center mb-2">
         <div>
           <div className="font-bold team-names">
             {match.teamA} vs {match.teamB}
           </div>
-          <div className="text-sm text-gray-300">{match.series}</div>
-          <div className="text-xs text-gray-400">
+          <div className="text-sm text-slate-600">{match.series}</div>
+          <div className="text-xs text-slate-500">
             {formatDateTime(match.dateTimeGMT)}
           </div>
         </div>

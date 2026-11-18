@@ -53,7 +53,7 @@ const App = () => {
       <Router>
         <ScrollToTop />
         <RouteMetadata />
-        <Layout className="min-h-screen bg-bg1">
+        <Layout className="min-h-screen bg-white">
           <Layout.Content>
             <Routes>
               <Route path="/" element={<NearWeLandingPage />} />

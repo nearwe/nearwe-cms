@@ -13,22 +13,21 @@ import {
     Mail,
     MapPin,
     Megaphone,
-    Menu,
     PenTool,
     Rocket,
     Search,
     ShieldCheck,
     Smartphone,
     Sparkles,
-    X,
     type LucideIcon,
 } from "lucide-react";
 
 import iosLogo from "../assets/logo/ios.png";
 import playstoreLogo from "../assets/logo/playstore.png";
-import nearweLogo from "../assets/logo/logo-removebg.png";
 import { services as companyServices } from "./CompanyServices";
 import ClientsCarousel from "../components/ClientsCarousel";
+import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const APP_STORE_URL = "https://apps.apple.com/sv/app/nearwe/id6760259527?l=en-GB";
@@ -70,7 +69,7 @@ function ParticleCanvas() {
         if (!ctx) return;
 
         const reduced = prefersReducedMotion();
-        const colors = ["#22d3ee", "#38bdf8", "#67e8f9", "#a5f3fc", "#0ea5e9"];
+        const colors = ["#1d4ed8", "#2563eb", "#3b82f6", "#0ea5e9", "#60a5fa"];
         const mouse = { x: -9999, y: -9999 };
         let particles: Particle[] = [];
         let raf = 0;
@@ -94,7 +93,7 @@ function ParticleCanvas() {
                 size: Math.random() * 2.2 + 0.6,
                 speedX: (Math.random() - 0.5) * 0.45,
                 speedY: (Math.random() - 0.5) * 0.45,
-                opacity: Math.random() * 0.55 + 0.2,
+                opacity: Math.random() * 0.35 + 0.15,
                 color: colors[Math.floor(Math.random() * colors.length)],
             }));
         };
@@ -152,7 +151,7 @@ function ParticleCanvas() {
                         ctx.beginPath();
                         ctx.moveTo(a.x, a.y);
                         ctx.lineTo(b.x, b.y);
-                        ctx.strokeStyle = `rgba(34,211,238,${0.15 * (1 - d / 100)})`;
+                        ctx.strokeStyle = `rgba(37,99,235,${0.12 * (1 - d / 100)})`;
                         ctx.lineWidth = 0.5;
                         ctx.stroke();
                     }
@@ -326,9 +325,9 @@ function TypingText({ phrases }: { phrases: string[] }) {
     }, [text, deleting, index, phrases]);
 
     return (
-        <span className="text-cyan-400">
+        <span className="text-blue-700 font-semibold">
             {text}
-            <span className="inline-block w-0.5 h-[1em] bg-cyan-400 ml-1 align-middle" style={{ animation: "nw-blink 1s step-end infinite" }} />
+            <span className="inline-block w-0.5 h-[1em] bg-blue-700 ml-1 align-middle" style={{ animation: "nw-blink 1s step-end infinite" }} />
         </span>
     );
 }
@@ -336,11 +335,11 @@ function TypingText({ phrases }: { phrases: string[] }) {
 function SectionHeading({ tag, title, subtitle }: { tag: string; title: string; subtitle?: string }) {
     return (
         <Reveal className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-4">
-                <span className="text-cyan-400 text-xs font-semibold uppercase tracking-widest">{tag}</span>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 border border-blue-200 rounded-full mb-4">
+                <span className="text-blue-700 text-xs font-semibold uppercase tracking-widest">{tag}</span>
             </div>
             <h2 className="font-display text-3xl sm:text-5xl font-bold nw-gradient-text mb-4 pb-1">{title}</h2>
-            {subtitle && <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">{subtitle}</p>}
+            {subtitle && <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">{subtitle}</p>}
         </Reveal>
     );
 }
@@ -349,31 +348,31 @@ function SectionHeading({ tag, title, subtitle }: { tag: string; title: string; 
 function AnimatedGlobe() {
     return (
         <div className="relative w-72 h-72 xl:w-80 xl:h-80 mx-auto" aria-hidden="true">
-            <div className="absolute inset-0 rounded-full border border-cyan-500/20" style={{ animation: "nw-spin 24s linear infinite" }}>
+            <div className="absolute inset-0 rounded-full border border-blue-200" style={{ animation: "nw-spin 24s linear infinite" }}>
                 {[0, 60, 120, 180, 240, 300].map((deg) => (
                     <div
                         key={deg}
-                        className="absolute w-2 h-2 rounded-full bg-cyan-400/70"
+                        className="absolute w-2 h-2 rounded-full bg-blue-500/70"
                         style={{ top: "50%", left: "50%", transform: `rotate(${deg}deg) translateX(143px) translateY(-50%)` }}
                     />
                 ))}
             </div>
-            <div className="absolute inset-8 rounded-full border border-cyan-500/30" style={{ animation: "nw-spin 14s linear infinite reverse" }}>
+            <div className="absolute inset-8 rounded-full border border-blue-300/70" style={{ animation: "nw-spin 14s linear infinite reverse" }}>
                 {[0, 90, 180, 270].map((deg) => (
                     <div
                         key={deg}
-                        className="absolute w-1.5 h-1.5 rounded-full bg-blue-400/80"
+                        className="absolute w-1.5 h-1.5 rounded-full bg-sky-500/80"
                         style={{ top: "50%", left: "50%", transform: `rotate(${deg}deg) translateX(111px) translateY(-50%)` }}
                     />
                 ))}
             </div>
-            <div className="absolute inset-16 rounded-full border border-cyan-500/40" style={{ animation: "nw-spin 9s linear infinite" }} />
+            <div className="absolute inset-16 rounded-full border border-blue-300" style={{ animation: "nw-spin 9s linear infinite" }} />
 
             <div className="absolute inset-0 flex items-center justify-center">
                 <div className="relative w-24 h-24">
-                    <div className="absolute inset-0 rounded-full bg-cyan-500/25 blur-xl" style={{ animation: "nw-pulse 2.4s ease-in-out infinite" }} />
-                    <div className="absolute inset-2 rounded-full bg-gradient-to-br from-cyan-400/40 to-blue-600/40 backdrop-blur-sm border border-cyan-400/40 flex items-center justify-center">
-                        <Globe className="w-9 h-9 text-cyan-200" />
+                    <div className="absolute inset-0 rounded-full bg-blue-400/25 blur-xl" style={{ animation: "nw-pulse 2.4s ease-in-out infinite" }} />
+                    <div className="absolute inset-2 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 shadow-lg shadow-blue-900/25 flex items-center justify-center">
+                        <Globe className="w-9 h-9 text-white" />
                     </div>
                 </div>
             </div>
@@ -385,8 +384,8 @@ function AnimatedGlobe() {
                 { top: "22%", left: "10%", delay: "1.5s", Icon: Code2 },
             ].map(({ top, left, delay, Icon }, i) => (
                 <div key={i} className="absolute" style={{ top, left, animation: "nw-float-pin 3.2s ease-in-out infinite", animationDelay: delay }}>
-                    <div className="w-9 h-9 rounded-xl bg-[#0d1117]/80 border border-cyan-400/40 backdrop-blur flex items-center justify-center shadow-lg shadow-cyan-500/10">
-                        <Icon className="w-4 h-4 text-cyan-300" />
+                    <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-lg shadow-slate-300/50">
+                        <Icon className="w-4 h-4 text-blue-700" />
                     </div>
                 </div>
             ))}
@@ -396,7 +395,7 @@ function AnimatedGlobe() {
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
 const styles = `
-  :root { --nw-border: rgba(34,211,238,0.15); }
+  :root { --nw-border: #e2e8f0; }
 
   .font-display { font-family: 'Space Grotesk', system-ui, sans-serif; letter-spacing: -0.02em; }
   .font-body { font-family: 'DM Sans', system-ui, sans-serif; }
@@ -408,7 +407,7 @@ const styles = `
   @keyframes nw-slide-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes nw-gradient { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
   @keyframes nw-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-  @keyframes nw-glow { 0%,100% { box-shadow: 0 0 20px rgba(34,211,238,.12); } 50% { box-shadow: 0 0 40px rgba(34,211,238,.32); } }
+  @keyframes nw-glow { 0%,100% { box-shadow: 0 8px 20px -8px rgba(29,78,216,.35); } 50% { box-shadow: 0 12px 30px -8px rgba(29,78,216,.5); } }
   @keyframes nw-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
   @keyframes nw-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes nw-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
@@ -425,7 +424,7 @@ const styles = `
   }
 
   .nw-gradient-text {
-    background: linear-gradient(135deg, #fff 0%, #a5f3fc 40%, #22d3ee 70%, #3b82f6 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #1d4ed8 75%, #0284c7 100%);
     background-size: 200% 200%;
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent; color: transparent;
@@ -434,12 +433,12 @@ const styles = `
   }
 
   .nw-glass {
-    background: rgba(13,17,23,.6);
-    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    background: #ffffff;
     border: 1px solid var(--nw-border);
-    transition: border-color .3s ease, background .3s ease;
+    box-shadow: 0 1px 3px rgba(15,23,42,.05);
+    transition: border-color .3s ease, box-shadow .3s ease;
   }
-  .nw-glass:hover { border-color: rgba(34,211,238,.4); background: rgba(34,211,238,.04); }
+  .nw-glass:hover { border-color: #bfdbfe; box-shadow: 0 20px 45px -20px rgba(15,23,42,.22); }
 
   .nw-glow-btn { animation: nw-glow 3s ease-in-out infinite; }
   .nw-floating { animation: nw-float 6s ease-in-out infinite; }
@@ -450,9 +449,6 @@ const styles = `
   .nw-marquee-track { display: flex; width: max-content; animation: nw-marquee 34s linear infinite; }
   .nw-marquee:hover .nw-marquee-track { animation-play-state: paused; }
 
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #0a0e1a; }
-  ::-webkit-scrollbar-thumb { background: rgba(34,211,238,.4); border-radius: 3px; }
 
   @media (prefers-reduced-motion: reduce) {
     .nw-reveal { opacity: 1; transform: none; transition: none; }
@@ -461,15 +457,6 @@ const styles = `
 `;
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
-const NAV_ITEMS = [
-    { label: "Services", path: "/companyservices" },
-    { label: "Products", path: "/products" },
-    { label: "Portfolio", path: "/portfolio" },
-    { label: "Process", path: "#process" },
-    { label: "Careers", path: "/careers" },
-    { label: "Contact", path: "/contact" },
-];
-
 const CAPABILITIES: { label: string; Icon: LucideIcon }[] = [
     { label: "Web Platforms", Icon: Globe },
     { label: "Mobile Apps", Icon: Smartphone },
@@ -495,40 +482,20 @@ const STATS = [
     { value: 98, suffix: "%", label: "Satisfaction" },
 ];
 
-const FALLBACK_GRADIENT = "from-cyan-500/20 to-blue-500/20";
+const FALLBACK_GRADIENT = "from-blue-50 to-sky-100";
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function NearWeLandingPage() {
     const [heroVisible, setHeroVisible] = useState(false);
-    const [menuOpen, setMenuOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         const t = setTimeout(() => setHeroVisible(true), 80);
-        const onScroll = () => setScrolled(window.scrollY > 12);
-        onScroll();
-        window.addEventListener("scroll", onScroll, { passive: true });
-        return () => {
-            clearTimeout(t);
-            window.removeEventListener("scroll", onScroll);
-        };
+        return () => clearTimeout(t);
     }, []);
-
-    useEffect(() => {
-        document.body.style.overflow = menuOpen ? "hidden" : "";
-        return () => {
-            document.body.style.overflow = "";
-        };
-    }, [menuOpen]);
 
     const scrollToId = (id: string) => document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
 
-    const handleNav = (path: string) => {
-        setMenuOpen(false);
-        if (path.startsWith("#")) scrollToId(path);
-        else navigate(path);
-    };
 
     // Services list (icons fall back safely if a service has no icon)
     const features = (companyServices ?? []).slice(0, 6).map((s: any) => ({
@@ -536,7 +503,7 @@ export default function NearWeLandingPage() {
         title: s?.title ?? "Service",
         desc: s?.desc ?? "",
         gradient: s?.gradient || FALLBACK_GRADIENT,
-        iconColor: s?.iconColor || "text-cyan-300",
+        iconColor: s?.iconColor || "text-blue-700",
     }));
 
     return (
@@ -557,7 +524,7 @@ export default function NearWeLandingPage() {
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://nearwe.in" />
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="theme-color" content="#0a0e1a" />
+                <meta name="theme-color" content="#ffffff" />
                 <link rel="canonical" href="https://nearwe.in" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -567,87 +534,22 @@ export default function NearWeLandingPage() {
                 />
             </Helmet>
 
-            <div className="font-body bg-[#0a0e1a] text-white overflow-x-hidden min-h-screen">
-                {/* ── Navbar ── */}
-                <header
-                    className={`fixed top-0 w-full z-50 border-b transition-all duration-300 ${
-                        scrolled || menuOpen ? "border-white/10 bg-[#080b13]/90 backdrop-blur-xl" : "border-transparent bg-transparent"
-                    }`}
-                >
-                    <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" aria-label="Main">
-                        <Link to="/" className="flex items-center gap-3" onClick={() => setMenuOpen(false)}>
-                            <img src={nearweLogo} alt="NearWe Labs logo" className="h-8 w-auto object-contain" />
-                            <span className="font-display text-xl font-bold tracking-tight">
-                                <span className="text-slate-100">NearWe</span> <span className="text-slate-500">Labs</span>
-                            </span>
-                        </Link>
-
-                        <div className="hidden md:flex items-center gap-1">
-                            {NAV_ITEMS.map((item) => (
-                                <button
-                                    key={item.label}
-                                    type="button"
-                                    onClick={() => handleNav(item.path)}
-                                    className="px-4 py-2 text-sm text-slate-300 hover:text-white font-semibold transition-colors rounded-lg hover:bg-white/5 whitespace-nowrap"
-                                >
-                                    {item.label}
-                                </button>
-                            ))}
-                            <MagneticButton
-                                onClick={() => navigate("/vestora-ai/demo")}
-                                className="ml-2 flex items-center gap-2 px-5 py-2.5 bg-white hover:bg-cyan-100 text-[#080b13] text-sm font-bold rounded-full whitespace-nowrap"
-                            >
-                                See Demo <ArrowRight className="w-4 h-4" />
-                            </MagneticButton>
-                        </div>
-
-                        <button
-                            type="button"
-                            className="md:hidden p-2 rounded-lg text-cyan-300 hover:bg-white/5"
-                            onClick={() => setMenuOpen((o) => !o)}
-                            aria-label={menuOpen ? "Close menu" : "Open menu"}
-                            aria-expanded={menuOpen}
-                        >
-                            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                        </button>
-                    </nav>
-
-                    <div className={`md:hidden overflow-hidden transition-all duration-300 ${menuOpen ? "max-h-[28rem]" : "max-h-0"}`}>
-                        <div className="px-4 pb-5 pt-2 flex flex-col gap-1 bg-[#0d1117] border-t border-cyan-500/10">
-                            {NAV_ITEMS.map((item) => (
-                                <button
-                                    key={item.label}
-                                    type="button"
-                                    onClick={() => handleNav(item.path)}
-                                    className="text-left px-4 py-3 text-sm font-medium text-gray-300 hover:text-cyan-300 hover:bg-cyan-500/5 rounded-lg transition-colors"
-                                >
-                                    {item.label}
-                                </button>
-                            ))}
-                            <button
-                                type="button"
-                                onClick={() => handleNav("/vestora-ai/demo")}
-                                className="mt-2 w-full py-3 bg-white text-[#080b13] text-sm font-bold rounded-full flex items-center justify-center gap-2"
-                            >
-                                See Demo <ArrowRight className="w-4 h-4" />
-                            </button>
-                        </div>
-                    </div>
-                </header>
+            <div className="font-body bg-white text-slate-900 overflow-x-hidden min-h-screen">
+                <SiteHeader />
 
                 <main>
                     {/* ── Hero ── */}
-                    <section className="relative flex items-center justify-center pt-28 pb-10 px-4 sm:px-6 overflow-hidden">
+                    <section className="relative flex items-center justify-center pt-32 pb-12 px-4 sm:px-6 overflow-hidden border-b border-slate-200 bg-gradient-to-b from-blue-50/80 via-white to-white">
                         <ParticleCanvas />
 
                         <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }} aria-hidden="true">
-                            <div className="absolute top-20 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-cyan-500/10 rounded-full blur-3xl" style={{ animation: "nw-pulse 5s ease-in-out infinite" }} />
-                            <div className="absolute bottom-20 right-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-blue-600/10 rounded-full blur-3xl" style={{ animation: "nw-pulse 5s ease-in-out infinite", animationDelay: "2s" }} />
+                            <div className="absolute top-20 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-blue-200/40 rounded-full blur-3xl" style={{ animation: "nw-pulse 5s ease-in-out infinite" }} />
+                            <div className="absolute bottom-20 right-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-sky-200/40 rounded-full blur-3xl" style={{ animation: "nw-pulse 5s ease-in-out infinite", animationDelay: "2s" }} />
                             <div
                                 className="absolute inset-0"
                                 style={{
                                     backgroundImage:
-                                        "linear-gradient(rgba(34,211,238,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.035) 1px, transparent 1px)",
+                                        "linear-gradient(rgba(29,78,216,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(29,78,216,0.05) 1px, transparent 1px)",
                                     backgroundSize: "60px 60px",
                                     maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
                                     WebkitMaskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
@@ -658,22 +560,22 @@ export default function NearWeLandingPage() {
                         <div className="relative z-10 max-w-6xl mx-auto w-full">
                             <div className="grid lg:grid-cols-2 gap-12 items-center">
                                 <div className={`text-center lg:text-left transition-opacity duration-1000 ${heroVisible ? "opacity-100" : "opacity-0"}`}>
-                                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full mb-6 backdrop-blur-sm">
-                                        <Sparkles className="w-4 h-4 text-cyan-400" />
-                                        <span className="text-cyan-300 text-sm font-semibold">AI-first IT consulting, services & products</span>
+                                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-slate-200 shadow-sm rounded-full mb-6">
+                                        <Sparkles className="w-4 h-4 text-blue-700" />
+                                        <span className="text-slate-700 text-sm font-semibold">AI-first IT consulting, services & products</span>
                                     </div>
 
-                                    <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4 leading-[1.15]">
+                                    <h1 className="font-display text-5xl sm:text-6xl font-bold mb-5 leading-[1.08]">
                                         <span className="nw-hero-word nw-gradient-text pb-1">Build.</span>
                                         <span className="nw-hero-word nw-gradient-text pb-1">Launch.</span>
                                         <span className="nw-hero-word nw-gradient-text pb-1">Scale.</span>
                                     </h1>
 
-                                    <p className="text-lg sm:text-xl text-gray-300 mb-3">
+                                    <p className="text-lg sm:text-xl text-slate-700 mb-3">
                                         NearWe Labs builds <TypingText phrases={["web platforms", "mobile apps", "SaaS products", "AI tools"]} />
                                     </p>
 
-                                    <p className="text-base sm:text-lg text-gray-400 mb-9 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                                    <p className="text-base sm:text-lg text-slate-600 mb-9 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                                         We help startups and businesses design, build, deploy and scale modern digital products — from idea to
                                         production, with a team that ships.
                                     </p>
@@ -681,7 +583,7 @@ export default function NearWeLandingPage() {
                                     <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-9">
                                         <MagneticButton
                                             onClick={() => navigate("/companyservices")}
-                                            className="nw-shimmer nw-glow-btn group relative overflow-hidden px-8 py-4 bg-gradient-to-r from-cyan-400 to-blue-500 text-[#04121a] font-bold rounded-full hover:shadow-2xl hover:shadow-cyan-500/40 flex items-center justify-center gap-2"
+                                            className="group relative overflow-hidden px-8 py-4 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded-md shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2"
                                         >
                                             <span className="relative z-10 flex items-center gap-2">
                                                 Explore Services
@@ -692,22 +594,22 @@ export default function NearWeLandingPage() {
                                         <button
                                             type="button"
                                             onClick={() => navigate("/products")}
-                                            className="px-8 py-4 border border-cyan-500/40 hover:border-cyan-400 text-cyan-300 hover:text-white font-semibold rounded-full transition-all duration-300 hover:bg-cyan-500/10 flex items-center justify-center gap-2"
+                                            className="px-8 py-4 border border-slate-300 bg-white hover:border-slate-400 hover:bg-slate-50 text-slate-800 font-semibold rounded-md transition-all duration-300 flex items-center justify-center gap-2"
                                         >
                                             <Layers className="w-5 h-5" />
                                             Our Products
                                         </button>
                                     </div>
 
-                                    <div className="flex flex-wrap items-center gap-x-6 gap-y-3 justify-center lg:justify-start text-sm text-gray-400">
+                                    <div className="flex flex-wrap items-center gap-x-6 gap-y-3 justify-center lg:justify-start text-sm text-slate-600">
                                         <span className="flex items-center gap-2">
-                                            <MapPin className="w-4 h-4 text-cyan-400" />
+                                            <MapPin className="w-4 h-4 text-blue-700" />
                                             <span>
-                                                <span className="text-white font-semibold">10,000+</span> community members on NearWe
+                                                <span className="text-slate-900 font-semibold">10,000+</span> community members on NearWe
                                             </span>
                                         </span>
                                         <span className="flex items-center gap-2">
-                                            <ShieldCheck className="w-4 h-4 text-cyan-400" />
+                                            <ShieldCheck className="w-4 h-4 text-blue-700" />
                                             Secure, scalable engineering
                                         </span>
                                     </div>
@@ -727,8 +629,8 @@ export default function NearWeLandingPage() {
                                     aria-label="Scroll to services"
                                     className="flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity"
                                 >
-                                    <span className="text-xs text-gray-500 tracking-widest uppercase">Scroll</span>
-                                    <ChevronDown className="w-5 h-5 text-cyan-400" style={{ animation: "nw-bounce 2s ease-in-out infinite" }} />
+                                    <span className="text-xs text-slate-500 tracking-widest uppercase">Scroll</span>
+                                    <ChevronDown className="w-5 h-5 text-blue-700" style={{ animation: "nw-bounce 2s ease-in-out infinite" }} />
                                 </button>
                             </div>
                         </div>
@@ -739,26 +641,26 @@ export default function NearWeLandingPage() {
                         <div className="max-w-6xl mx-auto">
                             <Link
                                 to="/wayyo"
-                                className="group relative block overflow-hidden rounded-3xl border border-[#3559C7]/35 bg-[#202A40] p-6 sm:p-10 transition-colors hover:border-[#8FAAFF]/70"
+                                className="group relative block overflow-hidden rounded-3xl border border-[#BFCDF0] bg-gradient-to-br from-[#EEF2FC] via-white to-[#EEF2FC] p-6 sm:p-10 shadow-sm transition-all duration-300 hover:border-[#3559C7]/50 hover:shadow-xl hover:shadow-[#3559C7]/10"
                             >
-                                <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ background: "radial-gradient(ellipse at 80% 30%, rgba(53,89,199,.22), transparent 48%)" }} />
+                                <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ background: "radial-gradient(ellipse at 80% 30%, rgba(53,89,199,.12), transparent 50%)" }} />
                                 <div className="relative grid lg:grid-cols-[1fr_1.05fr] gap-8 lg:gap-12 items-center">
                                     <div>
-                                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#8FAAFF]/30 bg-[#3559C7]/20 text-[#D8E2FF] text-xs font-bold uppercase tracking-wide mb-5">
+                                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#BFCDF0] bg-white text-[#3559C7] text-xs font-bold uppercase tracking-wide mb-5">
                                             <img src="/logo-bg-trans.png" alt="NearWe Labs" className="h-5 w-5 rounded bg-[#202A40] object-contain p-0.5" /> Available now · Wayyo by NearWe Labs
                                         </div>
-                                        <h2 id="wayyo-launch-title" className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">
-                                            Your work.<br /><span className="text-[#AFC3FF]">On autopilot.</span>
+                                        <h2 id="wayyo-launch-title" className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 text-slate-900">
+                                            Your work.<br /><span className="text-[#3559C7]">On autopilot.</span>
                                         </h2>
-                                        <p className="text-gray-300 leading-relaxed max-w-xl mb-6">
+                                        <p className="text-slate-600 leading-relaxed max-w-xl mb-6">
                                             Stop repeating tasks. Build visual workflows that schedule actions and handle everyday work on your Windows PC, with local-first automation.
                                         </p>
-                                        <span className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#3559C7] text-white font-bold text-sm group-hover:bg-[#2849AA] transition-colors">
+                                        <span className="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[#3559C7] text-white font-semibold text-sm shadow-sm group-hover:bg-[#2849AA] transition-colors">
                                             Explore Wayyo <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                         </span>
-                                        <p className="text-xs text-gray-500 mt-4">Windows desktop · Offline-first workflows · Visual builder</p>
+                                        <p className="text-xs text-slate-500 mt-4">Windows desktop · Offline-first workflows · Visual builder</p>
                                     </div>
-                                    <div className="rounded-2xl border border-[#BFCDF0] bg-[#EEF2FC] p-3 sm:p-4 text-[#202A40] shadow-2xl shadow-[#091635]/30" aria-label="Illustrative preview of the Wayyo workflow dashboard">
+                                    <div className="rounded-2xl border border-[#BFCDF0] bg-[#EEF2FC] p-3 sm:p-4 text-[#202A40] shadow-2xl shadow-[#3559C7]/15" aria-label="Illustrative preview of the Wayyo workflow dashboard">
                                         <div className="flex items-center justify-between gap-3 border-b border-[#D9E1F2] pb-3 mb-3">
                                             <div className="flex items-center gap-2 text-xs font-bold"><span className="w-6 h-6 rounded-md bg-[#3559C7] text-white grid place-items-center">w</span> wayyo <span className="text-[10px] font-medium text-emerald-700">● Local engine ready</span></div>
                                             <span className="text-[10px] text-gray-500">LOCAL NODE · WINDOWS</span>
@@ -787,13 +689,13 @@ export default function NearWeLandingPage() {
                     </section>
 
                     {/* ── Capabilities marquee ── */}
-                    <section aria-label="Capabilities" className="py-6 border-y border-white/5 bg-white/[0.02] nw-marquee overflow-hidden">
+                    <section aria-label="Capabilities" className="py-6 border-y border-slate-200 bg-slate-50 nw-marquee overflow-hidden">
                         <div className="nw-marquee-track">
                             {[...CAPABILITIES, ...CAPABILITIES].map(({ label, Icon }, i) => (
-                                <div key={i} className="flex items-center gap-3 px-8 text-gray-400 whitespace-nowrap" aria-hidden={i >= CAPABILITIES.length}>
-                                    <Icon className="w-5 h-5 text-cyan-400" />
+                                <div key={i} className="flex items-center gap-3 px-8 text-slate-600 whitespace-nowrap" aria-hidden={i >= CAPABILITIES.length}>
+                                    <Icon className="w-5 h-5 text-blue-700" />
                                     <span className="text-sm font-semibold tracking-wide">{label}</span>
-                                    <span className="ml-8 w-1 h-1 rounded-full bg-cyan-500/40" />
+                                    <span className="ml-8 w-1 h-1 rounded-full bg-slate-300" />
                                 </div>
                             ))}
                         </div>
@@ -812,14 +714,14 @@ export default function NearWeLandingPage() {
                                 {features.map((f, i) => (
                                     <Reveal key={i} delay={i * 80}>
                                         <TiltCard className="nw-glass rounded-2xl p-6 sm:p-8 h-full group cursor-default">
-                                            <div className={`w-14 h-14 min-w-[3.5rem] min-h-[3.5rem] shrink-0 mb-5 rounded-2xl bg-gradient-to-br ${f.gradient} border border-white/10 flex items-center justify-center overflow-visible`}>
+                                            <div className={`w-14 h-14 min-w-[3.5rem] min-h-[3.5rem] shrink-0 mb-5 rounded-2xl bg-gradient-to-br ${f.gradient} ring-1 ring-slate-200/70 flex items-center justify-center overflow-visible`}>
                                                 <f.Icon className={`w-7 h-7 shrink-0 ${f.iconColor}`} strokeWidth={1.75} />
                                             </div>
-                                            <h3 className="font-display text-lg font-bold mb-2 text-white group-hover:text-cyan-300 transition-colors duration-300">
+                                            <h3 className="font-display text-lg font-bold mb-2 text-slate-900 group-hover:text-blue-700 transition-colors duration-300">
                                                 {f.title}
                                             </h3>
-                                            <p className="text-gray-400 text-sm leading-relaxed">{f.desc}</p>
-                                            <div className="mt-5 h-px w-0 group-hover:w-full bg-gradient-to-r from-cyan-500/50 to-transparent transition-all duration-500" />
+                                            <p className="text-slate-600 text-sm leading-relaxed">{f.desc}</p>
+                                            <div className="mt-5 h-px w-0 group-hover:w-full bg-gradient-to-r from-blue-600/60 to-transparent transition-all duration-500" />
                                         </TiltCard>
                                     </Reveal>
                                 ))}
@@ -828,7 +730,7 @@ export default function NearWeLandingPage() {
                             <div className="text-center mt-10">
                                 <Link
                                     to="/companyservices"
-                                    className="inline-flex items-center gap-2 px-6 py-3 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:bg-cyan-500/10 rounded-full transition-colors"
+                                    className="inline-flex items-center gap-2 px-6 py-3 border border-slate-300 bg-white hover:border-slate-400 hover:bg-slate-50 text-slate-800 font-semibold rounded-md transition-colors"
                                 >
                                     View all services <ArrowRight className="w-4 h-4" />
                                 </Link>
@@ -837,7 +739,7 @@ export default function NearWeLandingPage() {
                     </section>
 
                     {/* ── Process ── */}
-                    <section id="process" className="py-24 px-4 sm:px-6 scroll-mt-16">
+                    <section id="process" className="py-24 px-4 sm:px-6 scroll-mt-16 bg-slate-50 border-y border-slate-200">
                         <div className="max-w-6xl mx-auto">
                             <SectionHeading
                                 tag="How We Work"
@@ -849,12 +751,12 @@ export default function NearWeLandingPage() {
                                 {PROCESS.map(({ step, title, desc, Icon }, i) => (
                                     <Reveal key={step} delay={i * 100}>
                                         <div className="nw-glass rounded-2xl p-6 h-full relative overflow-hidden">
-                                            <span className="font-display absolute -top-2 right-4 text-6xl font-bold text-cyan-400/10 select-none">{step}</span>
-                                            <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-4">
-                                                <Icon className="w-6 h-6 text-cyan-300" />
+                                            <span className="font-display absolute -top-2 right-4 text-6xl font-bold text-slate-100 select-none">{step}</span>
+                                            <div className="relative w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-4">
+                                                <Icon className="w-6 h-6 text-blue-700" />
                                             </div>
-                                            <h3 className="font-display text-lg font-bold mb-2">{title}</h3>
-                                            <p className="text-sm text-gray-400 leading-relaxed">{desc}</p>
+                                            <h3 className="relative font-display text-lg font-bold mb-2 text-slate-900">{title}</h3>
+                                            <p className="relative text-sm text-slate-600 leading-relaxed">{desc}</p>
                                         </div>
                                     </Reveal>
                                 ))}
@@ -872,12 +774,12 @@ export default function NearWeLandingPage() {
                                             <div className="font-display text-3xl sm:text-4xl font-bold nw-gradient-text mb-1 pb-1">
                                                 <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                                             </div>
-                                            <div className="text-xs text-gray-400 uppercase tracking-widest">{stat.label}</div>
+                                            <div className="text-xs text-slate-500 font-medium uppercase tracking-widest">{stat.label}</div>
                                         </TiltCard>
                                     </Reveal>
                                 ))}
                             </div>
-                            <p className="text-center text-xs text-gray-600 mt-4">Figures reflect the NearWe community app.</p>
+                            <p className="text-center text-xs text-slate-500 mt-4">Figures reflect the NearWe community app.</p>
                         </div>
                     </section>
 
@@ -885,20 +787,20 @@ export default function NearWeLandingPage() {
                     <section className="py-24 px-4 sm:px-6 relative overflow-hidden">
                         <div className="max-w-4xl mx-auto">
                             <Reveal>
-                                <div className="nw-glass rounded-3xl p-8 sm:p-14 text-center relative overflow-hidden">
-                                    <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+                                <div className="rounded-3xl p-8 sm:p-14 text-center relative overflow-hidden bg-gradient-to-br from-blue-800 to-blue-950 text-white shadow-xl shadow-blue-900/20">
+                                    <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 bg-sky-400/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
                                     <div className="relative">
-                                        <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
+                                        <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-white/10 ring-1 ring-white/20 flex items-center justify-center">
                                             <Megaphone className="w-7 h-7 text-white" />
                                         </div>
-                                        <h2 className="font-display text-3xl sm:text-5xl font-bold nw-gradient-text mb-5 pb-1">Advertise With NearWe</h2>
-                                        <p className="text-gray-300 max-w-xl mx-auto mb-8 leading-relaxed">
+                                        <h2 className="font-display text-3xl sm:text-5xl font-bold text-white mb-5 pb-1">Advertise With NearWe</h2>
+                                        <p className="text-blue-100 max-w-xl mx-auto mb-8 leading-relaxed">
                                             Promote your brand, products or services directly to engaged local users across Android and iOS. Reach your
                                             exact audience with precise ad placements.
                                         </p>
                                         <MagneticButton
                                             onClick={() => navigate("/advertise")}
-                                            className="nw-shimmer group relative overflow-hidden inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-400 to-blue-500 text-[#04121a] font-bold rounded-full hover:shadow-2xl hover:shadow-cyan-500/40"
+                                            className="group relative overflow-hidden inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-blue-50 text-slate-900 font-semibold rounded-md"
                                         >
                                             <span className="relative z-10 flex items-center gap-2">
                                                 Start Advertising
@@ -913,27 +815,27 @@ export default function NearWeLandingPage() {
 
                     {/* ── Contact + Download ── */}
                     <section className="py-24 px-4 sm:px-6 relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e1a] via-[#0d1520] to-[#0a0e1a] pointer-events-none" aria-hidden="true" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-white via-slate-50 to-white pointer-events-none" aria-hidden="true" />
                         <div className="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-6">
                             <Reveal>
                                 <div className="nw-glass rounded-3xl p-8 sm:p-10 h-full flex flex-col">
-                                    <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-5">
-                                        <Mail className="w-6 h-6 text-cyan-300" />
+                                    <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-5">
+                                        <Mail className="w-6 h-6 text-blue-700" />
                                     </div>
-                                    <h2 className="font-display text-2xl sm:text-3xl font-bold mb-3">Have a project in mind?</h2>
-                                    <p className="text-gray-400 mb-8 leading-relaxed flex-1">
+                                    <h2 className="font-display text-2xl sm:text-3xl font-bold mb-3 text-slate-900">Have a project in mind?</h2>
+                                    <p className="text-slate-600 mb-8 leading-relaxed flex-1">
                                         Tell us what you want to build. We'll get back with a clear plan, timeline and next steps.
                                     </p>
                                     <div className="flex flex-wrap gap-3">
                                         <MagneticButton
                                             onClick={() => navigate("/contact")}
-                                            className="px-6 py-3 bg-white hover:bg-cyan-100 text-[#080b13] text-sm font-bold rounded-full flex items-center gap-2"
+                                            className="px-6 py-3 bg-blue-700 hover:bg-blue-800 text-white text-sm font-semibold rounded-md shadow-sm flex items-center gap-2"
                                         >
                                             Talk to us <ArrowRight className="w-4 h-4" />
                                         </MagneticButton>
                                         <a
                                             href="mailto:support@nearwe.in"
-                                            className="px-6 py-3 text-sm border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:bg-cyan-500/10 rounded-full transition-colors"
+                                            className="px-6 py-3 text-sm font-medium border border-slate-300 bg-white hover:border-slate-400 hover:bg-slate-50 text-slate-800 rounded-md transition-colors"
                                         >
                                             support@nearwe.in
                                         </a>
@@ -943,18 +845,18 @@ export default function NearWeLandingPage() {
 
                             <Reveal delay={100}>
                                 <div className="nw-glass rounded-3xl p-8 sm:p-10 h-full flex flex-col">
-                                    <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-5">
-                                        <Smartphone className="w-6 h-6 text-cyan-300" />
+                                    <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-5">
+                                        <Smartphone className="w-6 h-6 text-blue-700" />
                                     </div>
-                                    <h2 className="font-display text-2xl sm:text-3xl font-bold mb-3">Your community awaits</h2>
-                                    <p className="text-gray-400 mb-8 leading-relaxed flex-1">
+                                    <h2 className="font-display text-2xl sm:text-3xl font-bold mb-3 text-slate-900">Your community awaits</h2>
+                                    <p className="text-slate-600 mb-8 leading-relaxed flex-1">
                                         Download the NearWe app to discover events and connect with people in your city.
                                     </p>
                                     <div className="flex flex-col sm:flex-row gap-3">
                                         <button
                                             type="button"
                                             onClick={() => openExternal(APP_STORE_URL)}
-                                            className="nw-shimmer group relative overflow-hidden flex items-center justify-center gap-3 px-6 py-3 bg-cyan-400 hover:bg-cyan-300 text-black rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/30"
+                                            className="group relative overflow-hidden flex items-center justify-center gap-3 px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl shadow-sm transition-all duration-300"
                                         >
                                             <img src={iosLogo} className="w-6 h-6 object-contain" alt="" />
                                             <span className="text-left">
@@ -965,7 +867,7 @@ export default function NearWeLandingPage() {
                                         <button
                                             type="button"
                                             onClick={() => openExternal(PLAY_STORE_URL)}
-                                            className="flex items-center justify-center gap-3 px-6 py-3 border border-cyan-500/40 hover:border-cyan-400 text-white hover:bg-cyan-500/10 rounded-2xl transition-all duration-300"
+                                            className="flex items-center justify-center gap-3 px-6 py-3 border border-slate-300 bg-white hover:border-slate-400 hover:bg-slate-50 text-slate-900 rounded-xl shadow-sm transition-all duration-300"
                                         >
                                             <img src={playstoreLogo} className="w-6 h-6 object-contain" alt="" />
                                             <span className="text-left">
@@ -980,67 +882,7 @@ export default function NearWeLandingPage() {
                     </section>
                 </main>
 
-                {/* ── Footer ── */}
-                <footer className="py-12 px-4 sm:px-6 bg-[#0a0e1a] border-t border-cyan-500/10">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
-                            <div className="lg:col-span-2">
-                                <Link to="/" className="inline-flex items-center gap-3 mb-4">
-                                    <img src={nearweLogo} alt="NearWe Labs" className="h-8 w-auto opacity-90" />
-                                    <span className="font-display text-lg font-bold">
-                                        NearWe <span className="text-slate-500">Labs</span>
-                                    </span>
-                                </Link>
-                                <p className="text-sm text-gray-500 max-w-sm leading-relaxed">
-                                    AI-first IT consulting, services and SaaS products — helping startups and businesses build, launch and scale.
-                                </p>
-                            </div>
-
-                            <div>
-                                <h4 className="text-sm font-semibold text-white mb-4">Company</h4>
-                                <ul className="space-y-2 text-sm">
-                                    {[
-                                        { label: "About Us", to: "/aboutus" },
-                                        { label: "Careers", to: "/careers" },
-                                        { label: "Contact", to: "/contact" },
-                                        { label: "Advertise", to: "/advertise" },
-                                    ].map((l) => (
-                                        <li key={l.to}>
-                                            <Link to={l.to} className="text-gray-500 hover:text-cyan-400 transition-colors">
-                                                {l.label}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            <div>
-                                <h4 className="text-sm font-semibold text-white mb-4">Offerings</h4>
-                                <ul className="space-y-2 text-sm">
-                                    {[
-                                        { label: "Services", to: "/companyservices" },
-                                        { label: "Products", to: "/products" },
-                                        { label: "NearWe App", to: "/nearwe-app" },
-                                        { label: "Vestora AI", to: "/vestora-ai" },
-                                    ].map((l) => (
-                                        <li key={l.to}>
-                                            <Link to={l.to} className="text-gray-500 hover:text-cyan-400 transition-colors">
-                                                {l.label}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-600">
-                            <p>© {new Date().getFullYear()} NearWe Labs. All rights reserved.</p>
-                            <a href="mailto:support@nearwe.in" className="hover:text-cyan-400 transition-colors">
-                                support@nearwe.in
-                            </a>
-                        </div>
-                    </div>
-                </footer>
+                <SiteFooter />
             </div>
         </>
     );

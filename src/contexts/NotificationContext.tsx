@@ -16,6 +16,7 @@ type Notification = {
     title: string;
     description: string;
     type: NotificationType;
+    duration: number;
 };
 
 const NotificationContext = createContext({
@@ -37,7 +38,7 @@ export const useNotification = () => {
 };
 
 export const NotificationProvider: React.FC<NotificationProviderProps> = ({ children }) => {
-    const [notifications, setNotifications] = useState<any>([]);
+    const [notifications, setNotifications] = useState<Notification[]>([]);
     const audioRef: any = useRef<HTMLAudioElement | null>(null);
 
     useEffect(() => {
@@ -45,7 +46,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
         audioRef.current.volume = 0.1;
     }, []);
     const removeNotification = useCallback((id: number) => {
-        setNotifications((prev:any) => prev.filter((n:any) => n.id !== id));
+        setNotifications((prev) => prev.filter((n) => n.id !== id));
     }, []);
 
     const showNotification = useCallback(
@@ -55,18 +56,19 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
             type: NotificationType,
             duration = 3000
         ) => {
-            const id = Date.now();
+            const id = Date.now() + Math.random();
             const newNotification: Notification = {
                 id,
                 title,
                 description,
                 type,
+                duration,
             };
 
-            setNotifications((prev:any) => [...prev, newNotification]);
+            setNotifications((prev) => [...prev, newNotification]);
             if (audioRef.current) {
                 audioRef.current.currentTime = 0;
-                audioRef.current.play();
+                audioRef.current.play()?.catch(() => undefined);
             }
             setTimeout(() => {
                 removeNotification(id);
@@ -78,69 +80,48 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     return (
         <NotificationContext.Provider value={{ showNotification }}>
             {children}
-            <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 items-center w-full px-4">
-                {notifications?.map((notification:any) => (
-                    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 items-center w-full px-4">
-                        {notifications?.map((notification:any) => (
-                            <div
-                                key={notification.id}
-                                className={`relative px-4 py-2 shadow-lg text-white w-full max-w-[260px] 
-                text-center transition-all duration-300 animate-bounceIn rounded-full overflow-hidden
-                bg-bg1 border flex items-center justify-center
-                ${notification.type === "success" && "border-green-400"}
-                ${notification.type === "error" && "border-red-400"}
-                ${notification.type === "warning" && "border-yellow-400"}
-            `}
-                            >
-
-                                {/* PROGRESS BAR (10% opacity) */}
-                                <div
-                                    className={`
-                    absolute left-0 top-0 h-full opacity-90
-                    ${notification.type === "success"
-                                            ? "bg-green-500"
-                                            : notification.type === "error"
-                                                ? "bg-red-500"
-                                                : "bg-yellow-400"
-                                        }
-                `}
-                                    style={{
-                                        width: "100%",
-                                        transform: "translateX(-100%)",
-                                        animation: `fillProgress ${notification?.duration || 3000}ms linear forwards`,
-                                    }}
-                                ></div>
-
-                                {/* Close Button */}
-                                <button
-                                    onClick={() => removeNotification(notification.id)}
-                                    className={`
-                    absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 rounded-full text-[10px] font-bold
-                    ${notification.type === "success"
-                                            ? "bg-green-500 text-black"
-                                            : notification.type === "error"
-                                                ? "bg-red-500 text-black"
-                                                : "bg-yellow-400 text-black"
-                                        }
-                    hover:opacity-70
-                `}
-                                >
-                                    ✕
-                                </button>
-
-                                <div className="flex flex-col items-center justify-center relative z-10">
-                                    <div className="font-semibold text-sm leading-tight">
-                                        {notification.title}
-                                    </div>
-
-                                    <div className="text-xs text-white/80 leading-snug">
-                                        {notification.description}
-                                    </div>
+            <div className="pointer-events-none fixed top-6 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 items-center w-full px-4" aria-live="polite">
+                {notifications?.map((notification: Notification) => {
+                    const tone =
+                        notification.type === "success"
+                            ? { bar: "bg-green-500", dot: "bg-green-500", ring: "border-green-200" }
+                            : notification.type === "error"
+                                ? { bar: "bg-red-500", dot: "bg-red-500", ring: "border-red-200" }
+                                : { bar: "bg-amber-400", dot: "bg-amber-400", ring: "border-amber-200" };
+                    return (
+                        <div
+                            key={notification.id}
+                            role="status"
+                            className={`pointer-events-auto relative w-full max-w-[320px] overflow-hidden rounded-xl border ${tone.ring} bg-white px-4 py-3 pr-9 text-left shadow-lg shadow-slate-900/10 animate-bounceIn`}
+                        >
+                            <div className="flex items-start gap-2.5">
+                                <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${tone.dot}`} />
+                                <div className="min-w-0">
+                                    <div className="text-sm font-semibold leading-tight text-slate-900">{notification.title}</div>
+                                    <div className="mt-0.5 text-xs leading-snug text-slate-600">{notification.description}</div>
                                 </div>
                             </div>
-                        ))}
-                    </div>
-                ))}
+
+                            <button
+                                type="button"
+                                aria-label="Dismiss notification"
+                                onClick={() => removeNotification(notification.id)}
+                                className="absolute right-2 top-2 grid h-6 w-6 place-items-center rounded-md text-xs text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
+                            >
+                                ✕
+                            </button>
+
+                            {/* Time-remaining bar */}
+                            <div
+                                className={`absolute bottom-0 left-0 h-0.5 w-full ${tone.bar}`}
+                                style={{
+                                    transform: "translateX(-100%)",
+                                    animation: `fillProgress ${notification.duration}ms linear forwards`,
+                                }}
+                            />
+                        </div>
+                    );
+                })}
             </div>
 
         </NotificationContext.Provider>

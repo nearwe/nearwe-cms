@@ -188,25 +188,25 @@ export default function EmailDrafter() {
 
   // ─── Styles (inline to keep self-contained) ────────────────────────────────
   const s: Record<string, React.CSSProperties> = {
-    root: { display: "flex", flexDirection: "row", minHeight: "100vh", background: "#0f1117", color: "#e5e9f0", fontFamily: "'DM Sans', Arial, sans-serif", overflow: "hidden" },
-    left: { width: 360, minWidth: 320, maxWidth: 360, background: "#161b27", borderRight: "1px solid #2a3348", display: "flex", flexDirection: "column", height: "100vh", position: "sticky" as const, top: 0, overflowY: "auto", flexShrink: 0 },
-    ph: { padding: "20px 22px 14px", borderBottom: "1px solid #2a3348", background: "#161b27" },
+    root: { display: "flex", flexDirection: "row", minHeight: "100vh", background: "#f8fafc", color: "#0f172a", fontFamily: "'DM Sans', Arial, sans-serif", overflow: "hidden" },
+    left: { width: 360, minWidth: 320, maxWidth: 360, background: "#ffffff", borderRight: "1px solid #e2e8f0", display: "flex", flexDirection: "column", height: "100vh", position: "sticky" as const, top: 0, overflowY: "auto", flexShrink: 0 },
+    ph: { padding: "20px 22px 14px", borderBottom: "1px solid #e2e8f0", background: "#ffffff" },
     phRow: { display: "flex", alignItems: "center", gap: 10, marginBottom: 3 },
-    phLogo: { width: 28, height: 28, background: "#1a2744", borderRadius: 7, border: "1px solid #3a4a6a", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
-    phName: { fontFamily: "'Space Grotesk', Arial, sans-serif", fontSize: 15, fontWeight: 700, color: "#ffffff" },
-    phSub: { fontSize: 11, color: "#7a8aa0", letterSpacing: "0.4px" },
-    fa: { padding: "18px 22px", flex: 1, display: "flex", flexDirection: "column", gap: 14, background: "#161b27" },
+    phLogo: { width: 28, height: 28, background: "#eff6ff", borderRadius: 7, border: "1px solid #bfdbfe", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
+    phName: { fontFamily: "'Space Grotesk', Arial, sans-serif", fontSize: 15, fontWeight: 700, color: "#0f172a" },
+    phSub: { fontSize: 11, color: "#64748b", letterSpacing: "0.4px" },
+    fa: { padding: "18px 22px", flex: 1, display: "flex", flexDirection: "column", gap: 14, background: "#ffffff" },
     fg: { display: "flex", flexDirection: "column", gap: 5 },
-    label: { fontSize: 10, fontWeight: 600, color: "#7a8aa0", textTransform: "uppercase" as const, letterSpacing: "1px" },
-    input: { background: "#0f1117", border: "1px solid #2a3348", borderRadius: 7, color: "#e5e9f0", fontFamily: "'DM Sans', Arial, sans-serif", fontSize: 13, padding: "8px 11px", width: "100%", outline: "none", appearance: "none" as const },
-    textarea: { background: "#0f1117", border: "1px solid #2a3348", borderRadius: 7, color: "#e5e9f0", fontFamily: "'DM Sans', Arial, sans-serif", fontSize: 13, padding: "8px 11px", width: "100%", outline: "none", minHeight: 72, lineHeight: "1.6", resize: "vertical" as const },
-    select: { background: "#0f1117", border: "1px solid #2a3348", borderRadius: 7, color: "#e5e9f0", fontFamily: "'DM Sans', Arial, sans-serif", fontSize: 13, padding: "8px 11px", width: "100%", outline: "none", appearance: "none" as const },
-    dl: { fontSize: 10, color: "#3a4a6a", textTransform: "uppercase" as const, letterSpacing: "1.5px", display: "flex", alignItems: "center", gap: 8 },
-    aa: { padding: "14px 22px 22px", display: "flex", flexDirection: "column", gap: 9, borderTop: "1px solid #2a3348", background: "#161b27" },
-    btnP: { background: "#2D68FF", color: "#ffffff", border: "none", borderRadius: 8, padding: "11px 18px", fontFamily: "'Space Grotesk', Arial, sans-serif", fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 7, letterSpacing: "0.3px" },
-    btnS: { background: "transparent", color: "#7a8aa0", border: "1px solid #2a3348", borderRadius: 8, padding: "9px 18px", fontFamily: "'DM Sans', Arial, sans-serif", fontSize: 12, fontWeight: 500, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 },
-    right: { flex: 1, padding: "28px 24px", overflowY: "auto", background: "#d8dadc", display: "flex", alignItems: "flex-start", justifyContent: "center" },
-    ew: { width: "100%", maxWidth: 580, borderRadius: 10, overflow: "hidden", boxShadow: "0 6px 32px rgba(0,0,0,0.18)" },
+    label: { fontSize: 10, fontWeight: 600, color: "#475569", textTransform: "uppercase" as const, letterSpacing: "1px" },
+    input: { background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: 7, color: "#0f172a", fontFamily: "'DM Sans', Arial, sans-serif", fontSize: 13, padding: "8px 11px", width: "100%", outline: "none", appearance: "none" as const },
+    textarea: { background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: 7, color: "#0f172a", fontFamily: "'DM Sans', Arial, sans-serif", fontSize: 13, padding: "8px 11px", width: "100%", outline: "none", minHeight: 72, lineHeight: "1.6", resize: "vertical" as const },
+    select: { background: "#ffffff", border: "1px solid #cbd5e1", borderRadius: 7, color: "#0f172a", fontFamily: "'DM Sans', Arial, sans-serif", fontSize: 13, padding: "8px 11px", width: "100%", outline: "none", appearance: "none" as const },
+    dl: { fontSize: 10, color: "#94a3b8", textTransform: "uppercase" as const, letterSpacing: "1.5px", display: "flex", alignItems: "center", gap: 8 },
+    aa: { padding: "14px 22px 22px", display: "flex", flexDirection: "column", gap: 9, borderTop: "1px solid #e2e8f0", background: "#ffffff" },
+    btnP: { background: "#1d4ed8", color: "#ffffff", border: "none", borderRadius: 8, padding: "11px 18px", fontFamily: "'Space Grotesk', Arial, sans-serif", fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 7, letterSpacing: "0.3px" },
+    btnS: { background: "#ffffff", color: "#334155", border: "1px solid #cbd5e1", borderRadius: 8, padding: "9px 18px", fontFamily: "'DM Sans', Arial, sans-serif", fontSize: 12, fontWeight: 500, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 },
+    right: { flex: 1, padding: "28px 24px", overflowY: "auto", background: "#f1f5f9", display: "flex", alignItems: "flex-start", justifyContent: "center" },
+    ew: { width: "100%", maxWidth: 580, borderRadius: 10, overflow: "hidden", boxShadow: "0 10px 40px -12px rgba(15,23,42,0.25)", border: "1px solid #e2e8f0" },
     // Email header
     eh: { background: "#0D1117", padding: "22px 32px", display: "flex", alignItems: "center", justifyContent: "space-between" },
     ehLa: { display: "flex", alignItems: "center", gap: 10 },
@@ -256,7 +256,7 @@ export default function EmailDrafter() {
             <div style={s.phRow}>
               <div style={s.phLogo}>
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-                  <circle cx="10" cy="10" r="9" stroke="#3a4a6a" strokeWidth="1" />
+                  <circle cx="10" cy="10" r="9" stroke="#93c5fd" strokeWidth="1" />
                   <path d="M6 14L10 5L14 14" stroke="#2D68FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <circle cx="10" cy="5" r="1.5" fill="#2D68FF" />
                 </svg>
@@ -269,9 +269,9 @@ export default function EmailDrafter() {
           {/* Form Area */}
           <div style={s.fa}>
             <div style={dividerStyle}>
-              <span style={{ flex: 1, height: 1, background: "#2a3348", display: "block" }} />
+              <span style={{ flex: 1, height: 1, background: "#e2e8f0", display: "block" }} />
               Email Details
-              <span style={{ flex: 1, height: 1, background: "#2a3348", display: "block" }} />
+              <span style={{ flex: 1, height: 1, background: "#e2e8f0", display: "block" }} />
             </div>
 
             <div style={s.fg}>
@@ -304,9 +304,9 @@ export default function EmailDrafter() {
             </div>
 
             <div style={dividerStyle}>
-              <span style={{ flex: 1, height: 1, background: "#2a3348", display: "block" }} />
+              <span style={{ flex: 1, height: 1, background: "#e2e8f0", display: "block" }} />
               Body
-              <span style={{ flex: 1, height: 1, background: "#2a3348", display: "block" }} />
+              <span style={{ flex: 1, height: 1, background: "#e2e8f0", display: "block" }} />
             </div>
 
             <div style={s.fg}>
@@ -340,7 +340,7 @@ export default function EmailDrafter() {
               Copy for Gmail
             </button>
             <button style={s.btnS} onClick={resetAll}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7a8aa0" strokeWidth="2.5" strokeLinecap="round">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2.5" strokeLinecap="round">
                 <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
                 <path d="M3 3v5h5" />
               </svg>

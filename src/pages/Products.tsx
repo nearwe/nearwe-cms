@@ -1,6 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { ArrowRight, Bot, MapPin, Workflow } from "lucide-react";
+import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
 
 const products = [
     {
@@ -32,9 +34,15 @@ const products = [
     },
 ];
 
+const tone: Record<string, { tile: string }> = {
+    cyan: { tile: "bg-sky-50 text-sky-700 ring-sky-100" },
+    emerald: { tile: "bg-emerald-50 text-emerald-700 ring-emerald-100" },
+    violet: { tile: "bg-indigo-50 text-indigo-700 ring-indigo-100" },
+};
+
 export default function Products() {
     return (
-        <main className="min-h-screen overflow-hidden bg-[#090d17] px-4 py-10 text-white sm:px-6 sm:py-14">
+        <main className="min-h-screen bg-white text-slate-900">
             <Helmet>
                 <title>Products | NearWe Labs</title>
                 <meta name="description" content="Explore products built by NearWe Labs: NearWe App, Vestora AI and Wayyo, a Windows desktop automation workspace." />
@@ -42,43 +50,47 @@ export default function Products() {
                 <meta property="og:description" content="Community, AI and desktop automation products built by NearWe Labs." />
                 <link rel="canonical" href="https://nearwe.in/products" />
             </Helmet>
+            <SiteHeader />
 
-            <div className="mx-auto max-w-6xl">
-                <header className="mb-16 flex items-center justify-between gap-4 border-b border-white/10 pb-5">
-                    <Link to="/" className="font-semibold text-white transition hover:text-cyan-300">NearWe <span className="text-gray-500">Labs</span></Link>
-                    <Link to="/contact" className="text-sm text-gray-300 transition hover:text-white">Contact us <ArrowRight className="ml-1 inline h-4 w-4" /></Link>
-                </header>
+            <section className="border-b border-slate-200 bg-gradient-to-b from-blue-50/70 to-white px-4 pb-16 pt-36 sm:px-6">
+                <div className="mx-auto max-w-6xl">
+                    <div className="max-w-3xl">
+                        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-blue-700">Made at NearWe Labs</p>
+                        <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-6xl">Products for a more connected, capable world.</h1>
+                        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-600">From discovering what is happening nearby to automating the work you repeat, explore the products our team is building.</p>
+                    </div>
+                </div>
+            </section>
 
-                <section className="mb-12 max-w-3xl">
-                    <p className="mb-4 text-xs font-bold uppercase tracking-[0.16em] text-cyan-300">Made at NearWe Labs</p>
-                    <h1 className="text-4xl font-bold leading-tight sm:text-6xl">Products for a more connected, capable world.</h1>
-                    <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-400">From discovering what is happening nearby to automating the work you repeat, explore the products our team is building.</p>
-                </section>
+            <section className="px-4 py-16 sm:px-6">
+                <div className="mx-auto max-w-6xl">
+                    <div aria-label="NearWe Labs products" className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        {products.map(({ name, type, description, href, action, Icon, color }) => (
+                            <article key={name} className="group flex min-h-[320px] flex-col rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-slate-200/70">
+                                <div className="mb-8 flex items-start justify-between gap-3">
+                                    <span className={`grid h-12 w-12 place-items-center rounded-xl ring-1 ${(tone[color] ?? tone.cyan).tile}`}>
+                                        <Icon className="h-6 w-6" />
+                                    </span>
+                                    {name === "Wayyo" && <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[10px] font-semibold text-emerald-700">AVAILABLE</span>}
+                                </div>
+                                <p className="mb-2 text-[11px] font-semibold tracking-[0.12em] text-slate-500">{type}</p>
+                                <h2 className="text-2xl font-bold tracking-tight">{name}</h2>
+                                <p className="mb-7 mt-3 flex-1 text-sm leading-relaxed text-slate-600">{description}</p>
+                                <Link to={href} className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-900">
+                                    {action} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                </Link>
+                            </article>
+                        ))}
+                    </div>
 
-                <section aria-label="NearWe Labs products" className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                    {products.map(({ name, type, description, href, action, Icon, color }) => (
-                        <article key={name} className="flex min-h-[310px] flex-col border border-white/10 bg-white/[0.035] p-6 transition-colors hover:border-white/20 sm:p-7">
-                            <div className="mb-8 flex items-start justify-between gap-3">
-                                <span className={`grid h-12 w-12 place-items-center rounded-xl border ${color === "cyan" ? "border-cyan-300/20 bg-cyan-300/10 text-cyan-200" : color === "emerald" ? "border-emerald-300/20 bg-emerald-300/10 text-emerald-200" : "border-violet-300/20 bg-violet-300/10 text-violet-200"}`}>
-                                    <Icon className="h-6 w-6" />
-                                </span>
-                                {name === "Wayyo" && <span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-2.5 py-1 text-[10px] font-semibold text-emerald-200">AVAILABLE</span>}
-                            </div>
-                            <p className="mb-2 text-[10px] font-bold tracking-[0.12em] text-gray-500">{type}</p>
-                            <h2 className="text-2xl font-bold">{name}</h2>
-                            <p className="mb-7 mt-3 flex-1 text-sm leading-relaxed text-gray-400">{description}</p>
-                            <Link to={href} className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-cyan-200 transition hover:text-white">
-                                {action} <ArrowRight className="h-4 w-4" />
-                            </Link>
-                        </article>
-                    ))}
-                </section>
+                    <div className="mt-16 flex flex-col justify-between gap-5 rounded-2xl bg-slate-900 px-6 py-8 text-white sm:flex-row sm:items-center sm:px-10">
+                        <div><h2 className="text-xl font-semibold">Building something with us?</h2><p className="mt-1 text-sm text-slate-300">Reach out to discuss a product, partnership or client project.</p></div>
+                        <Link to="/contact" className="inline-flex w-fit items-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-blue-50">Contact NearWe <ArrowRight className="h-4 w-4" /></Link>
+                    </div>
+                </div>
+            </section>
 
-                <section className="mt-16 flex flex-col justify-between gap-5 border-t border-white/10 pt-7 sm:flex-row sm:items-center">
-                    <div><h2 className="text-lg font-semibold">Building something with us?</h2><p className="mt-1 text-sm text-gray-400">Reach out to discuss a product, partnership or client project.</p></div>
-                    <Link to="/contact" className="inline-flex w-fit items-center gap-2 rounded-full bg-cyan-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200">Contact NearWe <ArrowRight className="h-4 w-4" /></Link>
-                </section>
-            </div>
+            <SiteFooter />
         </main>
     );
 }
